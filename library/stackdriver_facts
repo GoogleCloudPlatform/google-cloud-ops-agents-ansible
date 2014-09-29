@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+# Copyright 2014 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from ConfigParser import ConfigParser
+import json
+
+DOCUMENTATION = """
+---
+module: stackdriver_facts
+short_description: Gather facts about the Stackdriver agent installation.
+description:
+  - Gathers facts about the Stackdriver agent installation.
+  - This returns just one fact, C(stackdriver_host_id), specifying the ID by
+    which the host is known to the Stackdriver service.
+  - On EC2 or GCE, this is normally the instance ID.
+  - The module invocation fails if the Stackdriver agent is not installed.
+"""
+
+EXTRACTOR_CONFIG = '/opt/stackdriver/extractor/etc/extractor.conf'
+
+def get_host_id():
+    p = ConfigParser()
+    p.read(EXTRACTOR_CONFIG)
+    return p.get('base', 'host_id')
+
+def get_facts():
+    return dict(
+        changed=False,
+        stackdriver_host_id=get_host_id(),
+    )
+
+def get_result():
+    try:
+        return dict(ansible_facts=get_facts())
+    except Exception, e:
+        return dict(failed=True, msg=str(e))
+
+def main():
+    result = get_result()
+    print json.dumps(result)
+
+if __name__ == '__main__':
+    main()

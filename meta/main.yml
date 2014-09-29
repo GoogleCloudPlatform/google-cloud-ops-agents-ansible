@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  author: Ken Rimey
+  description: Install the Stackdriver agent and configure its plugins.
+  company: Google
+  license: Apache
+  min_ansible_version: 1.7
+  platforms:
+    # Red Hat and derivatives
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Amazon
+      versions:
+        - 2014.03
+    # Debian and derivatives
+    - name: Debian
+      versions:
+        - wheezy
+    - name: Ubuntu
+      versions:
+        - trusty
+    # Windows
+    - name: Windows
+      versions:
+        - Windows Server 2012 R2
+  categories:
+    - monitoring
+
+dependencies: []

@@ -1,0 +1,39 @@
+# Copyright 2014 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: "[Debian] Enable the Stackdriver apt repository."
+  apt_repository:
+    repo: "deb {{ stackdriver_package_repo }} {{ ansible_lsb.codename }} main"
+    state: present
+
+- name: "[Debian] Ensure Stackdriver's GPG key is available."
+  apt_key: url="https://app.stackdriver.com/RPM-GPG-KEY-stackdriver" state=present
+
+- name: "[Debian] Install the Stackdriver agent."
+  apt: name={{ stackdriver_collectd_package }} state=present update_cache=yes
+  notify: stackdriver updated
+
+- name: "[Debian] Install YAJL if needed for curl_json."
+  apt: name=libyajl2 state=present
+  when: stackdriver_enabled_plugins|intersect(stackdriver_plugins_based_on_curl_json)
+  notify:
+    - restart collectd
+    - stackdriver updated
+
+- name: "[Debian] Install hiredis library if needed for redis plugin."
+  apt: name=libhiredis0.10 state=present
+  when: stackdriver_redis_enabled
+  notify:
+    - restart collectd
+    - stackdriver updated

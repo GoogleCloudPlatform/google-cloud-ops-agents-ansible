@@ -1,0 +1,43 @@
+# Copyright 2014 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Ensure the collectd configuration directory exists.
+  file: path={{ stackdriver_collectd_config_dir }} state=directory
+
+- name: Render the configuration directory from templates.
+  template:
+    src: "{{ item }}.conf"
+    dest: "{{ stackdriver_collectd_config_dir }}/{{ item }}.conf"
+    validate: "{{ stackdriver_collectd_binary }} -tC %s"
+  with_items: stackdriver_enabled_plugins
+  when: item != ""
+  notify:
+    - restart collectd
+    - stackdriver updated
+
+- name: List the contents of the configuration directory.
+  command: ls -1 {{ stackdriver_collectd_config_dir }}
+  changed_when: False
+  register: contents
+
+- name: Remove unmanaged files if requested.
+  file: path={{ stackdriver_collectd_config_dir }}/{{ item }} state=absent
+  with_items: contents.stdout_lines
+  when: >
+    stackdriver_remove_unmanaged and (
+      not (item.endswith('.conf') and item != '.conf') or
+      item.rsplit('.', 1)[0] not in stackdriver_enabled_plugins)
+  notify:
+    - restart collectd
+    - stackdriver updated
