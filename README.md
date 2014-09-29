@@ -8,7 +8,7 @@ Install this directory in your roles path (usually in a `roles` directory
 alongside your playbook) under the name `stackdriver`:
 
 ```
-git clone <this-git-repo> roles/stackdriver
+git clone this-git-repo roles/stackdriver
 ```
 
 Requirements
@@ -136,12 +136,12 @@ To configure monitoring of RabbitMQ, you must provide a list of dictionaries
 specifying the queues to be monitored. For each queue, you need only specify
 the name:
 
-> ```
-> # Example
-> stackdriver_rabbitmq_enabled: yes
-> stackdriver_rabbitmq_queues:
->   - name: hello
-> ```
+```
+# Example
+stackdriver_rabbitmq_enabled: yes
+stackdriver_rabbitmq_queues:
+ - name: hello
+```
 
 ```
 stackdriver_rabbitmq_enabled: no
