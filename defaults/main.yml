@@ -110,3 +110,4 @@ stackdriver_redis_servers:
 
 stackdriver_remove_unmanaged: no
 stackdriver_logfile_enabled: no
+stackdriver_events_enabled: no

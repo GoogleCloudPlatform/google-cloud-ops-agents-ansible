@@ -33,4 +33,5 @@
       No plugins.
       {% endif %}
   changed_when: False
-  when: stackdriver_host_id is defined or ec2_id is defined
+  when: stackdriver_events_enabled and (
+    stackdriver_host_id is defined or ec2_id is defined)

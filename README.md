@@ -191,6 +191,15 @@ for debugging.
 stackdriver_logfile_enabled: no
 ```
 
+Setting the following variable to `yes` will cause Ansible to send annotation
+events reporting successful installation of the agent or updating of its
+configuration on the monitoring dashboard. This feature currently does not
+work on Google Cloud Platform.
+
+```
+stackdriver_events_enabled: no
+```
+
 Example Playbook
 ----------------
 
