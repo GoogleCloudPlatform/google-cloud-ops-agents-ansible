@@ -208,6 +208,7 @@ Here is a simple example of monitoring Apache:
 ```
 # Example
 - hosts: webservers
+  sudo: yes
   vars_files:
     - secrets.yml   # API key is defined here.
   roles:
@@ -220,6 +221,7 @@ Here is an example of monitoring RabbitMQ:
 ```
 # Example
 - hosts: rabbits
+  sudo: yes
   vars_files:
     - secrets.yml   # API key is defined here.
   roles:
