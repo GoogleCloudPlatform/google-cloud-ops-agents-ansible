@@ -130,6 +130,40 @@ stackdriver_nginx_username: ""
 stackdriver_nginx_password: ""
 ```
 
+### postgresql
+
+When connceting to PostgreSQL the plugin will connect using a local Unix
+socket. To connect via TCP/IP, specify a host name of `127.0.0.1`. The
+default port is 5432.
+
+You need to provide the user name and password of the user who will run
+the `\dt` command for each database specified. By default the user is
+`stackdriver-agent` with a blank password. If the defaults are sufficient
+for you then make sure the user can connect by adding the following to your
+`pg_hba.conf` file:
+
+```
+local   all     stackdriver-agent   md5
+```
+
+or for TCP connections:
+
+```
+host    all     stackdriver-agent  127.0.0.1/32     md5
+```
+
+The PostgreSQL plugin requires the `libpg` package.
+
+```
+stackdriver_postgresql_enabled: no
+
+stackdriver_postgresql_databases: []
+# stackdriver_postgresql_host:
+stackdriver_postgresql_port: 5432
+stackdriver_postgresql_user: stackdriver-agent
+stackdriver_postgresql_password: ""
+
+
 ### rabbitmq
 
 To configure monitoring of RabbitMQ, you must provide a list of dictionaries

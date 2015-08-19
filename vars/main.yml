@@ -23,6 +23,7 @@ stackdriver_enabled_plugins:
   - "{% if stackdriver_mongodb_enabled %}mongodb{% endif %}"
   - "{% if stackdriver_mysql_enabled %}mysql{% endif %}"
   - "{% if stackdriver_nginx_enabled %}nginx{% endif %}"
+  - "{% if stackdriver_postgresql_enabled %}postgresql{% endif %}"
   - "{% if stackdriver_rabbitmq_enabled %}rabbitmq{% endif %}"
   - "{% if stackdriver_redis_enabled %}redis{% endif %}"
 
