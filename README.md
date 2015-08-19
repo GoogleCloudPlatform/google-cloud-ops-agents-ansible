@@ -162,7 +162,7 @@ stackdriver_postgresql_databases: []
 stackdriver_postgresql_port: 5432
 stackdriver_postgresql_user: stackdriver-agent
 stackdriver_postgresql_password: ""
-
+```
 
 ### rabbitmq
 
