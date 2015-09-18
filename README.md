@@ -189,6 +189,8 @@ stackdriver_rabbitmq_port: 15672    # Change this to 55672 for versions < 3.0.
 stackdriver_rabbitmq_vhost: "%2F"   # "%2F" encodes "/", the default virtual host.
 ```
 
+Be sure to also enable the [RabbitMQ management plugin](https://www.rabbitmq.com/management.html). 
+
 ### redis
 
 The redis plugin requires the hiredis library, which this role installs if the
