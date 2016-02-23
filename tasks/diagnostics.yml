@@ -77,6 +77,8 @@
   with_items: "{{ stackdriver_postgresql_databases }}"
   changed_when: False
   when: stackdriver_postgresql_enabled
+  environment:
+      PGPASSWORD: "{{ stackdriver_postgresql_password }}"
 
 - name: Test RabbitMQ API.
   check_uri:
