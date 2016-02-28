@@ -107,6 +107,7 @@ stackdriver_rabbitmq_url: "\
 stackdriver_redis_enabled: no
 stackdriver_redis_host: localhost
 stackdriver_redis_port: 6379
+stackdriver_redis_password: ""
 stackdriver_redis_timeout: 2000     # Seconds
 
 stackdriver_redis_name: "{{ stackdriver_redis_host }}_{{ stackdriver_redis_port }}"
@@ -114,6 +115,7 @@ stackdriver_redis_servers:
   - name: "{{ stackdriver_redis_name }}"
     host: "{{ stackdriver_redis_host }}"
     port: "{{ stackdriver_redis_port }}"
+    password: "{{ stackdriver_redis_password }}"
     timeout: "{{ stackdriver_redis_timeout }}"
 
 ### Other variables
