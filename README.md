@@ -189,7 +189,7 @@ stackdriver_rabbitmq_port: 15672    # Change this to 55672 for versions < 3.0.
 stackdriver_rabbitmq_vhost: "%2F"   # "%2F" encodes "/", the default virtual host.
 ```
 
-Be sure to also enable the [RabbitMQ management plugin](https://www.rabbitmq.com/management.html). 
+Be sure to also enable the [RabbitMQ management plugin](https://www.rabbitmq.com/management.html).
 
 ### redis
 
@@ -204,6 +204,7 @@ stackdriver_redis_enabled: no
 
 stackdriver_redis_host: localhost
 stackdriver_redis_port: 6379
+stackdriver_redis_password: ""
 
 stackdriver_redis_timeout: 2000     # Seconds
 ```
