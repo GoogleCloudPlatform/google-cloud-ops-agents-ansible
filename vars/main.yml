@@ -35,8 +35,8 @@ stackdriver_collectd_package: stackdriver-agent
 stackdriver_collectd_service: stackdriver-agent
 
 # Installing "stackdriver-agent" installs "stackdriver-extractor" as a
-# dependency. It uses the same API key as stackdriver-agent, but otherwise
-# requires no configuration.
+# recommended package. It uses the same API key as stackdriver-agent, but
+# it otherwise requires no configuration.
 stackdriver_extractor_package: stackdriver-extractor
 stackdriver_extractor_service: stackdriver-extractor
 
