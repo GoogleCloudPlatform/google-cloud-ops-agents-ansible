@@ -70,6 +70,8 @@
     psql --username {{ stackdriver_postgresql_user }}
     {% if stackdriver_postgresql_host is defined %}
     --host {{ stackdriver_postgresql_host }}
+    {% endif %}
+    {% if stackdriver_postgresql_port is defined %}
     --port {{ stackdriver_postgresql_port }}
     {% endif %}
     --dbname {{ item }}
