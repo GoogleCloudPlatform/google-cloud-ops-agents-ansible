@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Configure the agent with the Stackdriver API key.
+- name: Configure the agent settings.
   template: src=stackdriver.sysconfig dest={{ stackdriver_sysconfig }} backup=yes
   notify:
     - restart collectd
