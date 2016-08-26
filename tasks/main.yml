@@ -43,5 +43,5 @@
 # Post-everything diagnostics
 
 - include: diagnostics.yml
-  sudo: no
+  become: no
   when: ansible_os_family != "Windows"
