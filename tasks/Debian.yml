@@ -37,3 +37,10 @@
   notify:
     - restart collectd
     - stackdriver updated
+
+- name: "[Debian] Install mysql-client if needed for mysql plugin."
+  apt: name=mysql-client state=present
+  when: stackdriver_mysql_enabled
+  notify:
+    - restart collectd
+    - stackdriver updated
