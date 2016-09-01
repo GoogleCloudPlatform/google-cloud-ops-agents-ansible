@@ -24,6 +24,13 @@
     url: "{{ stackdriver_elasticsearch_url }}"
   when: stackdriver_elasticsearch_enabled
 
+- name: Test jvm connectivity.
+  wait_for:
+    host: "{{ stackdriver_jvm_host }}"
+    port: "{{ stackdriver_jvm_port }}"
+    timeout: 1
+  when: stackdriver_jvm_enabled
+
 - name: Test memcached connectivity.
   wait_for:
     host: "{{ stackdriver_memcached_host }}"

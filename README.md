@@ -69,6 +69,14 @@ stackdriver_elasticsearch_enabled: no
 stackdriver_elasticsearch_url: http://localhost:9200/_nodes/_local/stats/
 ```
 
+### jvm
+
+```
+stackdriver_jvm_enabled: no
+stackdriver_jvm_host: localhost
+stackdriver_jvm_port: 5000
+```
+
 ### memcached
 
 ```
