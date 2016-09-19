@@ -18,6 +18,7 @@
 stackdriver_enabled_plugins:
   - "{% if stackdriver_apache_enabled %}apache{% endif %}"
   - "{% if stackdriver_elasticsearch_enabled %}elasticsearch{% endif %}"
+  - "{% if stackdriver_kafka_enabled %}kafka{% endif %}"
   - "{% if stackdriver_logfile_enabled %}logfile{% endif %}"
   - "{% if stackdriver_memcached_enabled %}memcached{% endif %}"
   - "{% if stackdriver_mongodb_enabled %}mongodb{% endif %}"
@@ -26,6 +27,7 @@ stackdriver_enabled_plugins:
   - "{% if stackdriver_postgresql_enabled %}postgresql{% endif %}"
   - "{% if stackdriver_rabbitmq_enabled %}rabbitmq{% endif %}"
   - "{% if stackdriver_redis_enabled %}redis{% endif %}"
+  - "{% if stackdriver_zookeeper_enabled %}zookeeper{% endif %}"
 
 stackdriver_plugins_based_on_curl_json:
   - elasticsearch

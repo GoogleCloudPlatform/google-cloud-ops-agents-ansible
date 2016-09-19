@@ -36,6 +36,10 @@ stackdriver_apache_servers:
 stackdriver_elasticsearch_enabled: no
 stackdriver_elasticsearch_url: http://localhost:9200/_nodes/_local/stats/
 
+### kafka
+
+stackdriver_kafka_enabled: no
+
 ### memcached
 
 stackdriver_memcached_enabled: no
@@ -117,6 +121,10 @@ stackdriver_redis_servers:
     port: "{{ stackdriver_redis_port }}"
     password: "{{ stackdriver_redis_password }}"
     timeout: "{{ stackdriver_redis_timeout }}"
+
+### zookeeper
+
+stackdriver_zookeeper_enabled: no
 
 ### Other variables
 
