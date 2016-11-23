@@ -14,17 +14,19 @@ git clone this-git-repo roles/stackdriver
 Requirements
 ------------
 
-The agent must be configured with an API key, which you can create by signing
-into the [Stackdriver](http://www.stackdriver.com/) web console and looking for
-the "API Keys" tab in your account settings.
+The Google Cloud monitoring API must be enabled.
 
 Role Variables
 --------------
 
-You must provide the API key in your playbook:
-
+[Google recommended authentication method](https://cloud.google.com/monitoring/agent/install-agent#linux-install): use the equivalent of the --write-gcm installation option by defining the following variable in your playbook (the default value is `true`):
 ```
-stackdriver_api_key: "REQUIRED"
+stackdriver_use_gcm: true
+```
+
+Legacy authentication method: provide stackdriver API key in your playbook:
+```
+stackdriver_api_key: "API_KEY"
 ```
 
 By default, no plugins are enabled, in which case the agent will only monitor

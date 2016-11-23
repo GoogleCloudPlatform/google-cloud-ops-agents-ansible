@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Check that the Stackdriver API key has been specified.
+- name: Check that the Stackdriver API key has been specified if not using gcm.
   fail: msg="Please provide your Stackdriver API key in the variable stackdriver_api_key."
-  when: stackdriver_api_key is not defined or not stackdriver_api_key
+  when: (stackdriver_use_gcm is not defined and stackdriver_use_gcm) and (stackdriver_api_key is not defined or not stackdriver_api_key)
 
 - name: Include OS-specific variables.
   include_vars: "{{ item }}"

@@ -4,5 +4,7 @@ AUTOGENERATE_COLLECTD_CONFIG="yes"
 # url to a proxy for outbound https
 PROXY_URL=""
 
-# your stackdriver api key
-STACKDRIVER_API_KEY="{{ stackdriver_api_key }}"
+# your stackdriver api key if not using gcm
+STACKDRIVER_API_KEY="{% if stackdriver_api_key is defined %}stackdriver_api_key{% endif %}"
+
+DETECT_GCM="{% if stackdriver_use_gcm %}yes{% else %}no{% endif %}"
