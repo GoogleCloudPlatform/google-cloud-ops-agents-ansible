@@ -12,15 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- include: configure-api-key.yml
+- include: configure-agent.yml
 
 - include: configure-plugins.yml
 
 - name: Ensure collectd is running.
   service: name={{ stackdriver_collectd_service }} state=started enabled=yes
 
-- name: Ensure extractor is running.
-  service: name={{ stackdriver_extractor_service }} state=started enabled=yes
+- name: Ensure extractor is running if not using gcm
+  service:
+    name: "{{ stackdriver_extractor_service }}"
+    state: "{% if stackdriver_use_gcm %}stopped{% else %}started{% endif %}"
+    enabled: "{% if stackdriver_use_gcm %}no{% else %}yes{% endif %}"
 
-- name: Determine the Stackdriver host ID for reporting.
+- name: Determine the Stackdriver host ID for reporting if not using gcm
   action: stackdriver_facts
+  when: not stackdriver_use_gcm

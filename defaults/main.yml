@@ -16,6 +16,10 @@
 # Please refer to ../README.md for more information about configuring the
 # various plugins.
 
+### stackdriver agent installation options
+
+stackdriver_use_gcm: true
+
 ### apache
 
 stackdriver_apache_enabled: no
