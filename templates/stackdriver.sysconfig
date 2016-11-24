@@ -5,6 +5,6 @@ AUTOGENERATE_COLLECTD_CONFIG="yes"
 PROXY_URL=""
 
 # your stackdriver api key if not using gcm
-STACKDRIVER_API_KEY="{% if stackdriver_api_key is defined %}stackdriver_api_key{% endif %}"
+STACKDRIVER_API_KEY="{% if stackdriver_api_key is defined %}{{ stackdriver_api_key }}{% endif %}"
 
 DETECT_GCM="{% if stackdriver_use_gcm %}yes{% else %}no{% endif %}"
