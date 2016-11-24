@@ -29,6 +29,11 @@ Legacy authentication method: provide stackdriver API key in your playbook:
 stackdriver_api_key: "API_KEY"
 ```
 
+You can choose to don't start stackdriver agent (and extractor if not using gcm) after installation or to stop it if it is running by setting stackdriver_enabled variable to false (the default value is `true`):
+```
+stackdriver_enabled: true
+```
+
 By default, no plugins are enabled, in which case the agent will only monitor
 certain system resources. (Moreover, all of the following variables are ignored
 when deploying to Windows.)

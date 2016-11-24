@@ -14,11 +14,13 @@
 ---
 - name: restart collectd
   service: name={{ stackdriver_collectd_service }} state=restarted
+  when: stackdriver_enabled
 
-- name: restart extractor if not using gcm
+- name: restart extractor
   service:
     name: "{{ stackdriver_extractor_service }}"
     state: "{% if stackdriver_use_gcm %}stopped{% else %}restarted{% endif %}"
+  when: stackdriver_enabled
 
 - name: stackdriver updated
   sudo: no
@@ -35,5 +37,5 @@
       No plugins.
       {% endif %}
   changed_when: False
-  when: stackdriver_events_enabled and (
-    stackdriver_host_id is defined or ec2_id is defined)
+  when: stackdriver_enabled and stackdriver_events_enabled
+        and (stackdriver_host_id is defined or ec2_id is defined)

@@ -16,7 +16,10 @@
 # Please refer to ../README.md for more information about configuring the
 # various plugins.
 
-### stackdriver agent installation options
+### stackdriver agent options
+
+# define if stackdriver agent must be running or not (more info in the readme)
+stackdriver_enabled: true
 
 stackdriver_use_gcm: true
 

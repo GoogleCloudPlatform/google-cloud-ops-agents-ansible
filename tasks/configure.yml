@@ -16,15 +16,18 @@
 
 - include: configure-plugins.yml
 
-- name: Ensure collectd is running.
-  service: name={{ stackdriver_collectd_service }} state=started enabled=yes
+- name: "Ensure collectd is {% if not stackdriver_enabled %}not {% endif %}running."
+  service:
+    name: "{{ stackdriver_collectd_service }}"
+    state: "{% if stackdriver_enabled %}started{% else %}stopped{% endif %}"
+    enabled: "{% if stackdriver_enabled %}yes{% else %}no{% endif %}"
 
-- name: Ensure extractor is running if not using gcm
+- name: "Ensure extractor is {% if not (stackdriver_enabled and not stackdriver_use_gcm) %}not {% endif %}running."
   service:
     name: "{{ stackdriver_extractor_service }}"
-    state: "{% if stackdriver_use_gcm %}stopped{% else %}started{% endif %}"
-    enabled: "{% if stackdriver_use_gcm %}no{% else %}yes{% endif %}"
+    state: "{% if stackdriver_use_gcm or not stackdriver_enabled %}stopped{% else %}started{% endif %}"
+    enabled: "{% if stackdriver_use_gcm or not stackdriver_enabled %}no{% else %}yes{% endif %}"
 
 - name: Determine the Stackdriver host ID for reporting if not using gcm
   action: stackdriver_facts
-  when: not stackdriver_use_gcm
+  when: not stackdriver_use_gcm and stackdriver_enabled
