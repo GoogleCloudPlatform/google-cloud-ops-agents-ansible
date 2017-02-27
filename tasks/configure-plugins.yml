@@ -33,7 +33,7 @@
 
 - name: Remove unmanaged files if requested.
   file: path={{ stackdriver_collectd_config_dir }}/{{ item }} state=absent
-  with_items: '{{ contents.stdout_lines }}'
+  with_items: '{{ (contents|default({})).stdout_lines|default([]) }}'
   when: >
     stackdriver_remove_unmanaged and (
       not (item.endswith('.conf') and item != '.conf') or
