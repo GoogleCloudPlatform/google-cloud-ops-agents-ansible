@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Check that the Stackdriver API key has been specified.
-  fail: msg="Please provide your Stackdriver API key in the variable stackdriver_api_key."
-  when: stackdriver_api_key is not defined or not stackdriver_api_key
-
 - name: Include OS-specific variables.
   include_vars: "{{ item }}"
   with_first_found:
@@ -43,5 +39,5 @@
 # Post-everything diagnostics
 
 - include: diagnostics.yml
-  sudo: no
+  become: no
   when: ansible_os_family != "Windows"

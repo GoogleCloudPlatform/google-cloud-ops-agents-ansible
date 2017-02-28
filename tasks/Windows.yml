@@ -23,7 +23,7 @@
   when: not check.stat.exists
 
 - name: "[Windows] Install the Stackdriver agent."
-  raw: "{{ stackdriver_windows_installer }} /S /APIKEY={{ stackdriver_api_key }}"
+  raw: "{{ stackdriver_windows_installer }} /S"
   changed_when: True  # Default for raw appears to be False.
   when: not check.stat.exists
   notify: stackdriver updated
