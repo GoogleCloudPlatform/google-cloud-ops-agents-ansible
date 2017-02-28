@@ -15,6 +15,10 @@
 - name: Ensure the collectd configuration directory exists.
   file: path={{ stackdriver_collectd_config_dir }} state=directory
 
+- name: Ensure the JVM Monitoring port is defined when the plugin is enabled.
+  fail: msg="JVM Monitoring is enabled but stackdriver_jvm_port is undefined."
+  when: stackdriver_jvm_enabled and stackdriver_jvm_port is undefined
+
 - name: Render the configuration directory from templates.
   template:
     src: "{{ item }}.conf"

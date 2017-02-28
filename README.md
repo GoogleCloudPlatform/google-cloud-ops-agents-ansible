@@ -71,10 +71,13 @@ stackdriver_elasticsearch_url: http://localhost:9200/_nodes/_local/stats/
 
 ### jvm
 
+To configure the monitoring of the JVM,
+`stackdriver_jvm_port` must be defined.
+
 ```
 stackdriver_jvm_enabled: no
 stackdriver_jvm_host: localhost
-stackdriver_jvm_port: 5000
+#stackdriver_jvm_port:
 ```
 
 ### memcached
