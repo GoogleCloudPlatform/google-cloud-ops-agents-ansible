@@ -60,13 +60,20 @@ earlier versions, use `http://localhost:9200/_cluster/nodes/_local/stats?all=tru
 stackdriver_elasticsearch_enabled: no
 stackdriver_elasticsearch_url: http://localhost:9200/_nodes/_local/stats/
 ```
-
 ### jvm
 
 ```
 stackdriver_jvm_enabled: no
 stackdriver_jvm_host: localhost
 stackdriver_jvm_port: 5000
+```
+
+### kafka
+
+```
+stackdriver_kafka_enabled: no
+stackdriver_kafka_host: localhost
+stackdriver_kafka_port: 9092
 ```
 
 ### memcached
@@ -209,6 +216,14 @@ stackdriver_redis_port: 6379
 stackdriver_redis_password: ""
 
 stackdriver_redis_timeout: 2000     # Seconds
+```
+
+### zookeeper
+
+```
+stackdriver_zookeeper_enabled: no
+stackdriver_zookeeper_host: localhost
+stackdriver_zookeeper_port: 2181
 ```
 
 ### Other variables

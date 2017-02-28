@@ -42,6 +42,12 @@ stackdriver_jvm_enabled: no
 stackdriver_jvm_host: localhost
 stackdriver_jvm_port: 5000
 
+### kafka
+
+stackdriver_kafka_enabled: no
+stackdriver_kafka_host: localhost
+stackdriver_kafka_port: 9092
+
 ### memcached
 
 stackdriver_memcached_enabled: no
@@ -123,6 +129,12 @@ stackdriver_redis_servers:
     port: "{{ stackdriver_redis_port }}"
     password: "{{ stackdriver_redis_password }}"
     timeout: "{{ stackdriver_redis_timeout }}"
+
+### zookeeper
+
+stackdriver_zookeeper_enabled: no
+stackdriver_zookeeper_host: localhost
+stackdriver_zookeeper_port: 2181
 
 ### Other variables
 

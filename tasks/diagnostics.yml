@@ -23,13 +23,20 @@
   check_uri:
     url: "{{ stackdriver_elasticsearch_url }}"
   when: stackdriver_elasticsearch_enabled
-
+  
 - name: Test jvm connectivity.
   wait_for:
     host: "{{ stackdriver_jvm_host }}"
     port: "{{ stackdriver_jvm_port }}"
     timeout: 1
   when: stackdriver_jvm_enabled
+
+- name: Test kafka connectivity.
+  wait_for:
+    host: "{{ stackdriver_kafka_host }}"
+    port: "{{ stackdriver_kafka_port }}"
+    timeout: 1
+  when: stackdriver_kafka_enabled
 
 - name: Test memcached connectivity.
   wait_for:
@@ -102,3 +109,10 @@
     port: "{{ stackdriver_redis_port }}"
     timeout: 1
   when: stackdriver_redis_enabled
+
+- name: Test Zookeeper connectivity.
+  wait_for:
+    host: "{{ stackdriver_zookeeper_host }}"
+    port: "{{ stackdriver_zookeeper_port }}"
+    timeout: 1
+  when: stackdriver_zookeeper_enabled
