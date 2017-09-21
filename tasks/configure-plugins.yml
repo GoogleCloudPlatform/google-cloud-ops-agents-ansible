@@ -21,7 +21,25 @@
     dest: "{{ stackdriver_collectd_config_dir }}/{{ item }}.conf"
     validate: "{{ stackdriver_collectd_binary }} -tC %s"
   with_items: '{{ stackdriver_enabled_plugins }}'
-  when: item != ""
+  when: item not in ["", "jvm"]
+  notify:
+    - restart collectd
+    - stackdriver updated
+
+- name: Find libjvm directory to create jvm plugin context
+  shell: "dirname $(find $(dirname $(readlink -f $(which java)))/.. -name libjvm.so)"
+  changed_when: False
+  when: stackdriver_jvm_enabled
+  register: stackdriver_libjvm_location
+
+- name: Render the jvm configuration from template.
+  template:
+    src: "jvm.conf"
+    dest: "{{ stackdriver_collectd_config_dir }}/jvm.conf"
+    validate: "{{ stackdriver_collectd_binary }} -tC %s"
+  when: stackdriver_jvm_enabled
+  environment:
+    LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:{{ stackdriver_libjvm_location.stdout }}"
   notify:
     - restart collectd
     - stackdriver updated
