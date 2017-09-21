@@ -19,11 +19,10 @@
   service: name={{ stackdriver_extractor_service }} state=restarted
 
 - name: stackdriver updated
-  sudo: no
+  become: no
   local_action:
     module: stackdriver
     event: annotation
-    key: "{{ stackdriver_api_key }}"
     instance_id: "{{ stackdriver_host_id|default(ec2_id) }}"
     msg: |
       Stackdriver agent installed/updated on "{{ inventory_hostname }}".
