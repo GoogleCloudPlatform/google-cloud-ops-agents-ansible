@@ -11,9 +11,6 @@ galaxy_info:
       versions:
         - 6
         - 7
-    - name: Amazon
-      versions:
-        - 2014.03
     # Debian and derivatives
     - name: Debian
       versions:
@@ -22,11 +19,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - trusty
-    # Windows
-    - name: Windows
-      versions:
-        - Windows Server 2012 R2
-  categories:
+  galaxy_tags:
     - monitoring
 
 dependencies: []
