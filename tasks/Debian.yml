@@ -14,32 +14,43 @@
 ---
 - name: "[Debian] Enable the Stackdriver apt repository."
   apt_repository:
-    repo: "deb {{ stackdriver_package_repo }} {{ ansible_lsb.codename }} main"
+    repo: "deb {{ stackdriver_package_repo }} google-cloud-monitoring-{{ ansible_lsb.codename }} main"
     state: present
 
 - name: "[Debian] Ensure Stackdriver's GPG key is available."
-  apt_key: url="https://app.stackdriver.com/RPM-GPG-KEY-stackdriver" state=present
+  apt_key:
+    url: "{{ stackdriver_package_repo }}/doc/apt-key.gpg"
+    state: present
 
 - name: "[Debian] Install the Stackdriver agent."
-  apt: name={{ stackdriver_collectd_package }} state=present update_cache=yes
+  apt:
+    name: "{{ stackdriver_collectd_package }}"
+    state: present
+    update_cache: yes
   notify: stackdriver updated
 
 - name: "[Debian] Install YAJL if needed for curl_json."
-  apt: name=libyajl2 state=present
-  when: stackdriver_enabled_plugins|intersect(stackdriver_plugins_based_on_curl_json)
+  apt:
+    name: libyajl2
+    state: present
+  when: stackdriver_enabled_plugins | intersect(stackdriver_plugins_based_on_curl_json)
   notify:
     - restart collectd
     - stackdriver updated
 
 - name: "[Debian] Install hiredis library if needed for redis plugin."
-  apt: name=libhiredis0.10 state=present
+  apt:
+    name: libhiredis0.10
+    state: present
   when: stackdriver_redis_enabled
   notify:
     - restart collectd
     - stackdriver updated
 
 - name: "[Debian] Install mysql-client if needed for mysql plugin."
-  apt: name=mysql-client state=present
+  apt:
+    name: mysql-client
+    state: present
   when: stackdriver_mysql_enabled
   notify:
     - restart collectd
