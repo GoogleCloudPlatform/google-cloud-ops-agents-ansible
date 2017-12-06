@@ -37,11 +37,5 @@ stackdriver_plugins_based_on_curl_json:
 stackdriver_collectd_package: stackdriver-agent
 stackdriver_collectd_service: stackdriver-agent
 
-# Installing "stackdriver-agent" installs "stackdriver-extractor" as a
-# recommended package. It uses the same API key as stackdriver-agent, but
-# it otherwise requires no configuration.
-stackdriver_extractor_package: stackdriver-extractor
-stackdriver_extractor_service: stackdriver-extractor
-
 stackdriver_collectd_binary: /opt/stackdriver/collectd/sbin/stackdriver-collectd
 stackdriver_collectd_config_dir: /opt/stackdriver/collectd/etc/collectd.d/managed

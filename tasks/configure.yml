@@ -18,9 +18,3 @@
 
 - name: Ensure collectd is running.
   service: name={{ stackdriver_collectd_service }} state=started enabled=yes
-
-- name: Ensure extractor is running.
-  service: name={{ stackdriver_extractor_service }} state=started enabled=yes
-
-- name: Determine the Stackdriver host ID for reporting.
-  action: stackdriver_facts
