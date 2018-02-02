@@ -25,7 +25,7 @@
 - name: "[Debian] Install the Stackdriver agent."
   apt:
     name: "{{ stackdriver_collectd_package }}"
-    state: present
+    state: latest
     update_cache: yes
   notify: stackdriver updated
 
