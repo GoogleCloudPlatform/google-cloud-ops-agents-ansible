@@ -40,7 +40,7 @@
 
 - name: "[Debian] Install hiredis library if needed for redis plugin."
   apt:
-    name: libhiredis0.10
+    name: libhiredis-dev
     state: present
   when: stackdriver_redis_enabled
   notify:
