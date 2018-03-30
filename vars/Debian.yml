@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-stackdriver_package_repo: http://repo.stackdriver.com/apt
+stackdriver_package_repo: https://packages.cloud.google.com/apt
 stackdriver_sysconfig: /etc/default/stackdriver-agent

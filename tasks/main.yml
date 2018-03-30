@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Check that the Stackdriver API key has been specified.
-  fail: msg="Please provide your Stackdriver API key in the variable stackdriver_api_key."
-  when: stackdriver_api_key is not defined or not stackdriver_api_key
-
 - name: Include OS-specific variables.
   include_vars: "{{ item }}"
   with_first_found:
@@ -24,24 +20,24 @@
 
 # OS-specific installation
 
-- include: Debian.yml
+- include_tasks: Debian.yml
   when: ansible_os_family == "Debian"
 
-- include: RedHat.yml
+- include_tasks: RedHat.yml
   when: ansible_os_family == "RedHat"
 
-- include: Windows.yml
+- include_tasks: Windows.yml
   when: ansible_os_family == "Windows"
 
 # Post-install configuration (Linux only)
 
-- include: configure.yml
+- include_tasks: configure.yml
   when: ansible_os_family != "Windows"
 
 - meta: flush_handlers
 
 # Post-everything diagnostics
 
-- include: diagnostics.yml
-  sudo: no
+- include_tasks: diagnostics.yml
+  become: no
   when: ansible_os_family != "Windows"
