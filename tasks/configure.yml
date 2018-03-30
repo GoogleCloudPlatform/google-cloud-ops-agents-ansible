@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- include: configure-settings.yml
+- include_tasks: configure-settings.yml
 
-- include: configure-plugins.yml
+- include_tasks: configure-plugins.yml
 
 - name: Ensure collectd is running.
   service: name={{ stackdriver_collectd_service }} state=started enabled=yes

@@ -20,24 +20,24 @@
 
 # OS-specific installation
 
-- include: Debian.yml
+- include_tasks: Debian.yml
   when: ansible_os_family == "Debian"
 
-- include: RedHat.yml
+- include_tasks: RedHat.yml
   when: ansible_os_family == "RedHat"
 
-- include: Windows.yml
+- include_tasks: Windows.yml
   when: ansible_os_family == "Windows"
 
 # Post-install configuration (Linux only)
 
-- include: configure.yml
+- include_tasks: configure.yml
   when: ansible_os_family != "Windows"
 
 - meta: flush_handlers
 
 # Post-everything diagnostics
 
-- include: diagnostics.yml
+- include_tasks: diagnostics.yml
   become: no
   when: ansible_os_family != "Windows"
