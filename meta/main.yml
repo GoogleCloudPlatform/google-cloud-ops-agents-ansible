@@ -22,10 +22,6 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - trusty
-    # Windows
-    - name: Windows
-      versions:
-        - Windows Server 2012 R2
   categories:
     - monitoring
 
