@@ -14,14 +14,19 @@
 ---
 - name: "[Debian] Enable the Stackdriver apt repository."
   apt_repository:
-    repo: "deb {{ stackdriver_package_repo }} {{ ansible_lsb.codename }} main"
+    repo: "deb https://{{ repo_host }}/apt {{ apt_repo_name }} main"
     state: present
 
 - name: "[Debian] Ensure Stackdriver's GPG key is available."
-  apt_key: url="https://app.stackdriver.com/RPM-GPG-KEY-stackdriver" state=present
+  apt_key:
+    url: "https://{{ repo_host }}/apt/doc/apt-key.gpg"
+    state: present
 
 - name: "[Debian] Install the Stackdriver agent."
-  apt: name={{ stackdriver_collectd_package }} state=present update_cache=yes
+  apt:
+    name: "{{ stackdriver_collectd_package }}"
+    state: present
+    update_cache: yes
   notify: stackdriver updated
 
 - name: "[Debian] Install YAJL if needed for curl_json."

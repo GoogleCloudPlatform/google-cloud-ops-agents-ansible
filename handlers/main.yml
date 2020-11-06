@@ -16,7 +16,7 @@
   service: name={{ stackdriver_collectd_service }} state=restarted
 
 - name: stackdriver updated
-  sudo: no
+  become: no
   local_action:
     module: stackdriver
     event: annotation

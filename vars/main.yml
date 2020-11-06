@@ -31,6 +31,9 @@ stackdriver_plugins_based_on_curl_json:
   - elasticsearch
   - rabbitmq
 
+repo_host: packages.cloud.google.com
+repo_suffix: all
+
 stackdriver_collectd_package: stackdriver-agent
 stackdriver_collectd_service: stackdriver-agent
 

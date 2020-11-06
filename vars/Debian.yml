@@ -12,5 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-stackdriver_package_repo: http://repo.stackdriver.com/apt
-stackdriver_sysconfig: /etc/default/stackdriver-agent
+apt_repo_name: google-cloud-monitoring-{{ ansible_lsb.codename }}-{{ repo_suffix }}
