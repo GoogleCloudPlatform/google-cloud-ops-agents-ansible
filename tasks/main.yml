@@ -30,13 +30,12 @@
 - include: RedHat.yml
   when: ansible_os_family == "RedHat"
 
-- include: Windows.yml
-  when: ansible_os_family == "Windows"
-
 # Post-install configuration (Linux only)
 
+- include: Suse.yml
+  when: ansible_os_family == "Suse"
+
 - include: configure.yml
-  when: ansible_os_family != "Windows"
 
 - meta: flush_handlers
 
