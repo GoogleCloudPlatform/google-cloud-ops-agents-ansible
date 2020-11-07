@@ -12,6 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-stackdriver_package_repo:
-  http://repo.stackdriver.com/stackdriver-el{{ ansible_distribution_major_version }}.repo
-stackdriver_sysconfig: /etc/sysconfig/stackdriver
+yum_repo_name: google-cloud-monitoring-el{{ ansible_distribution_major_version}}-{{ ansible_architecture }}-{{ repo_suffix}}

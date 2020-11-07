@@ -13,15 +13,28 @@
 # limitations under the License.
 ---
 - name: "[RedHat] Install the Python bindings for SELinux, for Ansible."
-  yum: name=libselinux-python state=present
+  yum:
+    name: libselinux-python 
+    state: present
 
 - name: "[RedHat] Add the Stackdriver yum repository."
-  get_url:
-    url: "{{ stackdriver_package_repo }}"
-    dest: /etc/yum.repos.d/stackdriver.repo
+  yum_repository:
+    name: google-cloud-monitoring
+    description: Google Cloud Monitoring Agent Repository
+    baseurl: "https://{{ repo_host }}/yum/repos/{{ yum_repo_name }}"
+    file: google-cloud-monitoring
+    enabled: yes
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: 
+      - "https://{{ repo_host }}/yum/doc/yum-key.gpg"
+      - "https://{{ repo_host }}/doc/rpm-package-key.gpg"
+
 
 - name: "[RedHat] Install the Stackdriver agent."
-  yum: name={{ stackdriver_collectd_package }} state=present
+  yum:
+    name: "{{ stackdriver_collectd_package }}"
+    state: present
   notify: stackdriver updated
 
 - name: "[RedHat] Install YAJL if needed for curl_json."
