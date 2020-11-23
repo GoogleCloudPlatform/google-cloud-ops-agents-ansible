@@ -28,8 +28,7 @@ stackdriver_api_key: "REQUIRED"
 ```
 
 By default, no plugins are enabled, in which case the agent will only monitor
-certain system resources. (Moreover, all of the following variables are ignored
-when deploying to Windows.)
+certain system resources.
 
 Each plugin is enabled using a variable like `stackdriver_PLUGIN_enabled` --
 e.g., `stackdriver_apache_enabled` -- where the default value is `no`.
