@@ -13,3 +13,4 @@
 # limitations under the License.
 ---
 zypper_repo_name: google-cloud-monitoring-sles{{ ansible_distribution_major_version}}-{{ ansible_architecture }}-{{ repo_suffix}}
+cloud_ops_sysconfig: /etc/default/stackdriver-agent
