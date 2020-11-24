@@ -13,3 +13,4 @@
 # limitations under the License.
 ---
 apt_repo_name: google-cloud-monitoring-{{ ansible_lsb.codename }}-{{ repo_suffix }}
+cloud_ops_sysconfig: /etc/default/stackdriver-agent
