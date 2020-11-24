@@ -14,18 +14,12 @@ git clone this-git-repo roles/stackdriver
 Requirements
 ------------
 
-The agent must be configured with an API key, which you can create by signing
-into the [Stackdriver](http://www.stackdriver.com/) web console and looking for
-the "API Keys" tab in your account settings.
+Permissions to Google Cloud API. If running on an old Compute Engine instance or
+Compute Engine instances created without the default credentials, then you must
+complete the following steps: https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 
 Role Variables
 --------------
-
-You must provide the API key in your playbook:
-
-```
-stackdriver_api_key: "REQUIRED"
-```
 
 By default, no plugins are enabled, in which case the agent will only monitor
 certain system resources. (Moreover, all of the following variables are ignored
@@ -248,8 +242,6 @@ Here is a simple example of monitoring Apache:
 # Example
 - hosts: webservers
   sudo: yes
-  vars_files:
-    - secrets.yml   # API key is defined here.
   roles:
     - role: stackdriver
       stackdriver_apache_enabled: yes
@@ -261,8 +253,6 @@ Here is an example of monitoring RabbitMQ:
 # Example
 - hosts: rabbits
   sudo: yes
-  vars_files:
-    - secrets.yml   # API key is defined here.
   roles:
     - role: stackdriver
       stackdriver_rabbitmq_enabled: yes
