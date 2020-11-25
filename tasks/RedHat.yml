@@ -16,6 +16,13 @@
   yum:
     name: libselinux-python
     state: present
+  when: ansible_distribution_major_version | int <= 7
+
+- name: "[RedHat] Install the Python bindings for SELinux, for Ansible."
+  yum:
+    name: python3-libselinux
+    state: present
+  when: ansible_distribution_major_version | int > 7
 
 - name: "[RedHat] Add the Stackdriver yum repository."
   yum_repository:
@@ -28,7 +35,7 @@
     repo_gpgcheck: yes
     gpgkey:
       - "https://{{ repo_host }}/yum/doc/yum-key.gpg"
-      - "https://{{ repo_host }}/doc/rpm-package-key.gpg"
+      - "https://{{ repo_host }}/yum/doc/rpm-package-key.gpg"
 
 
 - name: "[RedHat] Install the Stackdriver agent."
