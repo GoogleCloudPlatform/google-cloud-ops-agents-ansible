@@ -1,2 +1,7 @@
 ---
-# handlers file for cloud_ops_ansible_role
+# handlers file for ops_agents_ansible_role
+
+- name: Cloud Ops Monitoring | Restart Monitoring Agent
+  service:
+    name: "{{ cloud_ops_mon_service_name }}"
+    state: restarted
