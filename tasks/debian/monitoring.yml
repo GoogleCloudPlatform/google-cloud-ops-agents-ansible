@@ -1,0 +1,23 @@
+---
+- name: Cloud Ops Monitoring | Debian | Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: Cloud Ops Monitoring | Debian | Enable the apt repo
+  apt_repository:
+    repo: "deb https://{{ cloud_ops_repo_host }}/apt {{ cloud_ops_mon_apt_repo_name }}  main"
+    state: "{{ cloud_ops_agents.monitoring.package_state }}"
+    filename: google-cloud-monitoring
+
+- name: Cloud Ops Monitoring | Debian | Ensure Cloud Ops's GPG key is available
+  apt_key:
+    url: "https://{{ cloud_ops_repo_host }}/apt/doc/apt-key.gpg"
+    state: present
+
+- name: Cloud Ops Monitoring | Debian | Install the Cloud Ops agent
+  apt:
+    name: "{{ cloud_ops_mon_package_name }}"
+    state: present
+    update_cache: yes
+  notify: Cloud Ops Monitoring | Restart Monitoring Agent
