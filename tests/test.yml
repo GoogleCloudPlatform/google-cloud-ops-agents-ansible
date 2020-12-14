@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - cloud_ops_ansible_role
+    - ../stackdriver-ansible-role
