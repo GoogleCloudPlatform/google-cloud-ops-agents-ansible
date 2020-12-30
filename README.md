@@ -24,7 +24,9 @@ Example Playbook
 - hosts: all
   sudo: yes
   roles:
-    - role: cloud ops
+    - role: stackdriver-ansible-role
+      vars:
+        agent_type: "monitoring"
 ```
 
 License
