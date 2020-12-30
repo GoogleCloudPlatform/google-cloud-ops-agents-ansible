@@ -1,12 +1,17 @@
 ---
+- name: Fail if package state is not supported
+  fail:
+    msg: "The Cloud Ops Ansible role only supports the following package states: \"present\", and \"absent\"."
+  when: package_state not in ["present", "absent"]
+
 - block:
-  - name: Download Script
+  - name: Download script
     get_url:
       url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
       dest: /tmp/add-monitoring-agent-repo.sh
       mode: 0755
 
-  - name: Add Repo
+  - name: Add repo
     command:
       chdir: /tmp
       cmd: bash add-monitoring-agent-repo.sh
@@ -14,7 +19,7 @@
 
   when: package_state == "present"
 
-- name: Install or Uninstall Agent
+- name: Install or uninstall agent
   package:
     name: "{{ monitoring_package_name }}"
     state: "{{ package_state }}"

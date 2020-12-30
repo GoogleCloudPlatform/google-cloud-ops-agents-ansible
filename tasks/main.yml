@@ -1,3 +1,8 @@
 ---
-- name: Call Agent Specific Playbook
+- name: Fail if agent type is not supported
+  fail:
+    msg: "The Cloud Ops Ansible role only supports the following agents: \"monitoring\", \"logging\" and \"ops_agent\"."
+  when: agent_type not in ["monitoring"]
+
+- name: Call agent-specific playbook
   include_tasks: "{{ agent_type }}.yml"
