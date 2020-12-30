@@ -1,15 +1,7 @@
 ---
-# defaults file for ops_agents_ansible_role
-cloud_ops_agents:
-  monitoring:
-    package_state: "present"
-
-cloud_ops_repo_host: packages.cloud.google.com
+agent_type: ""
+package_state: "present"
 
 # default vars for the monitoring agent
-cloud_ops_mon_service_name: stackdriver-agent
-cloud_ops_mon_package_name: stackdriver-agent
-cloud_ops_mon_current_major_version: 6
-cloud_ops_mon_repo_suffix: "{{ cloud_ops_mon_current_major_version }}"
-
-cloud_ops_mon_apt_repo_name: google-cloud-monitoring-{{ ansible_lsb.codename }}-{{ cloud_ops_mon_repo_suffix }}
+monitoring_package_name: stackdriver-agent
+monitoring_service_name: stackdriver-agent

@@ -1,0 +1,20 @@
+---
+- block:
+  - name: Download Script
+    get_url:
+      url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
+      dest: /tmp/add-monitoring-agent-repo.sh
+      mode: 0755
+
+  - name: Add Repo
+    command:
+      chdir: /tmp
+      cmd: bash add-monitoring-agent-repo.sh
+    notify: Restart Monitoring Agent
+
+  when: package_state == "present"
+
+- name: Install or Uninstall Agent
+  package:
+    name: "{{ monitoring_package_name }}"
+    state: "{{ package_state }}"

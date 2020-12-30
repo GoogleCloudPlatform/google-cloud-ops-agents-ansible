@@ -1,12 +1,3 @@
 ---
-# tasks file for ops_agents_ansible_role
-
-- name: Fail if OS is not supported
-  fail:
-    msg: "The Cloud Ops Ansible role does not support your OS."
-  when: ansible_os_family not in ["Debian"] # TODO: add support for Redhat, Suse and Windows.
-
-- name: Cloud Ops Monitoring | OS Based Installation
-  include_tasks: "{{ ansible_os_family | lower }}/{{ item.key }}.yml"
-  with_dict: "{{ cloud_ops_agents }}"
-  when: item.value.package_state == "present"
+- name: Call Agent Specific Playbook
+  include_tasks: "{{ agent_type }}.yml"
