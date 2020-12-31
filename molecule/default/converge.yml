@@ -1,7 +1,8 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: "Include cloud_ops_ansible_role"
-      include_role:
-        name: "cloud_ops_ansible_role"
+  roles:
+    - name: stackdriver-ansible-role
+      vars:
+        agent_type: "monitoring"
+        testing: True

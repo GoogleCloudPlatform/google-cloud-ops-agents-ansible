@@ -3,3 +3,4 @@
   service:
     name: "{{ monitoring_service_name }}"
     state: restarted
+  when: testing == False

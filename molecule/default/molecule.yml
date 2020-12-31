@@ -2,10 +2,32 @@
 dependency:
   name: galaxy
 driver:
-  name: docker 
+  name: docker
+lint: |
+  set -e
+  yamllint .
+#  ansible-lint .
 platforms:
   - name: instance
+    image: docker.io/pycontribs/centos:7
+    pre_build_image: true
 provisioner:
   name: ansible
+  options:
+    skip-tags: molecule-notest
 verifier:
-  name: ansible
+  name: testinfra
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
