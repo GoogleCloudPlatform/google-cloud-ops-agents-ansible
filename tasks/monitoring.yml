@@ -2,7 +2,7 @@
 - name: Fail if package state is not supported
   assert:
     that: package_state in ["present", "absent"]
-    msg: "Recieved invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role only supports the following package states: 'present' and 'absent'."
+    msg: "Received invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role only supports the following package states: 'present' and 'absent'."
 
 - block:
   - name: Download script
