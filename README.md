@@ -5,16 +5,19 @@ This Ansible role installs the Cloud Ops monitoring agent (which is based on
 `collectd`).
 
 Install this directory in your roles path (usually in a `roles` directory
-alongside your playbook) under the name `cloud ops`:
+alongside your playbook) under the name `cloud_ops`:
 
 ```
-git clone this-git-repo roles/cloud ops
+git clone <this-git-repo> roles/cloud_ops
 ```
 
 Requirements
 ------------
 
-Permissions to Google Cloud API. If running on an old Compute Engine instance or Compute Engine instances created without the default credentials, then you must complete the following steps https://cloud.google.com/monitoring/agent/authorization#before_you_begin
+Permissions to Google Cloud API. If running on an old Compute Engine instance or
+Compute Engine instances created without the default credentials, then you must
+complete the following steps
+https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 
 Example Playbook
 ----------------
@@ -22,9 +25,9 @@ Example Playbook
 ```
 # Example
 - hosts: all
-  sudo: yes
+  become: yes
   roles:
-    - role: stackdriver-ansible-role
+    - role: cloud_ops
       vars:
         agent_type: "monitoring"
 ```

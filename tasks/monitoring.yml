@@ -1,8 +1,8 @@
 ---
 - name: Fail if package state is not supported
-  fail:
-    msg: "The Cloud Ops Ansible role only supports the following package states: \"present\", and \"absent\"."
-  when: package_state not in ["present", "absent"]
+  assert:
+    that: package_state in ["present", "absent"]
+    msg: "Recieved invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role only supports the following package states: 'present' and 'absent'."
 
 - block:
   - name: Download script
@@ -15,7 +15,7 @@
     command:
       chdir: /tmp
       cmd: bash add-monitoring-agent-repo.sh
-    notify: Restart Monitoring Agent
+    notify: restart monitoring agent
 
   when: package_state == "present"
 
@@ -23,3 +23,4 @@
   package:
     name: "{{ monitoring_package_name }}"
     state: "{{ package_state }}"
+#TODO(rmoriar1): Clean up the repo when package_state is absent.

@@ -1,5 +1,5 @@
 ---
-- name: Restart Monitoring Agent
+- name: restart monitoring agent
   service:
     name: "{{ monitoring_service_name }}"
     state: restarted
