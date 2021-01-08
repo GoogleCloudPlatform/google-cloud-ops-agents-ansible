@@ -1,32 +1,29 @@
----
 galaxy_info:
-  author: Ken Rimey
-  description: Install the Stackdriver agent and configure its plugins.
+  author: Ryan Moriarty
+  description: Install the Cloud Ops Monitoring Agent
   company: Google
-  license: Apache
-  min_ansible_version: 1.7
+  license: Apache-2.0
+  min_ansible_version: 2.1
   platforms:
-    # Red Hat and derivatives
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+        - groovy
     - name: EL
       versions:
         - 6
         - 7
-    - name: Amazon
+        - 8
+    - name: SLES
       versions:
-        - 2014.03
-    # Debian and derivatives
-    - name: Debian
-      versions:
-        - wheezy
-        - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-    # Windows
-    - name: Windows
-      versions:
-        - Windows Server 2012 R2
-  categories:
+        - 12
+        - 15
+  galaxy_tags:
     - monitoring
-
 dependencies: []
