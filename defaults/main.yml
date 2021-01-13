@@ -5,3 +5,129 @@ package_state: "present"
 # default vars for the monitoring agent
 monitoring_package_name: stackdriver-agent
 monitoring_service_name: stackdriver-agent
+
+collectd_binary: /opt/stackdriver/collectd/sbin/stackdriver-collectd
+collectd_config_dir: /opt/stackdriver/collectd/etc/collectd.d/managed
+
+# If you define a new plugin template, please add it here. Although a list of
+# just the names of the enabled plugins would be nicer to work with, we manage
+# with a list in which disabled plugins evaluate to empty strings.
+enabled_plugins:
+  - "{% if apache_enabled %}apache{% endif %}"
+  - "{% if cassandra-22_enabled %}cassandra-22{% endif %}"
+  - "{% if cassandra_enabled %}cassandra{% endif %}"
+  - "{% if hbase-098_enabled %}hbase-098{% endif %}"
+  - "{% if hbase-098-standalone_enabled %}hbase-098-standalone{% endif %}"
+  - "{% if hbase-095_enabled %}hbase-095{% endif %}"
+  - "{% if jvm-sun-hotspot_enabled %}jvm-sun-hotspot{% endif %}"
+  - "{% if kafka-082_enabled %}kafka-082{% endif %}"
+  - "{% if memcached_enabled %}memcached{% endif %}"
+  - "{% if mysql_enabled %}mysql{% endif %}"
+  - "{% if nginx_enabled %}nginx{% endif %}"
+  - "{% if redis_enabled %}redis{% endif %}"
+  - "{% if statsd_enabled %}redis{% endif %}"
+  - "{% if tomcat-7_enabled %}tomcat-7{% endif %}"
+
+remove_unmanaged: no
+
+# default vars for third party plugins
+### apache
+
+apache_enabled: no
+apache_name: localhost
+apache_host: local-stackdriver-agent.stackdriver.com
+apache_port: 80
+apache_status_url: "http://{{ apache_host }}:{{ apache_port }}/server-status?auto"
+
+### cassandra 2.2.x
+
+cassandra-22_enabled: no
+cassandra-22_host: localhost
+cassandra-22_port: 7199
+cassandra-22_service_url: "service:jmx:rmi:///jndi/rmi://{{ cassandra-22_host }}:{{ cassandra-22_port }}/jmxrmi"
+
+### cassandra <=2.1.x
+
+cassandra_enabled: no
+cassandra_host: localhost
+cassandra_port: 7199
+cassandra_service_url: "service:jmx:rmi:///jndi/rmi://{{ cassandra_host }}:{{ cassandra_port }}/jmxrmi"
+
+### hbase 0.98+
+
+hbase-098_enabled: no
+hbase-098_host: localhost
+hbase-098_master_port: 10101
+hbase-098_regionserver_port: 10102
+
+### hbase 0.98+ standalone
+
+hbase-098-standalone_enabled: no
+hbase-098-standalone_host: localhost
+hbase-098-standalone_port: 10101
+hbase-098-standalone_service_url: "service:jmx:rmi:///jndi/rmi://{{ hbase-098-standalone_host }}:{{ hbase-098-standalone_port ))/jmxrmi"
+
+### hbase <=.95
+
+hbase-095_enabled: no
+hbase-095_host: localhost
+hbase-095_regionserver_port: 10102
+hbase-095_service_url: "service:jmx:rmi:///jndi/rmi://{{ hbase-095_host }}:{{ hbase-095_regionserver_port ))/jmxrmi"
+
+### jvm-sun-hotspot
+
+jvm-sun-hotspot_enabled: no
+jmx_host: localhost
+jmx_port: ""
+jmx_service_url: "service:jmx:rmi:///jndi/rmi://{{ jmx_host }}:{{ jmx_port }}/jmxrmi"
+
+### kafka 0.8.2+
+
+kafka-082_enabled: no
+kafka-082_host: localhost
+kafka-082_port: 9999
+kafka-082_service_url: "service:jmx:rmi:///jndi/rmi://{{ kafka-082_host }}:{{ kafka-082_port }}/jmxrmi"
+
+### memcached
+
+memcached_enabled: no
+memcached_host: localhost
+memcached_port: 11211
+
+### mysql
+
+mysql_enabled: no
+mysql_database_name: default
+mysql_host: localhost
+mysql_port: 3306
+mysql_user: root
+mysql_pass: ""
+
+### nginx
+
+nginx_enabled: no
+nginx_host: local-stackdriver-agent.stackdriver.com
+nginx_port: 80
+nginx_status_url: "http://{{ nginx_host }}:{{ nginx_port }}/nginx_status"
+
+### redis
+
+redis_enabled: no
+redis_host: localhost
+redis_port: 6379
+redis_name: "{{ redis_host }}_{{ redis_port }}"
+redis_timeout: 2000     # Seconds
+redis_pass: ""
+
+### statsd
+
+statsd_enabled: no
+statsd_host: localhost
+statsd_port: 8125
+
+### tomcat <=7.x
+
+tomcat-7_enabled: no
+tomcat-7_host: localhost
+tomcat-7_port: 0912
+tomcat-7_service_url: "service:jmx:rmi:///jndi/rmi://{{ tomcat-7_port }}:{{ tomcat-7_port }}/jmxrmi"
