@@ -24,3 +24,34 @@
     name: "{{ monitoring_package_name }}"
     state: "{{ package_state }}"
 #TODO(rmoriar1): Clean up the repo when package_state is absent.
+
+- name: Ensure the collectd configuration directory exists
+  file:
+    path: "{{ collectd_config_dir }}"
+    state: directory
+
+- name: Render the configuration directory from templates
+  template:
+    src: "{{ item }}.conf"
+    dest: "{{ collectd_config_dir }}/{{ item }}.conf"
+    validate: "{{ collectd_binary }} - tC %s"
+  with_items: "{{ enabled_plugins }}"
+  when: item
+  notify: restart monitoring agent
+
+- name: List the contents of the configuration directory.
+  command:
+    cmd: "ls -1 {{ collectd_config_dir }}"
+  changed_when: False
+  register: contents
+
+- name: Remove unmanaged files if requested.
+  file:
+    path: "{{ collectd_config_dir }}/{{ item }}"
+    state: absent
+  with_items: '{{ contents.stdout_lines }}'
+  when: >
+    remove_unmanaged and (
+      not (item.endswith('.conf') and item != '.conf') or
+      item.rsplit('.', 1)[0] not in enabled_plugins)
+  notify: restart monitoring agent
