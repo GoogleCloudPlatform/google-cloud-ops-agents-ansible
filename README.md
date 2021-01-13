@@ -19,6 +19,21 @@ Compute Engine instances created without the default credentials, then you must
 complete the following steps
 https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 
+Role Variables
+--------------
+
+The monitoring agent can be configured by supplying a path to a custom
+configuration file using the variable `monitoring_config_file_local`.
+
+For more information please see [Configuring the Cloud Monitoring agent](https://cloud.google.com/monitoring/agent/configuration).
+
+By default, no plugins are enabled, in which case the agent will only monitor
+certain system resources. Third party application monitoring can be configured
+by supplying a path to a directory containing plugin configuration files using
+the variable `monitoring_plugin_dir_local`.
+
+For more information please see [Monitoring third-party applications](https://cloud.google.com/monitoring/agent/plugins).
+
 Example Playbook
 ----------------
 
@@ -29,7 +44,8 @@ Example Playbook
   roles:
     - role: cloud_ops
       vars:
-        agent_type: "monitoring"
+        agent_type: monitoring
+        monitoring_config_file_local: collectd.conf
 ```
 
 License

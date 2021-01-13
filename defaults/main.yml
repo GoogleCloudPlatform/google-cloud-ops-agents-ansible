@@ -1,7 +1,17 @@
 ---
 agent_type: ""
-package_state: "present"
+package_state: present
 
-# default vars for the monitoring agent
+# Default vars for the monitoring agent
 monitoring_package_name: stackdriver-agent
 monitoring_service_name: stackdriver-agent
+
+# Local path to the config file to copy onto the remote server. Can be absolute or relative.
+monitoring_config_file_local: ""
+monitoring_config_file_remote: /etc/stackdriver/test.conf
+
+# Local path to the plugin dir whose contents will be copied onto the remote server. Can be absolute or relative.
+monitoring_plugin_dir_local: ""
+monitoring_plugin_dir_remote: /opt/stackdriver/collectd/etc/collectd.d/
+
+monitoring_binary: /opt/stackdriver/collectd/sbin/stackdriver-collectd
