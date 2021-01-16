@@ -9,7 +9,7 @@ monitoring_service_name: stackdriver-agent
 # Local path to the config file to copy onto the remote server. Can be absolute or relative.
 monitoring_main_config_file: ""
 
-# Local path to the plugin dir whose contents will be copied onto the remote server. Can be absolute or relative.
+# Local path to the additonal config directory whose contents will be copied onto the remote server. Can be absolute or relative.
 monitoring_additional_config_dir: ""
 
 monitoring_binary: /opt/stackdriver/collectd/sbin/stackdriver-collectd
