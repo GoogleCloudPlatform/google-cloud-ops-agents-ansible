@@ -23,14 +23,20 @@ Role Variables
 --------------
 
 The monitoring agent can be configured by supplying a path to a custom
-configuration file using the variable `monitoring_config_file_local`.
+configuration file using the variable `monitoring_main_config_file`. On the
+target VMs, this custom configuration file will be deployed to the location at
+`/etc/stackdriver/collectd.conf`.
 
 For more information please see [Configuring the Cloud Monitoring agent](https://cloud.google.com/monitoring/agent/configuration).
 
-By default, no plugins are enabled, in which case the agent will only monitor
-certain system resources. Third party application monitoring can be configured
-by supplying a path to a directory containing plugin configuration files using
-the variable `monitoring_plugin_dir_local`.
+By default, the agent only monitors system resources like cpu, memory, disk etc.
+Third party application monitoring can be configured by supplying a path to a
+directory containing plugin configuration files using the variable
+`monitoring_additional_config_dir`. On the target VMs, all `.conf` files under
+this directory will be deployed to the location at
+`/etc/stackdriver/collectd.d`. The root level config file at
+`/etc/stackdriver/collectd.conf` should have a line that includes this
+directory.
 
 For more information please see [Monitoring third-party applications](https://cloud.google.com/monitoring/agent/plugins).
 

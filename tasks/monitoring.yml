@@ -28,22 +28,22 @@
 
 - name: Copy main config file onto the remote machine
   copy:
-    src: "{{ monitoring_config_file_local }}"
-    dest: "{{ monitoring_config_file_remote }}"
+    src: "{{ monitoring_main_config_file }}"
+    dest: /etc/stackdriver/collectd.conf
     force: yes
     mode: 0644
     validate: "{{ monitoring_binary }} -tC %s"
-  when: monitoring_config_file_local|length > 0
+  when: monitoring_main_config_file|length > 0
   notify: restart monitoring agent
 
-- name: Copy plugin configs onto the remote machine
+- name: Copy additional configs onto the remote machine
   copy:
     src: "{{ item }}"
-    dest: "{{ monitoring_plugin_dir_remote }}"
+    dest: /etc/stackdriver/collectd.d/
     force: yes
     mode: 0644
     validate: "{{ monitoring_binary }} -tC %s"
   with_fileglob:
-    - "{{ monitoring_plugin_dir_local }}/*.conf"
-  when: monitoring_plugin_dir_local|length > 0
+    - "{{ monitoring_additional_config_dir }}/*.conf"
+  when: monitoring_additional_config_dir|length > 0
   notify: restart monitoring agent
