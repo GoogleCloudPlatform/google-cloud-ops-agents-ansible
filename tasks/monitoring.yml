@@ -11,12 +11,12 @@
       dest: /tmp/add-monitoring-agent-repo.sh
       mode: 0755
 
-  - name: Add repo
+  - name: Add repo and install agent
     command:
       chdir: /tmp
       cmd: "bash add-monitoring-agent-repo.sh --also-install --version={{ version }}"
     environment:
-      CODENAME: "{{ ansible_distribution_release }}"
+      REPO_CODENAME: "{{ ansible_distribution_release }}"
     register: result
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart monitoring agent

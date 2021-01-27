@@ -23,8 +23,8 @@ Role Variables
 --------------
 
 A specific version of the agent can be installed by modifying the `version`
-variable. The allowed values are `latest-major` (default), `latest`,
-`MAJOR_VERSION.*.*` and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
+variable. The allowed values are `latest` (default), `MAJOR_VERSION.*.*`
+and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
 
 Example Playbook
 ----------------
