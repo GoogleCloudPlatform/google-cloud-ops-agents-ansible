@@ -3,3 +3,8 @@
   service:
     name: "{{ monitoring_service_name }}"
     state: restarted
+
+- name: restart logging agent
+  service:
+    name: "{{ logging_service_name }}"
+    state: restarted
