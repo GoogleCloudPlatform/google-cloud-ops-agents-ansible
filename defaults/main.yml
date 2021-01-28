@@ -13,4 +13,4 @@ logging_service_name: google-fluentd
 # Local path to the config file to copy onto the remote server. Can be absolute or relative.
 logging_main_config_file: ""
 
-logging_binary:
+logging_binary: /sbin/google-fluentd

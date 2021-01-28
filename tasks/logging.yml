@@ -41,6 +41,6 @@
     dest: /etc/google-fluentd/google-fluentd.conf
     force: yes
     mode: 0644
-    validate: "{{ logging_binary }} -tC %s"
+    validate: "{{ logging_binary }} --dry-run -c %s"
   when: logging_config_file_local|length > 0
   notify: restart logging agent
