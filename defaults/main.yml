@@ -5,3 +5,12 @@ package_state: "present"
 # default vars for the monitoring agent
 monitoring_package_name: stackdriver-agent
 monitoring_service_name: stackdriver-agent
+
+# Default vars for the logging agent
+logging_package_name: google-fluentd
+logging_service_name: google-fluentd
+
+# Local path to the config file to copy onto the remote server. Can be absolute or relative.
+logging_main_config_file: ""
+
+logging_binary:
