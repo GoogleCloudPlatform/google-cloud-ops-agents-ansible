@@ -37,10 +37,22 @@
 
 - name: Copy main config file onto the remote machine
   copy:
-    src: "{{ logging_config_file_local }}"
+    src: "{{ main_config_file }}"
     dest: /etc/google-fluentd/google-fluentd.conf
     force: yes
     mode: 0644
     validate: "{{ logging_binary }} --dry-run -c %s"
-  when: logging_config_file_local|length > 0
+  when: main_config_file|length > 0
+  notify: restart logging agent
+
+- name: Copy additional configs onto the remote machine
+  copy:
+    src: "{{ item }}"
+    dest: /etc/google-fluentd/plugin/
+    force: yes
+    mode: 0644
+    validate: "{{ logging_binary }} --dry-run -c %s"
+  with_fileglob:
+    - "{{ additional_config_dir }}/*.conf"
+  when: additional_config_dir|length > 0
   notify: restart logging agent

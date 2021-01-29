@@ -1,6 +1,11 @@
 ---
 agent_type: ""
-package_state: "present"
+version: latest
+package_state: present
+# Local path to the config file to copy onto the remote server. Can be absolute or relative.
+main_config_file: ""
+# Local path to the additonal config directory whose contents will be copied onto the remote server. Can be absolute or relative.
+additional_config_dir: ""
 
 # default vars for the monitoring agent
 monitoring_package_name: stackdriver-agent
@@ -9,8 +14,4 @@ monitoring_service_name: stackdriver-agent
 # Default vars for the logging agent
 logging_package_name: google-fluentd
 logging_service_name: google-fluentd
-
-# Local path to the config file to copy onto the remote server. Can be absolute or relative.
-logging_main_config_file: ""
-
 logging_binary: /sbin/google-fluentd
