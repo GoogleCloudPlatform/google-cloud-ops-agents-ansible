@@ -22,6 +22,10 @@ https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 Role Variables
 --------------
 
+A specific version of the agent can be installed by modifying the `version`
+variable. The allowed values are `latest` (default), `MAJOR_VERSION.*.*`
+and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
+
 The agents can be configured by supplying a path to a custom configuration
 file using the variable `main_config_file`. This custom configuration file will
 overwrite the configuration file on the target VM.
@@ -48,7 +52,9 @@ Example Playbook
     - role: cloud_ops
       vars:
         agent_type: monitoring
+        version: latest
         config_file_local: collectd.conf
+
 ```
 
 License
