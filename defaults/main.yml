@@ -1,6 +1,7 @@
 ---
 agent_type: ""
-package_state: "present"
+package_state: present
+version: latest-major
 
 # default vars for the monitoring agent
 monitoring_package_name: stackdriver-agent

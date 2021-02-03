@@ -19,6 +19,13 @@ Compute Engine instances created without the default credentials, then you must
 complete the following steps
 https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 
+Role Variables
+--------------
+
+A specific version of the agent can be installed by modifying the `version`
+variable. The allowed values are `latest` (default), `MAJOR_VERSION.*.*`
+and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
+
 Example Playbook
 ----------------
 
@@ -29,7 +36,8 @@ Example Playbook
   roles:
     - role: cloud_ops
       vars:
-        agent_type: "monitoring"
+        agent_type: monitoring
+        version: latest
 ```
 
 License
