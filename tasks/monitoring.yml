@@ -5,16 +5,23 @@
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
 - block:
+  - name: Create temp directory
+    tempfile:
+      path: /tmp
+      state: directory
+      suffix: cloud_ops_shell_scripts
+    register: tempfolder
+
   - name: Download script
     get_url:
       url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
-      dest: /tmp/add-monitoring-agent-repo.sh
+      dest: "{{ tempfolder.path }}/add-monitoring-agent-repo.sh"
       force: yes
       mode: 0755
 
   - name: Add repo
     command:
-      chdir: /tmp
+      chdir: "{{ tempfolder.path }}"
       cmd: bash add-monitoring-agent-repo.sh
     notify: restart monitoring agent
 
