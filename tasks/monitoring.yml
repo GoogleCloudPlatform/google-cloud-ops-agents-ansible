@@ -2,18 +2,26 @@
 - name: Validate package_state
   assert:
     that: package_state in ["present", "absent"]
-    msg: "Received invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role only supports the following package states: 'present' and 'absent'."
+    msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
 - block:
+  - name: Create temp directory
+    tempfile:
+      path: /tmp
+      state: directory
+      suffix: cloud_ops_shell_scripts
+    register: tempfolder
+
   - name: Download script
     get_url:
       url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
-      dest: /tmp/add-monitoring-agent-repo.sh
+      dest: "{{ tempfolder.path }}/add-monitoring-agent-repo.sh"
+      force: yes
       mode: 0755
 
   - name: Add repo and install agent
     command:
-      chdir: /tmp
+      chdir: "{{ tempfolder.path }}"
       cmd: "bash add-monitoring-agent-repo.sh --also-install --version={{ version }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
@@ -29,3 +37,25 @@
     state: "{{ package_state }}"
   when: package_state == "absent"
 #TODO(rmoriar1): Clean up the repo when package_state is absent.
+
+- name: Copy main config file onto the remote machine
+  copy:
+    src: "{{ main_config_file }}"
+    dest: /etc/stackdriver/collectd.conf
+    force: yes
+    mode: 0644
+    validate: "{{ monitoring_binary }} -tC %s"
+  when: main_config_file|length > 0
+  notify: restart monitoring agent
+
+- name: Copy additional configs onto the remote machine
+  copy:
+    src: "{{ item }}"
+    dest: /etc/stackdriver/collectd.d/
+    force: yes
+    mode: 0644
+    validate: "{{ monitoring_binary }} -tC %s"
+  with_fileglob:
+    - "{{ additional_config_dir }}/*.conf"
+  when: additional_config_dir|length > 0
+  notify: restart monitoring agent

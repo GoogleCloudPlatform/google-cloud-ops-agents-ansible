@@ -26,6 +26,21 @@ A specific version of the agent can be installed by modifying the `version`
 variable. The allowed values are `latest` (default), `MAJOR_VERSION.*.*`
 and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
 
+The agents can be configured by supplying a path to a custom configuration
+file using the variable `main_config_file`. This custom configuration file will
+overwrite the configuration file on the target VM.
+
+For more information please see [Configuring the Cloud Monitoring agent](https://cloud.google.com/monitoring/agent/configuration).
+
+By default, the agent only monitors and logs system resources like cpu, memory,
+disk etc. Third party application monitoring and logging can be configured by
+supplying a path to a directory containing plugin configuration files using the
+variable `additional_config_dir`. All `.conf` files under this directory will be
+deployed to the agent's plugin directory on the target VM. The main config file
+should have a line that includes this directory.
+
+For more information please see [Monitoring third-party applications](https://cloud.google.com/monitoring/agent/plugins).
+
 Example Playbook
 ----------------
 
@@ -38,6 +53,8 @@ Example Playbook
       vars:
         agent_type: monitoring
         version: latest
+        config_file_local: collectd.conf
+
 ```
 
 License
