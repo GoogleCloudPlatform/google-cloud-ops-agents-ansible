@@ -4,18 +4,19 @@
     that: package_state in ["present", "absent"]
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
-- name: Create directory for scripts
-  file:
-    path: /usr/local/bin/cloud_ops_scripts
-    state: directory
-    mode: 0755
+- name: Create temp directory
+    tempfile:
+      path: /tmp
+      state: directory
+    register: tempfolder
+    changed_when: false
 
 - name: Download script
-  get_url:
-    url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
-    dest: /usr/local/bin/cloud_ops_scripts/add-monitoring-agent-repo.sh
-    force: yes
-    mode: 0755
+    get_url:
+      url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
+      dest: "{{ tempfolder.path }}/add-logging-agent-repo.sh"
+      force: yes
+      mode: 0755
 
 - when: package_state == "present"
   block:
@@ -35,7 +36,7 @@
       dest: /etc/stackdriver/collectd.conf
       force: yes
       mode: 0644
-      validate: "{{ monitoring_binary }} -tC %s"
+      validate: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
     when: main_config_file|length > 0
     notify: restart monitoring agent
 
@@ -45,7 +46,7 @@
       dest: /etc/stackdriver/collectd.d/
       force: yes
       mode: 0644
-      validate: "{{ monitoring_binary }} -tC %s"
+      validate: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
     with_fileglob:
       - "{{ additional_config_dir }}/*.conf"
     when: additional_config_dir|length > 0
@@ -57,3 +58,9 @@
   register: result
   changed_when: "'No changes made.' not in result.stdout_lines"
   when: package_state == "absent"
+
+- name: Remove temp directory
+    file:
+      path: "{{ tempfolder.path }}"
+      state: absent
+    changed_when: false
