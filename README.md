@@ -22,6 +22,12 @@ https://cloud.google.com/monitoring/agent/authorization#before_you_begin
 Role Variables
 --------------
 
+The `agent_type` is a required variable used to specify which agent is being
+configured. The available options are `monitoring`, `logging` and `ops_agent`.
+
+The `package_state` variable can be used to specify the state you'd like the
+agent to be in. The allowed values are `present` (default) and `absent`.
+
 A specific version of the agent can be installed by modifying the `version`
 variable. The allowed values are `latest` (default), `MAJOR_VERSION.*.*`
 and `MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
