@@ -4,17 +4,25 @@
     that: package_state in ["present", "absent"]
     msg: "Received invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
-- block:
-  - name: Copy script onto remote machine
-    copy:
-      src: add-logging-agent-repo.sh
-      dest: /tmp/add-logging-agent-repo.sh
+when: package_state == 'present'
+  block:
+  - name: Create temp directory
+    tempfile:
+      path: /tmp
+      state: directory
+      suffix: cloud_ops_shell_scripts
+    register: tempfolder
+
+  - name: Download script
+    get_url:
+      url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
+      dest: "{{ tempfolder.path }}/add-logging-agent-repo.sh"
       force: yes
       mode: 0755
 
   - name: Add repo and install agent
     command:
-      chdir: /tmp
+      chdir: "{{ tempfolder.path }}"
       cmd: "bash add-logging-agent-repo.sh --also-install --version={{ version }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
@@ -22,17 +30,10 @@
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart logging agent
 
-  - name: print stdout
-    debug:
-      msg: '{{ result.stdout_lines }}'
-
-  when: package_state == "present"
-
 - name: Uninstall agent
   package:
-    name: "{{ logging_package_name }}"
+    name: google-fluent
     state: "{{ package_state }}"
-  when: package_state == "absent"
 #TODO(rmoriar1): Clean up the repo when package_state is absent.
 
 - name: Copy main config file onto the remote machine
@@ -41,7 +42,7 @@
     dest: /etc/google-fluentd/google-fluentd.conf
     force: yes
     mode: 0644
-    validate: "{{ logging_binary }} --dry-run -c %s"
+    validate: '/sbin/google-fluentd -tC %s'
   when: main_config_file|length > 0
   notify: restart logging agent
 
@@ -51,7 +52,7 @@
     dest: /etc/google-fluentd/plugin/
     force: yes
     mode: 0644
-    validate: "{{ logging_binary }} --dry-run -c %s"
+    validate: '/sbin/google-fluentd -tC %s'
   with_fileglob:
     - "{{ additional_config_dir }}/*.conf"
   when: additional_config_dir|length > 0

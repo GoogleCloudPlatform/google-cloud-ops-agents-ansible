@@ -21,6 +21,6 @@
 
 - name: Install or uninstall agent
   package:
-    name: "{{ monitoring_package_name }}"
+    name: stackdriver-agent
     state: "{{ package_state }}"
 #TODO(rmoriar1): Clean up the repo when package_state is absent.

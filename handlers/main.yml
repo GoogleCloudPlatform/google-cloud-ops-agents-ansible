@@ -1,10 +1,10 @@
 ---
 - name: restart monitoring agent
   service:
-    name: "{{ monitoring_service_name }}"
+    name: stackdriver-agent
     state: restarted
 
 - name: restart logging agent
   service:
-    name: "{{ logging_service_name }}"
+    name: google-fluentd
     state: restarted
