@@ -32,7 +32,7 @@ when: package_state == 'present'
 
 - name: Uninstall agent
   package:
-    name: google-fluent
+    name: google-fluentd
     state: "{{ package_state }}"
 #TODO(rmoriar1): Clean up the repo when package_state is absent.
 
