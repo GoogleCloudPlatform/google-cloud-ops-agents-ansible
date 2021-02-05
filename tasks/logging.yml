@@ -2,7 +2,7 @@
 - name: Validate package_state
   assert:
     that: package_state in ["present", "absent"]
-    msg: "Received invalid pacakge state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
+    msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
 when: package_state == 'present'
   block:
@@ -36,30 +36,29 @@ when: package_state == 'present'
       state: absent
     changed_when: false
 
+  - name: Copy main config file onto the remote machine
+    copy:
+      src: "{{ main_config_file }}"
+      dest: /etc/google-fluentd/google-fluentd.conf
+      force: yes
+      mode: 0644
+      validate: '/sbin/google-fluentd -tC %s'
+    when: main_config_file|length > 0
+    notify: restart logging agent
+
+  - name: Copy additional configs onto the remote machine
+    copy:
+      src: "{{ item }}"
+      dest: /etc/google-fluentd/plugin/
+      force: yes
+      mode: 0644
+      validate: '/sbin/google-fluentd -tC %s'
+    with_fileglob:
+      - "{{ additional_config_dir }}/*.conf"
+    when: additional_config_dir|length > 0
+    notify: restart logging agent
+
 - name: Uninstall agent
   package:
     name: google-fluentd
     state: "{{ package_state }}"
-#TODO(rmoriar1): Clean up the repo when package_state is absent.
-
-- name: Copy main config file onto the remote machine
-  copy:
-    src: "{{ main_config_file }}"
-    dest: /etc/google-fluentd/google-fluentd.conf
-    force: yes
-    mode: 0644
-    validate: '/sbin/google-fluentd -tC %s'
-  when: main_config_file|length > 0
-  notify: restart logging agent
-
-- name: Copy additional configs onto the remote machine
-  copy:
-    src: "{{ item }}"
-    dest: /etc/google-fluentd/plugin/
-    force: yes
-    mode: 0644
-    validate: '/sbin/google-fluentd -tC %s'
-  with_fileglob:
-    - "{{ additional_config_dir }}/*.conf"
-  when: additional_config_dir|length > 0
-  notify: restart logging agent
