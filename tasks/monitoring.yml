@@ -50,6 +50,7 @@
     with_fileglob:
       - "{{ additional_config_dir }}/*.conf"
     when: additional_config_dir|length > 0
+    notify: restart monitoring agent
 
 - when: package_state == 'absent'
   block:
