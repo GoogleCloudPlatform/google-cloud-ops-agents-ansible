@@ -22,7 +22,7 @@
   block:
   - name: Add repo and install agent
     command:
-      chdir: /usr/local/bin/cloud_ops_scripts/
+      chdir: "{{ tempfolder.path }}"
       cmd: "bash add-monitoring-agent-repo.sh --also-install --version={{ version }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
