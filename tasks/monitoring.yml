@@ -54,7 +54,7 @@
 - name: Uninstall agent and remove repo
   command:
     chdir: /usr/local/bin/cloud_ops_scripts/
-    cmd: bash add-monitoring-agent-repo.sh --uninstall
+    cmd: bash add-monitoring-agent-repo.sh --uninstall --remove_repo
   register: result
   changed_when: "'No changes made.' not in result.stdout_lines"
   when: package_state == "absent"
