@@ -13,9 +13,8 @@
 
 - name: Download script
     get_url:
-      url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
-      dest: "{{ tempfolder.path }}/add-logging-agent-repo.sh"
-      force: yes
+      url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
+      dest: "{{ tempfolder.path }}/add-monitoring-agent-repo.sh"
       mode: 0755
 
 - when: package_state == "present"
@@ -53,7 +52,7 @@
 
 - name: Uninstall agent and remove repo
   command:
-    chdir: /usr/local/bin/cloud_ops_scripts/
+    chdir: "{{ tempfolder.path }}"
     cmd: bash add-monitoring-agent-repo.sh --uninstall --remove_repo
   register: result
   changed_when: "'No changes made.' not in result.stdout_lines"
