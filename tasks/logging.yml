@@ -17,8 +17,9 @@
     url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
     dest: "{{ tempfolder.path }}/add-logging-agent-repo.sh"
     mode: 0755
+  changed_when: false
 
-when: package_state == 'present'
+- when: package_state == 'present'
   block:
   - name: Add repo and install agent
     command:
@@ -52,7 +53,8 @@ when: package_state == 'present'
     when: additional_config_dir|length > 0
     notify: restart logging agent
 
-when: package_state == 'absent'
+- when: package_state == 'absent'
+  block:
   - name: Uninstall agent and remove repo
   command:
     chdir: "{{ tempfolder.path }}"
@@ -65,9 +67,4 @@ when: package_state == 'absent'
       path: "{{ tempfolder.path }}"
       state: absent
     changed_when: false
-
-- name: Remove temp directory
-  file:
-    path: "{{ tempfolder.path }}"
-    state: absent
   changed_when: false
