@@ -8,6 +8,7 @@
   tempfile:
     path: /tmp
     state: directory
+    suffix: cloud_ops_shell_scripts
   register: tempfolder
   changed_when: false
 
@@ -18,7 +19,7 @@
     mode: 0755
   changed_when: false
 
-- when: package_state == "present"
+- when: package_state == 'present'
   block:
   - name: Add repo and install agent
     command:

@@ -30,21 +30,40 @@ agent. The allowed values are `present` (default) and `absent`.
 
 The `version` variable can be used to specify which version of the agent to
 install. The allowed values are `latest` (default), `MAJOR_VERSION.*.*` and
-`MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`.
+`MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION`, which are described in detail
+below.
+
+`version=latest` This setting makes it easier to keep the agent version up to
+date, however it does come with a potential risk. When a new major version is
+released, the policy may install the latest version of the agent from the new
+major release, which may introduce breaking changes. For production
+environments, consider using `version=MAJOR_VERSION.*.*` setting below for safer
+agent deployments.
+
+`version=MAJOR_VERSION.*.*` When a new major release is out, this setting
+ensures that only the latest version from the specified major version is
+installed, which avoids accidentally introducing breaking changes. This is
+recommended for production environments to ensure safer agent deployments.
+
+`version=MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION` This setting is not
+recommended since it prevents upgrades of new versions of the agent that include
+bug fixes and other improvements.
 
 The `main_config_file` variable can be used to supply a path to a custom
 configuration file. This file will overwrite the configuration file on the
 target VM.
 
-For more information please see [Configuring the Cloud Monitoring agent](https://cloud.google.com/monitoring/agent/configuration).
+For more information please see [Configuring the Cloud Monitoring
+agent](https://cloud.google.com/monitoring/agent/configuration).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
 disk etc. The `additional_config_dir` variable can be used to enable third party
-application monitoring and logging. All `.conf` files under this directory will be
-deployed to the agent's plugin directory on the target VM. The main config file
-should have a line that includes this directory.
+application monitoring and logging. All `.conf` files under this directory will
+be deployed to the agent's plugin directory on the target VM. The main config
+file should have a line that includes this directory.
 
-For more information please see [Monitoring third-party applications](https://cloud.google.com/monitoring/agent/plugins).
+For more information please see [Monitoring third-party
+applications](https://cloud.google.com/monitoring/agent/plugins).
 
 Example Playbook
 ----------------
