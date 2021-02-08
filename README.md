@@ -37,8 +37,8 @@ below.
 date, however it does come with a potential risk. When a new major version is
 released, the policy may install the latest version of the agent from the new
 major release, which may introduce breaking changes. For production
-environments, consider using `version=MAJOR_VERSION.*.*` setting below for safer
-agent deployments.
+environments, consider using the `version=MAJOR_VERSION.*.*` setting below for
+safer agent deployments.
 
 `version=MAJOR_VERSION.*.*` When a new major release is out, this setting
 ensures that only the latest version from the specified major version is
@@ -53,8 +53,12 @@ The `main_config_file` variable can be used to supply an absolute or relative
 path to a custom configuration file. This file will overwrite the configuration
 file on the target VM.
 
-For more information please see [Configuring the Cloud Monitoring
-agent](https://cloud.google.com/monitoring/agent/configuration).
+For more information please see [Configuring the Monitoring
+Agent](https://cloud.google.com/monitoring/agent/configuration), [Configuring
+the Logging
+Agent](https://cloud.google.com/logging/docs/agent/configuration?hl=en#configure)
+or [Configuring the Ops
+Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration?hl=en)
 
 By default, the agent only monitors and logs system resources like cpu, memory,
 disk etc. The `additional_config_dir` variable can be used to supply an absolute
