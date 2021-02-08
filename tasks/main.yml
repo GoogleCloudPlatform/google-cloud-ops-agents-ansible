@@ -1,7 +1,7 @@
 ---
 - name: Fail if agent type is not supported
   assert:
-    that: agent_type in ["monitoring"]
+    that: agent_type in ['monitoring', 'logging']
     msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role only supports the following agents: 'monitoring', 'logging' and 'ops_agent'."
 
 - name: Call agent-specific playbook
