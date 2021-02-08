@@ -17,13 +17,13 @@ Requirements
 Permissions to Google Cloud API. If running on an old Compute Engine instance or
 Compute Engine instances created without the default credentials, then you must
 complete the following steps
-https://cloud.google.com/monitoring/agent/authorization#before_you_begin
+https://cloud.google.com/monitoring/agent/authorization#before_you_begin.
 
 Role Variables
 --------------
 
 The `agent_type` is a required variable used to specify which agent is being
-configured. The available options are `monitoring`, `logging` and `ops_agent`.
+configured. The available options are `monitoring`, `logging` and `ops-agent`.
 
 The `package_state` variable can be used to specify the desired state of the
 agent. The allowed values are `present` (default) and `absent`.
@@ -53,7 +53,7 @@ The `main_config_file` variable can be used to supply an absolute or relative
 path to a custom configuration file. This file will overwrite the configuration
 file on the target VM.
 
-For more information please see [Configuring the Monitoring
+For more information, please see [Configuring the Monitoring
 Agent](https://cloud.google.com/monitoring/agent/configuration), [Configuring
 the Logging
 Agent](https://cloud.google.com/logging/docs/agent/configuration?hl=en#configure)
@@ -67,7 +67,7 @@ monitoring and logging. All `.conf` files under this directory will be deployed
 to the agent's plugin directory on the target VM. The main config file should
 have a line that includes this directory.
 
-For more information please see [Monitoring third-party
+For more information, please see [Monitoring third-party
 applications](https://cloud.google.com/monitoring/agent/plugins).
 
 Example Playbook
