@@ -1,5 +1,5 @@
 Ansible Role for Cloud Ops
-============================
+==========================
 
 This Ansible role installs the Cloud Ops monitoring agent (which is based on
 `collectd`).
@@ -49,18 +49,19 @@ recommended for production environments to ensure safer agent deployments.
 recommended since it prevents upgrades of new versions of the agent that include
 bug fixes and other improvements.
 
-The `main_config_file` variable can be used to supply a path to a custom
-configuration file. This file will overwrite the configuration file on the
-target VM.
+The `main_config_file` variable can be used to supply an absolute or relative
+path to a custom configuration file. This file will overwrite the configuration
+file on the target VM.
 
 For more information please see [Configuring the Cloud Monitoring
 agent](https://cloud.google.com/monitoring/agent/configuration).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
-disk etc. The `additional_config_dir` variable can be used to enable third party
-application monitoring and logging. All `.conf` files under this directory will
-be deployed to the agent's plugin directory on the target VM. The main config
-file should have a line that includes this directory.
+disk etc. The `additional_config_dir` variable can be used to supply an absolute
+or relative path to a directory containing plugins for third party application
+monitoring and logging. All `.conf` files under this directory will be deployed
+to the agent's plugin directory on the target VM. The main config file should
+have a line that includes this directory.
 
 For more information please see [Monitoring third-party
 applications](https://cloud.google.com/monitoring/agent/plugins).
@@ -80,7 +81,6 @@ Example Playbook
         version: latest
         config_file_local: collectd.conf
         additional_config_dir: plugins/
-
 ```
 
 License
@@ -89,15 +89,14 @@ License
 ```
 Copyright 2020 Google Inc. All rights reserved.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License.  You may obtain a copy of the
+License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations under the License.
 ```
