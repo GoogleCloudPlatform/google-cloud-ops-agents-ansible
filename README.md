@@ -58,7 +58,7 @@ Agent](https://cloud.google.com/monitoring/agent/configuration), [Configuring
 the Logging
 Agent](https://cloud.google.com/logging/docs/agent/configuration?hl=en#configure)
 or [Configuring the Ops
-Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration?hl=en)
+Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration?hl=en).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
 disk etc. The `additional_config_dir` variable can be used to supply an absolute
