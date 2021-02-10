@@ -26,7 +26,7 @@
   - name: Add repo and install agent
     command:
       chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-monitoring-agent-repo.sh --also-install --version={{ version }} { '--dry-run' if ansible_check_mode else '' }"
+      cmd: "bash add-monitoring-agent-repo.sh --also-install --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
     register: result
@@ -61,7 +61,7 @@
   - name: Uninstall agent and remove repo
     command:
       chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-monitoring-agent-repo.sh --uninstall --remove_repo { '--dry-run' if ansible_check_mode else '' }"
+      cmd: "bash add-monitoring-agent-repo.sh --uninstall --remove_repo {{ '--dry-run' if ansible_check_mode else '' }}"
     register: result
     check_mode: no
     changed_when: "'No changes made.' not in result.stdout_lines"
