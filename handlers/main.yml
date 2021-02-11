@@ -3,3 +3,4 @@
   service:
     name: stackdriver-agent
     state: restarted
+  when: not ansible_check_mode
