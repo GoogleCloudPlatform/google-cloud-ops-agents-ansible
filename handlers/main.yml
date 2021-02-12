@@ -8,3 +8,4 @@
   service:
     name: google-fluentd
     state: restarted
+  when: not ansible_check_mode

@@ -9,7 +9,9 @@
   tempfile:
     path: /tmp
     state: directory
+    suffix: cloud_ops_shell_scripts
   register: tempfolder
+  check_mode: no
   changed_when: false
 
 - name: Download script
@@ -17,6 +19,7 @@
     url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
     dest: "{{ tempfolder.path }}/add-logging-agent-repo.sh"
     mode: 0755
+  check_mode: no
   changed_when: false
 
 - when: package_state == 'present'
@@ -24,10 +27,11 @@
   - name: Add repo and install agent
     command:
       chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-logging-agent-repo.sh --also-install --version={{ version }}"
+      cmd: "bash add-logging-agent-repo.sh --also-install --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
     register: result
+    check_mode: no
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart logging agent
 
@@ -58,13 +62,14 @@
   - name: Uninstall agent and remove repo
   command:
     chdir: "{{ tempfolder.path }}"
-    cmd: bash add-logging-agent-repo.sh --uninstall --remove_repo
+    cmd: "bash add-logging-agent-repo.sh --uninstall --remove_repo {{ 'dry-run' if ansible_check_mode else '' }}"
   register: result
+  check_mode: no
   changed_when: "'No changes made.' not in result.stdout_lines"
 
 - name: Remove temp directory
-    file:
-      path: "{{ tempfolder.path }}"
-      state: absent
-    changed_when: false
+  file:
+    path: "{{ tempfolder.path }}"
+    state: absent
+  check_mode: no
   changed_when: false
