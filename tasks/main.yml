@@ -1,8 +1,8 @@
 ---
 - name: Validate agent_type
   assert:
-    that: agent_type in ["monitoring"]
-    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following agents: 'monitoring', 'logging' and 'ops_agent'."
+    that: agent_type in ['monitoring', 'ops-agent']
+    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following agents: 'monitoring', 'logging' and 'ops-agent'."
 
 - name: Call agent-specific playbook
   include_tasks: "{{ agent_type }}.yml"
