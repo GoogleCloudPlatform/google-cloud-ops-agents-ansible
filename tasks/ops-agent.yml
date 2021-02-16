@@ -4,6 +4,11 @@
     that: package_state in ['present', 'absent']
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
+- name: Ensure no additional config directory was specified
+  assert:
+    that: additional_config_dir|length == 0
+    msg: 'The ops agent does not support additional configurations.'
+
 - name: Create temp directory
   tempfile:
     path: /tmp

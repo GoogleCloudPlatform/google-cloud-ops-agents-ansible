@@ -37,7 +37,8 @@ disk etc. Third party application monitoring and logging can be configured by
 supplying a path to a directory containing plugin configuration files using the
 variable `additional_config_dir`. All `.conf` files under this directory will be
 deployed to the agent's plugin directory on the target VM. The main config file
-should have a line that includes this directory.
+should have a line that includes this directory. Note this variable can only be
+specified when configuring the monitoring or logging agents.
 
 For more information please see [Monitoring third-party applications](https://cloud.google.com/monitoring/agent/plugins).
 
