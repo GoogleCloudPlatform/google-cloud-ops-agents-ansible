@@ -1,0 +1,44 @@
+---
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  test:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - geerlingguy/docker-centos7-ansible
+          - geerlingguy/docker-centos8-ansible
+          - geerlingguy/docker-ubi8-ansible
+          - geerlingguy/docker-amazonlinux2-ansible
+          - geerlingguy/docker-debian9-ansible
+          - geerlingguy/docker-debian10-ansible
+          - geerlingguy/docker-ubuntu1604-ansible
+          - geerlingguy/docker-ubuntu1804-ansible
+          - geerlingguy/docker-ubuntu2004-ansible
+
+    steps:
+      - name: Checkout the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install molecule[docker] docker yamllint ansible-lint
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}

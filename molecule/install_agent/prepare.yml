@@ -1,17 +1,21 @@
 ---
+# Install dependencies needed in order to successfully run the shell script
 - name: Prepare
   hosts: all
   tasks:
-    - name: print os
-      debug:
-        msg: "{{ ansible_os_family }}"
+    - name: Install python2
+      yum:
+        name: python2
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
 
     - name: Install curl
       apt:
         name: curl
         state: present
         update_cache: yes
-      when: ansible_os_family == "Ubuntu"
+      when: ansible_os_family == "Debian"
 
     - name: Install apt-utils
       apt:
@@ -20,36 +24,21 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Instal gnupg
+    - name: Install gnupg
       apt:
         name: gnupg
         state: present
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-#    - name: Install collectd
-#      yum:
-#        name: epel-release
-#        state: present
-#      when: ansible_os_family == "RedHat"
-
-#    - name: Install collectd
-#      apt:
-#        name: collectd
-#        state: present
-#        update_cache: yes
-#      when: ansible_os_family == "Debian"
-
     - name: Create credentials directory
       file:
         path: /etc/google/auth/
         state: directory
+        mode: 0644
 
     - name: Touch credentials file
       copy:
         content: ""
         dest: /etc/google/auth/application_default_credentials.json
-
-    - name: debug
-      debug:
-        msg: "{{ ansible_service_mgr }}"
+        mode: 0644
