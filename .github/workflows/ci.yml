@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        scenario:
+          - install_agent
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -37,7 +39,7 @@ jobs:
         run: pip3 install molecule[docker] docker yamllint ansible-lint
 
       - name: Run Molecule tests.
-        run: molecule test
+        run: molecule test -s ${{ matrix.scenario }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
