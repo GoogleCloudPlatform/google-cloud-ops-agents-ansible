@@ -3,3 +3,4 @@
   service:
     name: stackdriver-agent
     state: restarted
+    use: "{{ ansible_service_mgr if not testing else 'service' }}"

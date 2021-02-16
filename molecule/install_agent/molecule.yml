@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+#  ansible-lint .
+platforms:
+  - name: instance
+    image: docker.io/${MOLECULE_DISTRO:-centos:8}
+#    command: "/usr/sbin/init"
+#    capabilities:
+#      - SYS_ADMIN
+    pre_build_image: true
+provisioner:
+  name: ansible
+  options:
+    skip-tags: molecule-notest
+verifier:
+  name: ansible

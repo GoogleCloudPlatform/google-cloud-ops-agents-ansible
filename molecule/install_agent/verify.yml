@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Ensure the agent is present
+      package:
+        name: stackdriver-agent
+        state: absent
+
+    - name: Ensure the agent has started
+      service:
+        name: stackdriver-agent
+        state: stopped
+        use: service

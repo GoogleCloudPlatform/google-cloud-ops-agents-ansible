@@ -1,0 +1,55 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: print os
+      debug:
+        msg: "{{ ansible_os_family }}"
+
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Ubuntu"
+
+    - name: Install apt-utils
+      apt:
+        name: apt-utils
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Instal gnupg
+      apt:
+        name: gnupg
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+#    - name: Install collectd
+#      yum:
+#        name: epel-release
+#        state: present
+#      when: ansible_os_family == "RedHat"
+
+#    - name: Install collectd
+#      apt:
+#        name: collectd
+#        state: present
+#        update_cache: yes
+#      when: ansible_os_family == "Debian"
+
+    - name: Create credentials directory
+      file:
+        path: /etc/google/auth/
+        state: directory
+
+    - name: Touch credentials file
+      copy:
+        content: ""
+        dest: /etc/google/auth/application_default_credentials.json
+
+    - name: debug
+      debug:
+        msg: "{{ ansible_service_mgr }}"

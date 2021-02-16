@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include stackdriver-ansible-role"
+      include_role:
+        name: "stackdriver-ansible-role"
+      vars:
+        agent_type: "monitoring"
+        testing: true

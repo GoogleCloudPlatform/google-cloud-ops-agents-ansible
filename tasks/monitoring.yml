@@ -34,6 +34,10 @@
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart monitoring agent
 
+  - name: debug
+    debug:
+      msg: "{{ result.stdout_lines }}"
+
   - name: Copy main config file onto the remote machine
     copy:
       src: "{{ main_config_file }}"
