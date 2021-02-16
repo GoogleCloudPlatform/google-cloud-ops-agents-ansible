@@ -4,7 +4,7 @@
   tasks:
     - name: Include cloud_ops role
       include_role:
-        name: 'cloud_ops'
+        name: 'stackdriver-ansible-role'
       vars:
-        agent_type: "monitoring"
+        agent_type: 'monitoring'
         testing: true
