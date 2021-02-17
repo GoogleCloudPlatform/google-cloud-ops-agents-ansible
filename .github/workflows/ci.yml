@@ -20,6 +20,7 @@ jobs:
         scenario:
           - install_agent
         # - uninstall_agent
+
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -32,7 +33,7 @@ jobs:
           - geerlingguy/docker-ubuntu2004-ansible
         include:
           - agent_type: monitoring
-          - scenario: install_agent
+            scenario: install_agent
             version:
               - latest
               - 6.*.*
