@@ -15,9 +15,11 @@ jobs:
       matrix:
         agent_type:
           - monitoring
+        # - logging
+        # - ops-agent
         scenario:
           - install_agent
-          - uninstall_agent
+        # - uninstall_agent
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -28,6 +30,22 @@ jobs:
           - geerlingguy/docker-ubuntu1604-ansible
           - geerlingguy/docker-ubuntu1804-ansible
           - geerlingguy/docker-ubuntu2004-ansible
+        include:
+          - agent_type: monitoring
+            version:
+              - latest
+              - 6.*.*
+              - 6.1.0
+          - agent_type: logging
+            version:
+              - latest
+              - 1.*.*
+              - 1.7.0
+          - agent_type: ops-agent
+            version:
+              - latest
+              - 1.*.*
+              - 1.1.0
 
     steps:
       - name: Checkout the codebase.
@@ -46,5 +64,6 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          AGENT_TYPE: ${{ matrix.agent_type }}
           MOLECULE_DISTRO: ${{ matrix.distro }}
+          AGENT_TYPE: ${{ matrix.agent_type }}
+          VERSION: ${{ matrix.version }}

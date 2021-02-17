@@ -8,4 +8,5 @@
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
+        version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
         testing: True
