@@ -7,23 +7,12 @@
     package_name: "{{ 'stackdriver-agent' if agent_type=='monitoring' else 'google-fluentd' if agent_type == 'logging' else 'google-cloud-ops-agent' }}"
 
   tasks:
-    - name: Ensure the agent is present
+    - name: Ensure the agent is absent
       package:
         name: "{{ package_name }}"
-        state: present
+        state: absent
       register: result
 
-    - name: Assert the agent was already present
-      assert:
-        that: result.changed == false
-
-    - name: Ensure the agent has started
-      service:
-        name: "{{ package_name }}"
-        state: started
-        use: service
-      register: result
-
-    - name: Assert the agent was already running
+    - name: Assert the agent was already absent
       assert:
         that: result.changed == false

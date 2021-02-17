@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        agent_type:
+          - monitoring
         scenario:
           - install_agent
+          - uninstall_agent
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -43,4 +46,5 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+          AGENT_TYPE: ${{ matrix.agent_type }}
           MOLECULE_DISTRO: ${{ matrix.distro }}
