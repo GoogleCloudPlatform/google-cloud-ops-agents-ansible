@@ -32,16 +32,19 @@ jobs:
           - geerlingguy/docker-ubuntu2004-ansible
         include:
           - agent_type: monitoring
+          - scenario: install_agent
             version:
               - latest
               - 6.*.*
               - 6.1.0
           - agent_type: logging
+          - scenario: install_agent
             version:
               - latest
               - 1.*.*
               - 1.7.0
           - agent_type: ops-agent
+          - scenario: install_agent
             version:
               - latest
               - 1.*.*
