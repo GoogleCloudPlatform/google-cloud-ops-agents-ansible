@@ -69,4 +69,4 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
           AGENT_TYPE: ${{ matrix.agent_type }}
-          VERSION: ${{ matrix.version }}
+          VERSION: ${{ matrix.include.version }}
