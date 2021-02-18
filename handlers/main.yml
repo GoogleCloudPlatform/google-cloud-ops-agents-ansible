@@ -3,3 +3,4 @@
   service:
     name: "{{ monitoring_service_name }}"
     state: restarted
+    use: "{{ ansible_service_mgr if not testing else 'service' }}"
