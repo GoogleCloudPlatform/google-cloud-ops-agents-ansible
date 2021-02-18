@@ -22,18 +22,19 @@
   check_mode: no
   changed_when: false
 
-- when: package_state == 'present'
-  block:
-  - name: Add repo and install agent
+  - name: Add repo and install agent or remove repo and uninstall agent
     command:
       chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-logging-agent-repo.sh --also-install --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
+      cmd: "bash add-logging-agent-repo.sh (( '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
     register: result
     check_mode: no
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart logging agent
+
+- when: package_state == 'present'
+  block:
 
   - name: Copy main config file onto the remote machine
     copy:
@@ -42,7 +43,7 @@
       force: yes
       mode: 0644
       validate: '/sbin/google-fluentd -tC %s'
-    when: main_config_file|length > 0
+    when: main_config_file
     notify: restart logging agent
 
   - name: Copy additional configs onto the remote machine
@@ -54,18 +55,8 @@
       validate: '/sbin/google-fluentd -tC %s'
     with_fileglob:
       - "{{ additional_config_dir }}/*.conf"
-    when: additional_config_dir|length > 0
+    when: additional_config_dir
     notify: restart logging agent
-
-- when: package_state == 'absent'
-  block:
-  - name: Uninstall agent and remove repo
-    command:
-      chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-logging-agent-repo.sh --uninstall --remove_repo {{ 'dry-run' if ansible_check_mode else '' }}"
-    register: result
-    check_mode: no
-    changed_when: "'No changes made.' not in result.stdout_lines"
 
 - name: Remove temp directory
   file:
