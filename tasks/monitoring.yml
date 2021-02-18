@@ -41,7 +41,7 @@
       force: yes
       mode: 0644
       validate: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
-    when: main_config_file|length > 0
+    when: main_config_file
     notify: restart monitoring agent
 
   - name: Copy additional configs onto the remote machine
@@ -53,7 +53,7 @@
       validate: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
     with_fileglob:
       - "{{ additional_config_dir }}/*.conf"
-    when: additional_config_dir|length > 0
+    when: additional_config_dir
     notify: restart monitoring agent
 
 - name: Remove temp directory
