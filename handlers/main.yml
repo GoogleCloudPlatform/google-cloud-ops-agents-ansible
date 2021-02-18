@@ -8,4 +8,4 @@
   service:
     name: google-cloud-ops-agent
     state: restarted
-  when: not ansible_check_mode
+  when: package_state == 'present' and not ansible_check_mode

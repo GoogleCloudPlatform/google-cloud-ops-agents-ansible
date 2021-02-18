@@ -6,7 +6,7 @@
 
 - name: Ensure no additional config directory was specified
   assert:
-    that: additional_config_dir|length == 0
+    that: not additional_config_dir
     msg: 'The ops agent does not support additional configurations.'
 
 - name: Create temp directory
@@ -26,12 +26,10 @@
   check_mode: no
   changed_when: false
 
-- when: package_state == 'present'
-  block:
-  - name: Add repo and install agent
+  - name: Add repo and install agent or remove repo and uninstall agent
     command:
       chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-google-cloud-ops-agent-repo.sh --also-install --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
+      cmd: "bash add-google-cloud-ops-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
     environment:
       REPO_CODENAME: "{{ ansible_distribution_release }}"
     register: result
@@ -39,6 +37,8 @@
     changed_when: "'No changes made.' not in result.stdout_lines"
     notify: restart google-cloud-ops agent
 
+- when: package_state == 'present'
+  block:
   - name: Copy main config file onto the remote machine
     copy:
       src: "{{ main_config_file }}"
@@ -46,18 +46,8 @@
       force: yes
       mode: 0644
       validate: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/collectd -tC %s; /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit -c %s'
-    when: main_config_file|length > 0
+    when: main_config_file
     notify: restart google-cloud-ops agent
-
-- when: package_state == 'absent'
-  block:
-  - name: Uninstall agent and remove repo
-    command:
-      chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-google-cloud-ops-agent-repo.sh --uninstall --remove_repo {{ 'dry-run' if ansible_check_mode else '' }}"
-    register: result
-    check_mode: no
-    changed_when: "'No changes made.' not in result.stdout_lines"
 
 - name: Remove temp directory
   file:
