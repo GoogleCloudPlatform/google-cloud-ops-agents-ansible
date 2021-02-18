@@ -20,7 +20,13 @@ jobs:
         scenario:
           - install_agent
         # - uninstall_agent
-
+        version:
+          - latest
+          - 6.*.*
+          - 6.1.0
+          - 1.*.*
+          - 1.7.0
+          - 1.1.0
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -31,25 +37,9 @@ jobs:
           - geerlingguy/docker-ubuntu1604-ansible
           - geerlingguy/docker-ubuntu1804-ansible
           - geerlingguy/docker-ubuntu2004-ansible
-        include:
+        exclude:
           - agent_type: monitoring
-            scenario: install_agent
-            version:
-              - latest
-              - 6.*.*
-              - 6.1.0
-        #   - agent_type: logging
-        #  - scenario: install_agent
-        #    version:
-        #      - latest
-        #      - 1.*.*
-        #      - 1.7.0
-        #  - agent_type: ops-agent
-        #  - scenario: install_agent
-        #    version:
-        #      - latest
-        #      - 1.*.*
-        #      - 1.1.0
+            version: [1.*.*, 1.7.0, 1.1.0]
 
     steps:
       - name: Checkout the codebase.
