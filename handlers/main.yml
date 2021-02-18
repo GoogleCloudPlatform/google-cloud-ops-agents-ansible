@@ -3,6 +3,7 @@
   service:
     name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
+    use: "{{ ansible_service_mgr if not testing else 'service' }}"
   when: package_state == 'present' and not ansible_check_mode
 
 # vars['*'] syntax is needed when referencing variables with names containing `-`
@@ -10,4 +11,5 @@
   service:
     name: "{{ vars['google-cloud-ops_service_name'] }}"
     state: restarted
+    use: "{{ ansible_service_mgr if not testing else 'service' }}"
   when: package_state == 'present' and not ansible_check_mode
