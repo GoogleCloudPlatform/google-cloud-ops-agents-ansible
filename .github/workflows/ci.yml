@@ -19,7 +19,7 @@ jobs:
           - ops-agent
         scenario:
           - install_agent
-        # - uninstall_agent
+          - uninstall_agent
         version:
           - latest
           - 6.*.*
