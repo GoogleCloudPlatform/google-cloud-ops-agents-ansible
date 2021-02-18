@@ -3,16 +3,12 @@
   service:
     name: stackdriver-agent
     state: restarted
+  use: "{{ ansible_service_mgr if not testing else 'service' }}"
   when: package_state == 'present' and not ansible_check_mode
 
 - name: restart logging agent
   service:
     name: google-fluentd
     state: restarted
-  when: package_state == 'present' and not ansible_check_mode
-
-- name: restart google-cloud-ops agent
-  service:
-    name: google-cloud-ops-agent
-    state: restarted
+  use: "{{ ansible_service_mgr if not testing else 'service' }}"
   when: package_state == 'present' and not ansible_check_mode

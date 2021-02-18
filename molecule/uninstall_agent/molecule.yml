@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint . -w role-name
+platforms:
+  - name: instance
+    image: ${MOLECULE_DISTRO:-geerlingguy/docker-debian10-ansible}
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
