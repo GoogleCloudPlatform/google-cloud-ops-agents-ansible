@@ -1,18 +1,6 @@
 ---
-- name: restart monitoring agent
+- name: "restart {{ agent_type }} agent"
   service:
-    name: stackdriver-agent
-    state: restarted
-  when: package_state == 'present' and not ansible_check_mode
-
-- name: restart logging agent
-  service:
-    name: google-fluentd
-    state: restarted
-  when: package_state == 'present' and not ansible_check_mode
-
-- name: restart google-cloud-ops agent
-  service:
-    name: google-cloud-ops-agent
+    name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
   when: package_state == 'present' and not ansible_check_mode

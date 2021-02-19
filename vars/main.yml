@@ -1,0 +1,15 @@
+---
+monitoring_service_name: stackdriver-agent
+monitoring_config_path: /etc/stackdriver/collectd.conf
+monitoring_plugins_path: /etc/stackdriver/collectd.d/
+monitoring_validation_cmd: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
+
+logging_service_name: google-fluentd
+logging_config_path: /etc/google-fluentd/google-fluentd.conf
+logging_plugins_path: /etc/google-fluentd/plugin/
+logging_validation_cmd: '/sbin/google-fluentd -tC %s'
+
+google-cloud-ops_service_name: google-cloud-ops-agent
+google-cloud-ops_config_path: /etc/google-cloud-ops-agent/config.yaml
+google-cloud-ops_validation_cmd: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/collectd -tC %s; /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit -c %s'
+
