@@ -1,8 +1,15 @@
 ---
 - name: restart monitoring agent
   service:
-    name: "{{ monitoring_service_name }}"
+    name: stackdriver-agent
     state: restarted
+  when: package_state == 'present' and not ansible_check_mode
+
+- name: restart logging agent
+  service:
+    name: google-fluentd
+    state: restarted
+  when: package_state == 'present' and not ansible_check_mode
 
 - name: restart google-cloud-ops agent
   service:
