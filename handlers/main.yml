@@ -1,5 +1,6 @@
 ---
 - name: restart monitoring agent
   service:
-    name: "{{ monitoring_service_name }}"
+    name: stackdriver-agent
     state: restarted
+  when: package_state == 'present' and not ansible_check_mode
