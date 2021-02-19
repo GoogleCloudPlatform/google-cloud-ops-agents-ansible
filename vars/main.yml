@@ -1,8 +1,15 @@
 ---
-agent_type: ""
-version: latest
-package_state: present
-# Local path to the config file to copy onto the remote server. Can be absolute or relative.
-main_config_file: ""
-# Local path to the additonal config directory whose contents will be copied onto the remote server. Can be absolute or relative.
-additional_config_dir: ""
+monitoring_service_name: stackdriver-agent
+monitoring_config_path: /etc/stackdriver/collectd.conf
+monitoring_plugins_path: /etc/stackdriver/collectd.d/
+monitoring_validation_cmd: '/opt/stackdriver/collectd/sbin/stackdriver-collectd -tC %s'
+
+logging_service_name:
+logging_config_path:
+logging_plugins_path:
+logging_binary:
+
+google-cloud-ops_service_name:
+google-cloud-ops_config_path:
+google-cloud-ops_plugins_path:
+google-cloud-ops_binary:
