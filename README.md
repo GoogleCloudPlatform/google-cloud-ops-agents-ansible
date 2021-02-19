@@ -64,11 +64,12 @@ or [Configuring the Ops
 Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration?hl=en).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
-disk etc. The `additional_config_dir` variable can be used to supply an absolute
-or relative path to a directory containing plugins for third party application
-monitoring and logging. All `.conf` files under this directory will be deployed
-to the agent's plugin directory on the target VM. The main config file should
-have a line that includes this directory.
+disk etc. Third party application monitoring and logging can be configured by
+supplying a path to a directory containing plugin configuration files using the
+variable `additional_config_dir`. All `.conf` files under this directory will be
+deployed to the agent's plugin directory on the target VM. The main config file
+should have a line that includes this directory. Please note that this variable
+can only be specified when configuring the monitoring or logging agents.
 
 For more information, please see [Monitoring third-party
 applications](https://cloud.google.com/monitoring/agent/plugins).
