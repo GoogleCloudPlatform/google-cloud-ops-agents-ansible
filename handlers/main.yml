@@ -10,3 +10,4 @@
     name: google-fluentd
     state: restarted
   when: package_state == 'present' and not ansible_check_mode
+
