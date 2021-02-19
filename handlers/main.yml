@@ -3,6 +3,7 @@
   service:
     name: stackdriver-agent
     state: restarted
+  when: package_state == 'present' and not ansible_check_mode
 
 - name: restart logging agent
   service:
