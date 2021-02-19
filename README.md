@@ -1,4 +1,7 @@
-<span style="color:red"> Under active development and not yet suitable for use.</span>
+```diff
+- Under active development and not yet suitable for use.
+```
+
 Ansible Role for Cloud Ops
 ==========================
 
