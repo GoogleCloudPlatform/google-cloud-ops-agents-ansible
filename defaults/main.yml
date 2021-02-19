@@ -6,9 +6,3 @@ version: latest
 main_config_file: ""
 # Local path to the additonal config directory whose contents will be copied onto the remote server. Can be absolute or relative.
 additional_config_dir: ""
-
-# Default vars for the monitoring agent
-monitoring_package_name: stackdriver-agent
-monitoring_service_name: stackdriver-agent
-
-monitoring_binary: /opt/stackdriver/collectd/sbin/stackdriver-collectd

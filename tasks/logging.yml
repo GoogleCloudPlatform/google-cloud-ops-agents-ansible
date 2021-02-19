@@ -4,7 +4,6 @@
     that: package_state in ['present', 'absent']
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
-
 - name: Create temp directory
   tempfile:
     path: /tmp
@@ -22,20 +21,19 @@
   check_mode: no
   changed_when: false
 
-  - name: Add repo and install agent or remove repo and uninstall agent
-    command:
-      chdir: "{{ tempfolder.path }}"
-      cmd: "bash add-logging-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
-    environment:
-      REPO_CODENAME: "{{ ansible_distribution_release }}"
-    register: result
-    check_mode: no
-    changed_when: "'No changes made.' not in result.stdout_lines"
-    notify: restart logging agent
+- name: Add repo and install agent or remove repo and uninstall agent
+  command:
+    chdir: "{{ tempfolder.path }}"
+    cmd: "bash add-logging-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
+  environment:
+    REPO_CODENAME: "{{ ansible_distribution_release }}"
+  register: result
+  check_mode: no
+  changed_when: "'No changes made.' not in result.stdout_lines"
+  notify: restart logging agent
 
 - when: package_state == 'present'
   block:
-
   - name: Copy main config file onto the remote machine
     copy:
       src: "{{ main_config_file }}"
