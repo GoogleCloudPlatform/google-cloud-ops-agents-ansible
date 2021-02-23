@@ -7,6 +7,10 @@
     package_name: "{{ 'stackdriver-agent' if agent_type=='monitoring' else 'google-fluentd' if agent_type == 'logging' else 'google-cloud-ops-agent' }}"
 
   tasks:
+    - name: Include vars
+      include_vars:
+        file: ../../vars/main.yml
+
     - name: Ensure the agent is present
       package:
         name: "{{ package_name }}"
