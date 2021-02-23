@@ -30,7 +30,7 @@
 
     - name: Read config file
       command:
-        cmd: cat /etc/stackdriver/collectd.conf
+        cmd: "cat {{ vars[agent_type + '_config_path'] }}"
       register: result
 
     - name: Assert the custom config was copied properly

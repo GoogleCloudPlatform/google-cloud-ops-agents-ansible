@@ -38,8 +38,6 @@ jobs:
           - geerlingguy/docker-ubuntu1604-ansible
           - geerlingguy/docker-ubuntu1804-ansible
           - geerlingguy/docker-ubuntu2004-ansible
-          - xplenty/rhel7-pod-infrastructure
-          - geerlingguy/docker-ubi8-ansible
 
         exclude:
           - scenario: uninstall_agent

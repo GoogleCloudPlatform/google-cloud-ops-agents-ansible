@@ -40,7 +40,7 @@
       dest: /etc/google-fluentd/google-fluentd.conf
       force: yes
       mode: 0644
-      validate: '/sbin/google-fluentd -tC %s'
+      validate: '/usr/sbin/google-fluentd -c %s --dry-run'
     when: main_config_file
     notify: restart logging agent
 
@@ -50,7 +50,7 @@
       dest: /etc/google-fluentd/plugin/
       force: yes
       mode: 0644
-      validate: '/sbin/google-fluentd -tC %s'
+      validate: '/usr/sbin/google-fluentd -c %s --dry-run'
     with_fileglob:
       - "{{ additional_config_dir }}/*.conf"
     when: additional_config_dir
