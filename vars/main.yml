@@ -12,4 +12,3 @@ logging_validation_cmd: '/usr/sbin/google-fluentd -c %s --dry-run'
 google-cloud-ops_service_name: google-cloud-ops-agent.target
 google-cloud-ops_config_path: /etc/google-cloud-ops-agent/config.yaml
 google-cloud-ops_validation_cmd: "/opt/google-cloud-ops-agent/subagents/collectd/sbin/collectd -tC {{ google-cloud-ops_config_path }}; /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit -c %s"
-
