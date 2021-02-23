@@ -7,7 +7,7 @@ monitoring_validation_cmd: '/opt/stackdriver/collectd/sbin/stackdriver-collectd 
 logging_service_name: google-fluentd
 logging_config_path: /etc/google-fluentd/google-fluentd.conf
 logging_plugins_path: /etc/google-fluentd/plugin/
-logging_validation_cmd: '/sbin/google-fluentd -tC %s'
+logging_validation_cmd: '/usr/sbin/google-fluentd -c %s --dry-run'
 
 google-cloud-ops_service_name: google-cloud-ops-agent.target
 google-cloud-ops_config_path: /etc/google-cloud-ops-agent/config.yaml
