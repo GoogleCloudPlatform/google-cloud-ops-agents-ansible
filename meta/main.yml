@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: cloud_ops
   author: Ryan Moriarty
   description: Install the Cloud Ops Agents
   company: Google
