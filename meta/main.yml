@@ -1,6 +1,7 @@
+---
 galaxy_info:
   author: Ryan Moriarty
-  description: Install the Cloud Ops Monitoring Agent
+  description: Install the Cloud Ops Agents
   company: Google
   license: Apache-2.0
   min_ansible_version: 2.1
