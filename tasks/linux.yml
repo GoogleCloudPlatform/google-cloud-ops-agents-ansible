@@ -1,20 +1,10 @@
 ---
-- name: Validate agent_type
-  assert:
-    that: agent_type in ['monitoring', 'logging', 'ops-agent']
-    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following agents: 'monitoring', 'logging' and 'ops-agent'."
-
-- name: Validate package_state
-  assert:
-    that: package_state in ['present', 'absent']
-    msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
-
 - when: agent_type == 'ops-agent'
   block:
     - name: Ensure no additional config directory was specified
       assert:
         that: not additional_config_dir
-        msg: 'The ops agent does not support additional configurations. additional_config_dir must be empty when agent_type is ops-agent.'
+        msg: 'The ops agent does not support additional configurations.'
 
     - name: Set ops-agent agent_type to its fully qualified name
       set_fact:
@@ -58,23 +48,3 @@
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
       when: main_config_file
-      notify: "restart {{ agent_type }} agent"
-
-    - name: Copy additional configs onto the remote machine
-      copy:
-        src: "{{ item }}"
-        dest: "{{ vars[agent_type + '_plugins_path'] }}"
-        force: yes
-        mode: 0644
-        validate: "{{ vars[agent_type + '_validation_cmd'] }}"
-      with_fileglob:
-        - "{{ additional_config_dir }}/*.conf"
-      when: additional_config_dir
-      notify: "restart {{ agent_type }} agent"
-
-- name: Remove temp directory
-  file:
-    path: "{{ tempfolder.path }}"
-    state: absent
-  check_mode: no
-  changed_when: false

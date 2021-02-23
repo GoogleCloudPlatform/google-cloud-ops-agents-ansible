@@ -3,4 +3,4 @@
   service:
     name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
-  when: package_state == 'present' and agent_type != 'google-cloud-ops' and not ansible_check_mode
+  when: package_state == 'present' and not ansible_check_mode

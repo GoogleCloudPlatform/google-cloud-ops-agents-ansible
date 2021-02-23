@@ -1,0 +1,12 @@
+---
+- name: Validate agent_type
+  assert:
+    that: agent_type == 'ops-agent'
+    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role only supports the ops-agent for Windows machines"
+
+- name: Add agent repo
+  win_shell: googet addrepo google-cloud-ops-agent-windows https://packages.cloud.google.com/yuck/repos/google-cloud-ops-agent-windows-all
+
+
+- name: Install latest version of the agent
+  win_shell: googet -noconfirm install google-cloud-ops-agent
