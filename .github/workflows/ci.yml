@@ -16,7 +16,7 @@ jobs:
         agent_type:
           - monitoring
           - logging
-          - ops-agent
+            #          - ops-agent
         scenario:
           - install_agent
           - uninstall_agent
@@ -83,6 +83,9 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install ansible molecule[docker] docker yamllint ansible-lint
 
+      - name: Create custom config file
+        run: echo "# Sample custom config" > ~/custom_config.conf
+
       - name: Run Molecule tests.
         run: molecule test -s ${{ matrix.scenario }}
         env:
@@ -90,4 +93,5 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
           AGENT_TYPE: ${{ matrix.agent_type }}
+          CUSTOM_CONFIG_FILE: '~/custom_config.conf'
           VERSION: ${{ matrix.include.version }}

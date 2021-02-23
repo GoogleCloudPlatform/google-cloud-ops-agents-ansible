@@ -9,4 +9,5 @@
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
         version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
+        main_config_file: "{{ lookup('env', 'CUSTOM_CONFIG_FILE') | default('~/custom_config.conf', True) }}"
         testing: True

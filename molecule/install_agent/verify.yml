@@ -27,3 +27,12 @@
     - name: Assert the agent was already running
       assert:
         that: result.changed == false
+
+    - name: Read config file
+      command:
+        cmd: cat /etc/stackdriver/collectd.conf
+      register: result
+
+    - name: Assert the custom config was copied properly
+      assert:
+        that: "'# Sample custom config' in result.stdout"
