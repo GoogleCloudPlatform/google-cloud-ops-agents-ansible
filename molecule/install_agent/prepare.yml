@@ -49,6 +49,7 @@
 =======
         update_cache: yes
       when: ansible_os_family == "Debian"
+<<<<<<< HEAD
 
     - name: Create credentials directory
       file:
@@ -62,3 +63,5 @@
         dest: /etc/google/auth/application_default_credentials.json
         mode: 0644
 >>>>>>> fe94545 (add tests and ci)
+=======
+>>>>>>> 88954e9 (rename role to use underscores)

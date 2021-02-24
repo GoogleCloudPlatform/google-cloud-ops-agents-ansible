@@ -16,5 +16,8 @@
     state: restarted
     use: "{{ ansible_service_mgr if not testing else 'service' }}"
   when: package_state == 'present' and not ansible_check_mode and not testing
+<<<<<<< HEAD
 
 >>>>>>> f8c155e (remove test that agent is running)
+=======
+>>>>>>> 88954e9 (rename role to use underscores)

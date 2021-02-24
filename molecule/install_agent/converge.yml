@@ -21,5 +21,9 @@
         testing: true
 =======
         main_config_file: "{{ lookup('env', 'CUSTOM_CONFIG_FILE') | default('~/custom_config.conf', True) }}"
+<<<<<<< HEAD
         testing: True
 >>>>>>> fe94545 (add tests and ci)
+=======
+        testing: true
+>>>>>>> 88954e9 (rename role to use underscores)
