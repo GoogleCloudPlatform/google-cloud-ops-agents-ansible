@@ -35,6 +35,7 @@
         that: result.changed == false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     - when: main_config_file
       block:
         - name: Read config file
@@ -68,6 +69,8 @@
       assert:
         that: result.changed == false
 
+=======
+>>>>>>> f8c155e (remove test that agent is running)
     - name: Read config file
       command:
         cmd: "cat {{ vars[agent_type + '_config_path'] }}"

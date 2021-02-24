@@ -15,3 +15,5 @@ ops-agent_validation_cmd: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/c
 google-cloud-ops_service_name: google-cloud-ops-agent.target
 google-cloud-ops_config_path: /etc/google-cloud-ops-agent/config.yaml
 google-cloud-ops_validation_cmd: "/opt/google-cloud-ops-agent/subagents/collectd/sbin/collectd -tC %s"
+
+testing: false
