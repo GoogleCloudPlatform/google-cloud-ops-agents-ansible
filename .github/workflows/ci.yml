@@ -1,0 +1,95 @@
+---
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  test:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent_type:
+          - monitoring
+            #          - logging
+          - ops-agent
+        scenario:
+          - install_agent
+          - uninstall_agent
+        version:
+          - latest
+          - 6.*.*
+          - 6.1.0
+          - 1.*.*
+          - 1.7.0
+          - 1.1.0
+        distro:
+          - geerlingguy/docker-centos7-ansible
+          - geerlingguy/docker-centos8-ansible
+          # RedHat Universal Base Image (rhel8)
+          - geerlingguy/docker-ubi8-ansible
+          - geerlingguy/docker-amazonlinux2-ansible
+          - geerlingguy/docker-debian9-ansible
+          - geerlingguy/docker-debian10-ansible
+          - geerlingguy/docker-ubuntu1604-ansible
+          - geerlingguy/docker-ubuntu1804-ansible
+          - geerlingguy/docker-ubuntu2004-ansible
+
+        exclude:
+          - scenario: uninstall_agent
+            version: 6.*.*
+          - scenario: uninstall_agent
+            version: 6.1.0
+          - scenario: uninstall_agent
+            version: 1.*.*
+          - scenario: uninstall_agent
+            version: 1.7.0
+          - scenario: uninstall_agent
+            version: 1.1.0
+          - agent_type: monitoring
+            version: 1.*.*
+          - agent_type: monitoring
+            version: 1.7.0
+          - agent_type: monitoring
+            version: 1.1.0
+          - agent_type: logging
+            version: 6.*.*
+          - agent_type: logging
+            version: 6.1.0
+          - agent_type: logging
+            version: 1.1.0
+          - agent_type: ops-agent
+            version: 6.*.*
+          - agent_type: ops-agent
+            version: 6.1.0
+          - agent_type: ops-agent
+            version: 1.7.0
+
+    steps:
+      - name: Checkout the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule[docker] docker yamllint ansible-lint
+
+      - name: Create custom config file
+        run: echo "# Sample custom config" > ~/custom_config.conf
+
+      - name: Run Molecule tests.
+        run: molecule test -s ${{ matrix.scenario }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          AGENT_TYPE: ${{ matrix.agent_type }}
+          CUSTOM_CONFIG_FILE: '~/custom_config.conf'
+          VERSION: ${{ matrix.include.version }}

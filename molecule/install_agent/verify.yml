@@ -1,0 +1,42 @@
+---
+- name: Verify
+  hosts: all
+
+  vars:
+    agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
+    package_name: "{{ 'stackdriver-agent' if agent_type=='monitoring' else 'google-fluentd' if agent_type == 'logging' else 'google-cloud-ops-agent' }}"
+
+  tasks:
+    - name: Include vars
+      include_vars:
+        file: ../../vars/main.yml
+
+    - name: Ensure the agent is present
+      package:
+        name: "{{ package_name }}"
+        state: present
+      register: result
+
+    - name: Assert the agent was already present
+      assert:
+        that: result.changed == false
+
+    - name: Ensure the agent has started
+      service:
+        name: "{{ package_name }}"
+        state: started
+        use: service
+      register: result
+
+    - name: Assert the agent was already running
+      assert:
+        that: result.changed == false
+
+    - name: Read config file
+      command:
+        cmd: "cat {{ vars[agent_type + '_config_path'] }}"
+      register: result
+
+    - name: Assert the custom config was copied properly
+      assert:
+        that: "'# Sample custom config' in result.stdout"
