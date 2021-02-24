@@ -6,16 +6,14 @@ This Ansible role installs the Cloud Ops agents.
 Install this directory in your roles path (usually in a `roles` directory
 alongside your playbook) under the name `google_cloud_ops_agents`:
 
-```
-git clone <this-git-repo> roles/google_cloud_ops_agents
-```
+``` git clone <this-git-repo> roles/google_cloud_ops_agents ```
 
 Requirements
 ------------
 
-Permissions to Google Cloud API. If running on an old Compute Engine instance or
-Compute Engine instances created without the default credentials, then you must
-complete the following steps
+Permissions to the Google Cloud API. If you are running an old Compute Engine
+instance or Compute Engine instances created without the default credentials,
+then you must complete the following steps
 https://cloud.google.com/monitoring/agent/authorization#before_you_begin.
 
 Role Variables
@@ -76,15 +74,21 @@ Example Playbook
 ```
 # Example
 - hosts: all
-  become: yes
+  become: true
   roles:
-    - role: cloud_ops
+    - role: google_cloud_ops_agents
       vars:
         agent_type: monitoring
         package_state: present
         version: latest
-        config_file_local: collectd.conf
+        main_config_file: collectd.conf
         additional_config_dir: plugins/
+
+    - role: google_cloud_ops_agents
+      vars:
+        agent_type: logging
+        package_state: present
+        version: 1.*.*
 ```
 
 License

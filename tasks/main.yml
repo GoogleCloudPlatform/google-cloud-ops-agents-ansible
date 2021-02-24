@@ -9,17 +9,17 @@
     that: package_state in ['present', 'absent']
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
-- name: Ensure no additional config directory was specified
+- name: Ensure no additional config directory was specified when configuring the ops-agent
   assert:
     that: not additional_config_dir
-    msg: 'The ops agent does not support additional configurations. additional_config_dir must be empty when agent_type is ops-agent.'
+    msg: "The ops agent does not support additional configurations. additional_config_dir must be empty when the agent_type is 'ops-agent'."
   when: agent_type == 'ops-agent'
 
 - name: Create temp directory
   tempfile:
     path: /tmp
     state: directory
-    suffix: cloud_ops_shell_scripts
+    suffix: _cloud_ops_shell_scripts
   register: tempfolder
   check_mode: false
   changed_when: false
