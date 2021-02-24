@@ -1,11 +1,33 @@
 ---
-- name: Converge
+# Install dependencies needed in order to successfully run the shell script
+- name: Prepare
   hosts: all
   tasks:
-    - name: Include google_cloud_ops_agents role
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Install apt-utils
+      apt:
+        name: apt-utils
+        state: present
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Install gnupg
+      apt:
+        name: gnupg
+        state: present
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Install agent
       include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
-        package_state: absent
-        testing: true
+        package_state: present
+        testing: True

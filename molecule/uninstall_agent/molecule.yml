@@ -6,11 +6,7 @@ driver:
 lint: |
   set -e
   yamllint .
-<<<<<<< HEAD
   ansible-lint .
-=======
-  ansible-lint . -w role-name
->>>>>>> fe94545 (add tests and ci)
 platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-geerlingguy/docker-debian10-ansible}

@@ -1,9 +1,7 @@
 ---
 - name: Converge
   hosts: all
-<<<<<<< HEAD
   tasks:
-<<<<<<< HEAD
     - name: Include google_cloud_ops_agents role
       include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
@@ -11,20 +9,3 @@
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: absent
         testing: true
-=======
-    - name: Include cloud_ops role
-      include_role:
-        name: 'stackdriver-ansible-role'
-      vars:
-        agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
-        package_state: absent
-        testing: True
->>>>>>> fe94545 (add tests and ci)
-=======
-  roles:
-    - role: stackdriver-ansible-role
-      vars:
-        agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
-        package_state: absent
-        testing: true
->>>>>>> 6128c3e (Use role instead of include_role when testing so seting the agent_type to google-cloud-ops has precendence)
