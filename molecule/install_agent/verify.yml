@@ -5,19 +5,25 @@
   vars:
     agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
     package_name: "{{ 'stackdriver-agent' if agent_type=='monitoring' else 'google-fluentd' if agent_type == 'logging' else 'google-cloud-ops-agent' }}"
+<<<<<<< HEAD
     main_config_file: "{{ lookup('env', 'MAIN_CONFIG_FILE') | default('', True) }}"
     additional_config_dir: "{{ '' if agent_type == 'ops-agent' else lookup('env', 'ADDITIONAL_CONFIG_DIR') | default('', True) }}"
+=======
+>>>>>>> fe94545 (add tests and ci)
 
   tasks:
     - name: Include vars
       include_vars:
         file: ../../vars/main.yml
 
+<<<<<<< HEAD
     - name: Set ops-agent agent_type to its fully qualified name
       set_fact:
         agent_type: 'google-cloud-ops'
       when: agent_type == 'ops-agent'
 
+=======
+>>>>>>> fe94545 (add tests and ci)
     - name: Ensure the agent is present
       package:
         name: "{{ package_name }}"
@@ -28,6 +34,7 @@
       assert:
         that: result.changed == false
 
+<<<<<<< HEAD
     - when: main_config_file
       block:
         - name: Read config file
@@ -49,3 +56,24 @@
         - name: Assert the plugin config was copied properly
           assert:
             that: "'custom_config.conf' in result.stdout"
+=======
+    - name: Ensure the agent has started
+      service:
+        name: "{{ package_name }}"
+        state: started
+        use: service
+      register: result
+
+    - name: Assert the agent was already running
+      assert:
+        that: result.changed == false
+
+    - name: Read config file
+      command:
+        cmd: "cat {{ vars[agent_type + '_config_path'] }}"
+      register: result
+
+    - name: Assert the custom config was copied properly
+      assert:
+        that: "'# Sample custom config' in result.stdout"
+>>>>>>> fe94545 (add tests and ci)
