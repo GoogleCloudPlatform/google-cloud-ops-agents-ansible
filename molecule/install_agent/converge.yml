@@ -7,5 +7,6 @@
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
         version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
-        main_config_file: "{{ lookup('env', 'CUSTOM_CONFIG_FILE') | default('~/custom_config.conf', True) }}"
+        main_config_file: "{{ lookup('env', 'MAIN_CONFIG_FILE') | default('', True) }}"
+        additional_config_dir: "{{ '' if agemt_type == 'ops-agent' else lookup('env', 'ADDITIONAL_CONFIG_DIR') | default('', True) }}"
         testing: true

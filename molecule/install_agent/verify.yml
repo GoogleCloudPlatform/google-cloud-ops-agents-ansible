@@ -34,3 +34,14 @@
     - name: Assert the custom config was copied properly
       assert:
         that: "'# Sample custom config' in result.stdout"
+
+    - when: agent_type != 'ops-agent'
+      block:
+        - name: List contents of the plugin directory
+          command:
+            cmd: "ls {{ vars[agent_type + '_plugins_path'] }}"
+          register: result
+
+        - name: Assert the plugin config was copied properly
+          assert:
+            that: "'custom_config.conf' in result.stdout"
