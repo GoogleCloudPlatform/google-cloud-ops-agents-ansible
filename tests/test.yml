@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ../google_cloud_ops_agents
+    - ../google-cloud-ops-agent
