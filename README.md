@@ -4,8 +4,7 @@ Warning: This repo is under active development and not yet suitable for use.
 Ansible Role for Cloud Ops
 ==========================
 
-This Ansible role installs the Cloud Ops monitoring agent (which is based on
-`collectd`).
+This Ansible role installs the Cloud Ops agents.
 
 Install this directory in your roles path (usually in a `roles` directory
 alongside your playbook) under the name `cloud_ops`:
