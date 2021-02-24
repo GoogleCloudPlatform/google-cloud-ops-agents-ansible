@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ../stackdriver-ansible-role
+    - ../google_cloud_ops_agents
