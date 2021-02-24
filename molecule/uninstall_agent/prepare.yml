@@ -31,10 +31,10 @@
         update_cache: true
       when: ansible_os_family == 'Debian'
 
-     - name: Install agent
-       include_role:
-         name: google_cloud_ops_agents
-       vars:
-         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
-         package_state: present
-         testing: True
+    - name: Install agent
+      include_role:
+        name: google_cloud_ops_agents
+      vars:
+        agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
+        package_state: present
+        testing: True
