@@ -7,26 +7,26 @@
       yum:
         name: python2
         state: present
-        update_cache: yes
-      when: ansible_os_family == "RedHat"
+        update_cache: true
+      when: ansible_os_family == 'RedHat'
 
     - name: Install curl
       apt:
         name: curl
         state: present
-        update_cache: yes
-      when: ansible_os_family == "Debian"
+        update_cache: true
+      when: ansible_os_family == 'Debian'
 
     - name: Install apt-utils
       apt:
         name: apt-utils
         state: present
-        update_cache: yes
-      when: ansible_os_family == "Debian"
+        update_cache: true
+      when: ansible_os_family == 'Debian'
 
     - name: Install gnupg
       apt:
         name: gnupg
         state: present
-        update_cache: yes
-      when: ansible_os_family == "Debian"
+        update_cache: true
+      when: ansible_os_family == 'Debian'

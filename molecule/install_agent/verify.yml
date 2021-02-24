@@ -11,6 +11,11 @@
       include_vars:
         file: ../../vars/main.yml
 
+    - name: Set ops-agent agent_type to its fully qualified name
+      set_fact:
+        agent_type: 'google-cloud-ops'
+      when: agent_type == 'ops-agent'
+
     - name: Ensure the agent is present
       package:
         name: "{{ package_name }}"
