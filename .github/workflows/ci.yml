@@ -16,7 +16,7 @@ jobs:
         agent_type:
           - monitoring
           - logging
-            #          - 'ops-agent'
+          - ops-agent
         scenario:
           - install_agent
           - uninstall_agent

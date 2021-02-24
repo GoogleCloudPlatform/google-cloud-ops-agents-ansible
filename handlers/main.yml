@@ -3,18 +3,4 @@
   service:
     name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
-<<<<<<< HEAD
   when: package_state == 'present' and not ansible_check_mode and testing is not defined
-=======
-    use: "{{ ansible_service_mgr if not testing else 'service' }}"
-  when: package_state == 'present' and not ansible_check_mode and not testing
-
-# vars['*'] syntax is needed when referencing variables with names containing `-`
-- name: restart google-cloud-ops agent
-  service:
-    name: "{{ vars['google-cloud-ops_service_name'] }}"
-    state: restarted
-    use: "{{ ansible_service_mgr if not testing else 'service' }}"
-  when: package_state == 'present' and not ansible_check_mode and not testing
-
->>>>>>> f8c155e (remove test that agent is running)

@@ -31,22 +31,10 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Create credentials directory
-      file:
-        path: /etc/google/auth/
-        state: directory
-        mode: 0644
-
-    - name: Touch credentials file
-      copy:
-        content: ""
-        dest: /etc/google/auth/application_default_credentials.json
-        mode: 0644
-
     - name: Install agent
       include_role:
         name: stackdriver-ansible-role
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
-        testing: True
+        testing: true

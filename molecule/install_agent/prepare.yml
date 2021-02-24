@@ -30,15 +30,3 @@
         state: present
         update_cache: yes
       when: ansible_os_family == "Debian"
-
-    - name: Create credentials directory
-      file:
-        path: /etc/google/auth/
-        state: directory
-        mode: 0644
-
-    - name: Touch credentials file
-      copy:
-        content: ""
-        dest: /etc/google/auth/application_default_credentials.json
-        mode: 0644

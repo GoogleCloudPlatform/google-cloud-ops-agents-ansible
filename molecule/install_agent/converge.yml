@@ -10,4 +10,4 @@
         package_state: present
         version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
         main_config_file: "{{ lookup('env', 'CUSTOM_CONFIG_FILE') | default('~/custom_config.conf', True) }}"
-        testing: True
+        testing: true
