@@ -5,6 +5,8 @@
   vars:
     agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
     package_name: "{{ 'stackdriver-agent' if agent_type=='monitoring' else 'google-fluentd' if agent_type == 'logging' else 'google-cloud-ops-agent' }}"
+    main_config_file: "{{ lookup('env', 'MAIN_CONFIG_FILE') | default('', True) }}"
+    additional_config_dir: "{{ '' if agent_type == 'ops-agent' else lookup('env', 'ADDITIONAL_CONFIG_DIR') | default('', True) }}"
 
   tasks:
     - name: Include vars
@@ -26,16 +28,18 @@
       assert:
         that: result.changed == false
 
-    - name: Read config file
-      command:
-        cmd: "cat {{ vars[agent_type + '_config_path'] }}"
-      register: result
+    - when: main_config_file
+      block:
+        - name: Read config file
+          command:
+            cmd: "cat {{ vars[agent_type + '_config_path'] }}"
+          register: result
 
-    - name: Assert the custom config was copied properly
-      assert:
-        that: "'# Sample custom config' in result.stdout"
+        - name: Assert the custom config was copied properly
+          assert:
+            that: "'# Sample custom config' in result.stdout"
 
-    - when: agent_type != 'ops-agent'
+    - when: additional_config_dir and agent_type != 'ops-agent'
       block:
         - name: List contents of the plugin directory
           command:
