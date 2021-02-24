@@ -21,17 +21,6 @@
       assert:
         that: result.changed == false
 
-    - name: Ensure the agent has started
-      service:
-        name: "{{ package_name }}"
-        state: started
-        use: service
-      register: result
-
-    - name: Assert the agent was already running
-      assert:
-        that: result.changed == false
-
     - name: Read config file
       command:
         cmd: "cat {{ vars[agent_type + '_config_path'] }}"

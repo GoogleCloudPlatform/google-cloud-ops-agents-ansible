@@ -15,8 +15,8 @@ jobs:
       matrix:
         agent_type:
           - monitoring
-            #          - logging
-          - ops-agent
+          - logging
+            #          - 'ops-agent'
         scenario:
           - install_agent
           - uninstall_agent
