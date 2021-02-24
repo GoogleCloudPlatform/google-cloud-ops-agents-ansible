@@ -1,6 +1,7 @@
 ---
 - name: Converge
   hosts: all
+<<<<<<< HEAD
   tasks:
 <<<<<<< HEAD
     - name: Include google_cloud_ops_agents role
@@ -19,3 +20,11 @@
         package_state: absent
         testing: True
 >>>>>>> fe94545 (add tests and ci)
+=======
+  roles:
+    - role: stackdriver-ansible-role
+      vars:
+        agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
+        package_state: absent
+        testing: true
+>>>>>>> 6128c3e (Use role instead of include_role when testing so seting the agent_type to google-cloud-ops has precendence)

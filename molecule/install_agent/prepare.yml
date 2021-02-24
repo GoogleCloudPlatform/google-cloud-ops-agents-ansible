@@ -7,61 +7,26 @@
       yum:
         name: python2
         state: present
-<<<<<<< HEAD
         update_cache: true
       when: ansible_os_family == 'RedHat'
-=======
-        update_cache: yes
-      when: ansible_os_family == "RedHat"
->>>>>>> fe94545 (add tests and ci)
 
     - name: Install curl
       apt:
         name: curl
         state: present
-<<<<<<< HEAD
         update_cache: true
       when: ansible_os_family == 'Debian'
-=======
-        update_cache: yes
-      when: ansible_os_family == "Debian"
->>>>>>> fe94545 (add tests and ci)
 
     - name: Install apt-utils
       apt:
         name: apt-utils
         state: present
-<<<<<<< HEAD
         update_cache: true
       when: ansible_os_family == 'Debian'
-=======
-        update_cache: yes
-      when: ansible_os_family == "Debian"
->>>>>>> fe94545 (add tests and ci)
 
     - name: Install gnupg
       apt:
         name: gnupg
         state: present
-<<<<<<< HEAD
         update_cache: true
       when: ansible_os_family == 'Debian'
-=======
-        update_cache: yes
-      when: ansible_os_family == "Debian"
-<<<<<<< HEAD
-
-    - name: Create credentials directory
-      file:
-        path: /etc/google/auth/
-        state: directory
-        mode: 0644
-
-    - name: Touch credentials file
-      copy:
-        content: ""
-        dest: /etc/google/auth/application_default_credentials.json
-        mode: 0644
->>>>>>> fe94545 (add tests and ci)
-=======
->>>>>>> 88954e9 (rename role to use underscores)
