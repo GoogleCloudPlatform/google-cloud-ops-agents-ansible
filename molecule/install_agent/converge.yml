@@ -4,7 +4,7 @@
   tasks:
     - name: Include google_cloud_ops_agents role
       include_role:
-        name: google_cloud_ops_agents
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
