@@ -1,6 +1,7 @@
 galaxy_info:
+  role_name: google_cloud_ops_agents
   author: Ryan Moriarty
-  description: Install the Cloud Ops Monitoring Agent
+  description: Install the Google Cloud Ops Agents
   company: Google
   license: Apache-2.0
   min_ansible_version: 2.1
@@ -26,4 +27,13 @@ galaxy_info:
         - 15
   galaxy_tags:
     - monitoring
+    - logging
+    - ops-agent
+    - google
+    - google-cloud
+    - collectd
+    - fluentd
+    - fluent-bit
+    - open-telemetry
+    - agent
 dependencies: []

@@ -4,10 +4,10 @@ Ansible Role for Cloud Ops
 This Ansible role installs the Cloud Ops agents.
 
 Install this directory in your roles path (usually in a `roles` directory
-alongside your playbook) under the name `cloud_ops`:
+alongside your playbook) under the name `google_cloud_ops_agents`:
 
 ```
-git clone <this-git-repo> roles/cloud_ops
+git clone <this-git-repo> roles/google_cloud_ops_agents
 ```
 
 Requirements
