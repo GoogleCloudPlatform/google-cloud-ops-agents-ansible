@@ -68,6 +68,8 @@ jobs:
             version: 6.1.0
           - agent_type: ops-agent
             version: 1.7.0
+          - agent_type: ops-agent
+            distro: geerlingguy/docker-amazonlinux2-ansible
 
     steps:
       - name: Checkout the codebase.
