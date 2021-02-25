@@ -9,42 +9,37 @@
     that: package_state in ['present', 'absent']
     msg: "Received invalid package state: '{{ package_state }}'. The Cloud Ops Ansible role supports the following package states: 'present' and 'absent'."
 
-- when: agent_type == 'ops-agent'
-  block:
-    - name: Ensure no additional config directory was specified
-      assert:
-        that: not additional_config_dir
-        msg: 'The ops agent does not support additional configurations. additional_config_dir must be empty when agent_type is ops-agent.'
-
-    - name: Set ops-agent agent_type to its fully qualified name
-      set_fact:
-        agent_type: 'google-cloud-ops'
+- name: Ensure no additional config directory was specified when configuring the ops-agent
+  assert:
+    that: not additional_config_dir
+    msg: "The ops agent does not support additional configurations. additional_config_dir must be empty when the agent_type is 'ops-agent'."
+  when: agent_type == 'ops-agent'
 
 - name: Create temp directory
   tempfile:
     path: /tmp
     state: directory
-    suffix: cloud_ops_shell_scripts
+    suffix: _cloud_ops_shell_scripts
   register: tempfolder
-  check_mode: no
+  check_mode: false
   changed_when: false
 
 - name: Download script
   get_url:
-    url: "https://dl.google.com/cloudagents/add-{{ agent_type }}-agent-repo.sh"
-    dest: "{{ tempfolder.path }}/add-{{ agent_type }}-agent-repo.sh"
+    url: "https://dl.google.com/cloudagents/add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh"
+    dest: "{{ tempfolder.path }}/add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh"
     mode: 0755
-  check_mode: no
+  check_mode: false
   changed_when: false
 
 - name: Add repo and install agent or remove repo and uninstall agent
   command:
     chdir: "{{ tempfolder.path }}"
-    cmd: "bash add-{{ agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
+    cmd: "bash add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
   environment:
     REPO_CODENAME: "{{ ansible_distribution_release }}"
   register: result
-  check_mode: no
+  check_mode: false
   changed_when: "'No changes made.' not in result.stdout_lines"
   notify: "restart {{ agent_type }} agent"
 
@@ -54,7 +49,7 @@
       copy:
         src: "{{ main_config_file }}"
         dest: "{{ vars[agent_type + '_config_path'] }}"
-        force: yes
+        force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
       when: main_config_file
@@ -64,7 +59,7 @@
       copy:
         src: "{{ item }}"
         dest: "{{ vars[agent_type + '_plugins_path'] }}"
-        force: yes
+        force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
       with_fileglob:
@@ -76,5 +71,5 @@
   file:
     path: "{{ tempfolder.path }}"
     state: absent
-  check_mode: no
+  check_mode: false
   changed_when: false

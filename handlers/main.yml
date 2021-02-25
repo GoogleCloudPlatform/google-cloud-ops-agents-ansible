@@ -4,10 +4,3 @@
     name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
   when: package_state == 'present' and not ansible_check_mode
-
-# vars['*'] syntax is needed when referencing variables with names containing `-`
-- name: restart google-cloud-ops agent
-  service:
-    name: "{{ vars['google-cloud-ops_service_name'] }}"
-    state: restarted
-  when: package_state == 'present' and not ansible_check_mode
