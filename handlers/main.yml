@@ -3,29 +3,4 @@
   service:
     name: "{{ vars[agent_type + '_service_name'] }}"
     state: restarted
-<<<<<<< HEAD
-<<<<<<< HEAD
   when: package_state == 'present' and not ansible_check_mode and testing is not defined
-=======
-    use: "{{ ansible_service_mgr if not testing else 'service' }}"
-  when: package_state == 'present' and not ansible_check_mode and not testing
-=======
-  when: package_state == 'present' and not ansible_check_mode and testing is not defined
->>>>>>> 6128c3e (Use role instead of include_role when testing so seting the agent_type to google-cloud-ops has precendence)
-
-# vars['*'] syntax is needed when referencing variables with names containing `-`
-- name: restart google-cloud-ops agent
-  service:
-    name: "{{ vars['google-cloud-ops_service_name'] }}"
-    state: restarted
-<<<<<<< HEAD
-    use: "{{ ansible_service_mgr if not testing else 'service' }}"
-  when: package_state == 'present' and not ansible_check_mode and not testing
-<<<<<<< HEAD
-
->>>>>>> f8c155e (remove test that agent is running)
-=======
->>>>>>> 88954e9 (rename role to use underscores)
-=======
-  when: package_state == 'present' and not ansible_check_mode and testing is not defined
->>>>>>> 6128c3e (Use role instead of include_role when testing so seting the agent_type to google-cloud-ops has precendence)
