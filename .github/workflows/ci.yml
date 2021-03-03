@@ -32,7 +32,7 @@ jobs:
           - geerlingguy/docker-centos8-ansible
           # RedHat Universal Base Image (rhel8)
           - geerlingguy/docker-ubi8-ansible
-          - geerlingguy/docker-amazonlinux2-ansible
+          # - geerlingguy/docker-amazonlinux2-ansible
           - geerlingguy/docker-debian9-ansible
           - geerlingguy/docker-debian10-ansible
           - geerlingguy/docker-ubuntu1604-ansible
