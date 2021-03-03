@@ -24,6 +24,5 @@ rules:
   key-duplicates: enable
   line-length:
     max: 160
-  new-line-at-end-of-file: disable
   new-lines:
     type: unix
