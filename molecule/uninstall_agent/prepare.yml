@@ -3,26 +3,25 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Install curl
-      apt:
-        name: curl
-        state: present
-        update_cache: true
-      when: ansible_os_family == 'Debian'
+  - when: ansible_os_family == 'Debian'
+    block:
+      - name: Install curl
+        apt:
+          name: curl
+          state: present
+          update_cache: true
 
-    - name: Install apt-utils
-      apt:
-        name: apt-utils
-        state: present
-        update_cache: true
-      when: ansible_os_family == 'Debian'
+      - name: Install apt-utils
+        apt:
+          name: apt-utils
+          state: present
+          update_cache: true
 
-    - name: Install gnupg
-      apt:
-        name: gnupg
-        state: present
-        update_cache: true
-      when: ansible_os_family == 'Debian'
+      - name: Install gnupg
+        apt:
+          name: gnupg
+          state: present
+          update_cache: true
 
     - name: Install agent
       include_role:
@@ -30,4 +29,5 @@
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
+        version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
         testing: True
