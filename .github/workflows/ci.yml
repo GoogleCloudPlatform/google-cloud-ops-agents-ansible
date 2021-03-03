@@ -40,16 +40,6 @@ jobs:
           - geerlingguy/docker-ubuntu2004-ansible
 
         exclude:
-          - scenario: uninstall_agent
-            version: 6.*.*
-          - scenario: uninstall_agent
-            version: 6.1.0
-          - scenario: uninstall_agent
-            version: 1.*.*
-          - scenario: uninstall_agent
-            version: 1.7.0
-          - scenario: uninstall_agent
-            version: 1.1.0
           - agent_type: monitoring
             version: 1.*.*
           - agent_type: monitoring
