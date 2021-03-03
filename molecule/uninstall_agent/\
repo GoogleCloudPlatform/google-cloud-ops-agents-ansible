@@ -1,9 +1,0 @@
----
-- name: Converge
-  hosts: all
-  roles:
-    - role: stackdriver-ansible-role
-      vars:
-        agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
-        package_state: absent
-        testing: true
