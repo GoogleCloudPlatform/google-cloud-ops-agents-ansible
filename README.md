@@ -53,9 +53,9 @@ file on the target VM.
 For more information, please see [Configuring the Monitoring
 Agent](https://cloud.google.com/monitoring/agent/configuration), [Configuring
 the Logging
-Agent](https://cloud.google.com/logging/docs/agent/configuration?hl=en#configure)
+Agent](https://cloud.google.com/logging/docs/agent/configuration)
 or [Configuring the Ops
-Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration?hl=en).
+Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
 disk etc. Third party application monitoring and logging can be configured by
