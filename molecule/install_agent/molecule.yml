@@ -1,4 +1,5 @@
 ---
+# This file is the central configuration entrypoint for Molecule. With this file, you can configure each tool that Molecule will employ when testing your role.
 dependency:
   name: galaxy
 driver:

@@ -1,5 +1,5 @@
 ---
-# Install dependencies needed in order to successfully run the shell script
+# Install dependencies needed in order to successfully run the shell script.
 - name: Prepare
   hosts: all
   tasks:
@@ -30,4 +30,4 @@
       agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
       package_state: present
       version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
-      testing: True
+      testing: true

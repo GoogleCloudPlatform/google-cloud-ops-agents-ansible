@@ -1,4 +1,5 @@
 ---
+# Verify the state of the container after the role has finished executing.
 - name: Verify
   hosts: all
 

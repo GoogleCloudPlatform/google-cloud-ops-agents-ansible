@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: google_cloud_ops_agents
   author: Ryan Moriarty
@@ -35,6 +36,5 @@ galaxy_info:
     - collectd
     - fluentd
     - fluentbit
-    - open
-    - telemetry
+    - opentelemetry
 dependencies: []
