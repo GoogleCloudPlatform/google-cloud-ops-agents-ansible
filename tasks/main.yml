@@ -35,10 +35,9 @@
 - name: Add repo and install agent or remove repo and uninstall agent
   command:
     chdir: "{{ tempfolder.path }}"
-    cmd: "bash add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}"
-    # cmd: >
-    #  bash add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else
-    #  '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}
+    cmd: >
+      bash add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else
+      '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}
   environment:
     REPO_CODENAME: "{{ ansible_distribution_release }}"
   register: result

@@ -21,6 +21,7 @@ rules:
   hyphens:
     level: error
   key-duplicates: enable
-  line-length: disable
+  line-length:
+    max: 160
   new-lines:
     type: unix
