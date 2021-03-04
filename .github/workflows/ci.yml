@@ -12,10 +12,11 @@ jobs:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         agent_type:
           - monitoring
-          - logging
+            #- logging
           - ops-agent
         scenario:
           - install_agent
