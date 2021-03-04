@@ -1,0 +1,17 @@
+---
+# This file is the central configuration entrypoint for Molecule. With this file, you can configure each tool that Molecule will employ when testing the role.
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+platforms:
+  - name: instance
+    image: ${MOLECULE_DISTRO:-geerlingguy/docker-debian10-ansible}
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

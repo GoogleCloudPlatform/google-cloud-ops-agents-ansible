@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: google_cloud_ops_agents
   author: Ryan Moriarty
@@ -28,12 +29,12 @@ galaxy_info:
   galaxy_tags:
     - monitoring
     - logging
-    - ops-agent
+    - ops
+    - agent
     - google
-    - google-cloud
+    - cloud
     - collectd
     - fluentd
-    - fluent-bit
-    - open-telemetry
-    - agent
+    - fluentbit
+    - opentelemetry
 dependencies: []
