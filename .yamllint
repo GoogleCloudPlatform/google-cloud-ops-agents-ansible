@@ -15,14 +15,12 @@ rules:
   commas:
     max-spaces-after: -1
     level: error
-  comments: disable
   empty-lines:
     max: 3
     level: error
   hyphens:
     level: error
   key-duplicates: enable
-  line-length:
-    max: 160
+  line-length: disable
   new-lines:
     type: unix

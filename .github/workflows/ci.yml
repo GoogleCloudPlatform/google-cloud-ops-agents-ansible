@@ -27,7 +27,7 @@ jobs:
           - 6.1.0
           - 1.*.*
           - 1.7.0
-          - 1.1.0
+          - 1.0.1
         distro:
           - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
@@ -46,13 +46,13 @@ jobs:
           - agent_type: monitoring
             version: 1.7.0
           - agent_type: monitoring
-            version: 1.1.0
+            version: 1.0.1
           - agent_type: logging
             version: 6.*.*
           - agent_type: logging
             version: 6.1.0
           - agent_type: logging
-            version: 1.1.0
+            version: 1.0.1
           - agent_type: ops-agent
             version: 6.*.*
           - agent_type: ops-agent
