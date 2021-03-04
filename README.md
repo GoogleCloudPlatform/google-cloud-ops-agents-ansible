@@ -1,7 +1,7 @@
 Ansible Role for Cloud Ops
 ==========================
 
-![Continuous Integration](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/actions/workflows/ci.yml/badge.svg?event=push)
+[![Continuous Integration](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/actions/workflows/ci.yml)
 
 This Ansible role installs the Cloud Ops agents.
 
