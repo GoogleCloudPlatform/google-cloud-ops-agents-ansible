@@ -95,15 +95,15 @@ Example Playbooks
       vars:
         agent_type: monitoring
         version: latest
-        main_config_file: collectd.conf
-        additional_config_dir: collectd.d/
+        main_config_file: monitoring_agent.conf
+        additional_config_dir: monitoring_agent_dir/
 
     - role: google_cloud_ops_agents
       vars:
         agent_type: logging
         version: 1.*.*
-        main_config_file: google-fluentd.conf
-        additional_config_dir: plugin/
+        main_config_file: logging_agent.conf
+        additional_config_dir: logging_agent_dir/
 ```
 ```
 # Installing the Ops-Agent
@@ -123,7 +123,7 @@ Example Playbooks
       vars:
         agent_type: ops-agent
         version: 1.0.1
-        main_config_file: config.yaml
+        main_config_file: ops_agent.yaml
 ```
 
 License
