@@ -89,4 +89,4 @@ jobs:
           AGENT_TYPE: ${{ matrix.agent_type }}
           MAIN_CONFIG_FILE: '~/custom_config.conf'
           ADDITIONAL_CONFIG_DIR: '~/plugins/'
-          VERSION: ${{ matrix.include.version }}
+          VERSION: ${{ matrix.version }}
