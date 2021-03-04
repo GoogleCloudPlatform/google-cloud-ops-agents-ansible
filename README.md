@@ -93,7 +93,6 @@ Example Playbooks
     - role: google_cloud_ops_agents
       vars:
         agent_type: monitoring
-        package_state: present
         version: latest
         main_config_file: collectd.conf
         additional_config_dir: collectd.d/
@@ -101,7 +100,6 @@ Example Playbooks
     - role: google_cloud_ops_agents
       vars:
         agent_type: logging
-        package_state: present
         version: 1.*.*
         main_config_file: google-fluentd.conf
         additional_config_dir: plugin/
@@ -123,7 +121,6 @@ Example Playbooks
     - role: google_cloud_ops_agents
       vars:
         agent_type: ops-agent
-        package_state: present
         version: 1.0.1
         main_config_file: config.yaml
 ```
