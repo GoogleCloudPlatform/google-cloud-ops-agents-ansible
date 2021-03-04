@@ -1,7 +1,7 @@
 Ansible Role for Cloud Ops
 ==========================
 
-![CI](https://github.com/github/docs/actions/workflows/ci.yml/badge.svg)
+![Continuous Integration](https://github.com/github/docs/actions/workflows/ci.yml/badge.svg)
 This Ansible role installs the Cloud Ops agents.
 
 Install this directory in your roles path (usually in a `roles` directory
