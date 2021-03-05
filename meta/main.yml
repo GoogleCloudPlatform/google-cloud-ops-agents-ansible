@@ -19,7 +19,6 @@ galaxy_info:
         - groovy
     - name: EL
       versions:
-        - 6
         - 7
         - 8
     - name: SLES

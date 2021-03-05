@@ -1,6 +1,8 @@
 Ansible Role for Cloud Ops
 ==========================
 
+[![Continuous Integration](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/actions/workflows/ci.yml)
+
 This Ansible role installs the Cloud Ops agents.
 
 Install this directory in your roles path (usually in a `roles` directory
@@ -68,27 +70,60 @@ can only be specified when configuring the monitoring or logging agents.
 For more information, please see [Monitoring third-party
 applications](https://cloud.google.com/monitoring/agent/plugins).
 
-Example Playbook
+Example Playbooks
 ----------------
 
 ```
-# Example
+# Installing the Monitoring and Logging agents
 - hosts: all
   become: true
   roles:
     - role: google_cloud_ops_agents
       vars:
         agent_type: monitoring
-        package_state: present
-        version: latest
-        main_config_file: collectd.conf
-        additional_config_dir: plugins/
 
     - role: google_cloud_ops_agents
       vars:
         agent_type: logging
-        package_state: present
+```
+```
+# Installing the Monitoring and Logging agents with custom configurations
+- hosts: all
+  become: true
+  roles:
+    - role: google_cloud_ops_agents
+      vars:
+        agent_type: monitoring
+        version: latest
+        main_config_file: monitoring_agent.conf
+        additional_config_dir: monitoring_agent_dir/
+
+    - role: google_cloud_ops_agents
+      vars:
+        agent_type: logging
         version: 1.*.*
+        main_config_file: logging_agent.conf
+        additional_config_dir: logging_agent_dir/
+```
+```
+# Installing the Ops-Agent
+- hosts: all
+  become: true
+  roles:
+    - role: google_cloud_ops_agents
+      vars:
+        agent_type: ops-agent
+```
+```
+# Installing the Ops-Agent with custom configuration
+- hosts: all
+  become: true
+  roles:
+    - role: google_cloud_ops_agents
+      vars:
+        agent_type: ops-agent
+        version: 1.0.1
+        main_config_file: ops_agent.yaml
 ```
 
 License
