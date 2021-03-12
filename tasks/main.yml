@@ -3,7 +3,7 @@
   assert:
     that: ansible_os_family in ['Debian', 'RedHat', 'Suse', 'Windows']
     msg: >
-      Received invalid Operating System: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following OSs: 'Debian', 'RedHat', 'Suse' and i
+      Received invalid Operating System: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following OSs: 'Debian', 'RedHat', 'Suse' and
       'Windows'.
 
 - name: Validate agent_type
