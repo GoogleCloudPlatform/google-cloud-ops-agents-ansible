@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: google_cloud_ops_agents
+  namespace: google_cloud_platform
   author: Ryan Moriarty
   description: Install the Google Cloud Ops Agents
   company: Google
