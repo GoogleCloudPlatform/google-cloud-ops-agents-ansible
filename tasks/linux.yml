@@ -48,3 +48,10 @@
         force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
+
+- name: Remove temp directory
+  file:
+    path: "{{ tempfolder.path }}"
+    state: absent
+  check_mode: false
+  changed_when: false
