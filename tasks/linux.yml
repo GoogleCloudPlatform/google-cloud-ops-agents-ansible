@@ -48,6 +48,10 @@
         force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
+      with_fileglob:
+        - "{{ additional_config_dir }}/*.conf"
+      when: additional_config_dir
+      notify: "restart {{ agent_type }} agent"
 
 - name: Remove temp directory
   file:
