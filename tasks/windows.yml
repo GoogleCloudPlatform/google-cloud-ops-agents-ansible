@@ -94,7 +94,7 @@
           with_fileglob:
             - "{{ additional_config_dir }}/*.conf"
           when: additional_config_dir | length > 0
-          notify: "restart {{ agent_type }} agent"
+          notify: "restart windows {{ agent_type }} agent"
 
 - name: Remove temp directory
   win_file:
