@@ -38,7 +38,7 @@
         src: "{{ main_config_file }}"
         dest: 'C:\Program Files\Google\Cloud Operations\Ops Agent\config\config.yaml'
         force: true
-      when: main_config_file
+      when: main_config_file | length > 0
       notify: "restart ops-agent agent windows"
 
 - name: Remove temp directory

@@ -38,7 +38,7 @@
         force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
-      when: main_config_file
+      when: main_config_file | length > 0
       notify: "restart {{ agent_type }} agent"
 
     - name: Copy additional configs onto the remote machine
@@ -50,7 +50,7 @@
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
       with_fileglob:
         - "{{ additional_config_dir }}/*.conf"
-      when: additional_config_dir
+      when: additional_config_dir | length > 0
       notify: "restart {{ agent_type }} agent"
 
 - name: Remove temp directory

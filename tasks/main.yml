@@ -18,7 +18,7 @@
 
 - name: Ensure no additional config directory was specified when configuring the ops-agent
   assert:
-    that: not additional_config_dir
+    that: additional_config_dir | length == 0
     msg: "The ops agent does not support additional configurations. additional_config_dir must be empty when the agent_type is 'ops-agent'."
   when: agent_type == 'ops-agent'
 
