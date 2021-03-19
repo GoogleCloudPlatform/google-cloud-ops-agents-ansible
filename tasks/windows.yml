@@ -54,11 +54,6 @@
       register: result
       failed_when: false
 
-    - name: Validate package_state
-      assert:
-        that: not (package_state == 'absent' and result.rc == 0)
-        msg: 'The Cloud Ops Ansible role does not support uninstalling the Windows logging agent. Please follow the steps at: https://cloud.google.com/logging/docs/agent/installation#uninstall'
-
     - when: package_state == 'present' and result.rc == 1
       block:
         - name: Download executable
@@ -74,6 +69,14 @@
             chdir: "{{ tempfolder.path }}"
           notify: "restart windows {{ agent_type }} agent"
 
+    - when: package_state == 'absent' and result.rc == 0
+      block:
+        - name: Uninstall agent
+          win_shell: '.\\uninstall.exe /S'
+          args:
+            chdir: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\'
+
+    - when: package_state == 'present'
       block:
         - name: Copy main config file onto the remote machine
           win_copy:
