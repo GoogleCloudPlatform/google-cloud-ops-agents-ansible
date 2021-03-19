@@ -1,8 +1,8 @@
 ---
 - name: Validate agent_type
   assert:
-    that: agent_type == 'ops-agent'
-    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following agents for Windows: 'ops-agent'."
+    that: agent_type in ['logging',  'ops-agent']
+    msg: "Received invalid agent type: '{{ agent_type }}'. The Cloud Ops Ansible role supports the following agents for Windows: 'logging' and 'ops-agent'."
 
 - name: Create temp directory
   win_tempfile:
@@ -13,36 +13,94 @@
   check_mode: false
   changed_when: false
 
-- name: Download script
-  win_get_url:
-    url: "https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.ps1"
-    dest: "{{ tempfolder.path }}/add-google-cloud-ops-agent-repo.ps1"
-  check_mode: false
-  changed_when: false
-
-- name: Add repo and install agent or remove repo and uninstall agent
-  win_shell: >
-    .\\add-google-cloud-ops-agent-repo.ps1 {{ '-AlsoInstall' if package_state == 'present' else '-Uninstall -RemoveRepo' }} -Version {{ version }}
-    {{ '-WhatIf' if ansible_check_mode else ''}}
-  args:
-    chdir: "{{ tempfolder.path }}"
-  register: result
-  retries: 5
-  delay: 10
-  until: result.rc == 0
-  check_mode: false
-  changed_when: "'No changes made.' not in result.stdout_lines"
-  notify: "restart ops-agent agent windows"
-
-- when: package_state == 'present'
+- when: agent_type == 'ops-agent'
   block:
-    - name: Copy main config file onto the remote machine
-      win_copy:
-        src: "{{ main_config_file }}"
-        dest: 'C:\Program Files\Google\Cloud Operations\Ops Agent\config\config.yaml'
-        force: true
-      when: main_config_file | length > 0
-      notify: "restart ops-agent agent windows"
+    - name: Download script
+      win_get_url:
+        url: "https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.ps1"
+        dest: "{{ tempfolder.path }}/add-google-cloud-ops-agent-repo.ps1"
+      check_mode: false
+      changed_when: false
+
+    - name: Add repo and install agent or remove repo and uninstall agent
+      win_shell: >
+        .\\add-google-cloud-ops-agent-repo.ps1 {{ '-AlsoInstall' if package_state == 'present' else '-Uninstall -RemoveRepo' }} -Version {{ version }}
+        {{ '-WhatIf' if ansible_check_mode else ''}}
+      args:
+        chdir: "{{ tempfolder.path }}"
+      register: result
+      retries: 5
+      delay: 10
+      until: result.rc == 0
+      check_mode: false
+      changed_when: "'No changes made.' not in result.stdout_lines"
+      notify: "restart windows {{ agent_type }} agent"
+
+    - when: package_state == 'present'
+      block:
+        - name: Copy main config file onto the remote machine
+          win_copy:
+            src: "{{ main_config_file }}"
+            dest: 'C:\Program Files\Google\Cloud Operations\Ops Agent\config\config.yaml'
+            force: true
+          when: main_config_file | length > 0
+          notify: "restart windows {{ agent_type }} agent"
+
+- when: agent_type == 'logging'
+  block:
+    - name: Check if agent is present
+      win_shell: 'reg query HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent\ /v Version'
+      changed_when: false
+      register: result
+      failed_when: false
+
+    - name: Fail when the user request uninstallation and package is present.
+      fail:
+        msg: 'The Cloud Ops Ansible role does not support uninstalling the Windows logging agent. Please follow the steps at: https://cloud.google.com/logging/docs/agent/installation#uninstall'
+      when: package_state == 'absent' and result.rc == 0
+
+    - when: package_state == 'present' and result.rc == 1
+      block:
+        - name: Download executable
+          win_get_url:
+            url: "https://dl.google.com/cloudagents/windows/StackdriverLogging-v1-14.exe"
+            dest: "{{ tempfolder.path }}/StackdriverLogging-v1-14.exe"
+          check_mode: false
+          changed_when: false
+
+        - name: Install agent
+          win_shell: '.\\StackdriverLogging-v1-14.exe /S'
+          args:
+            chdir: "{{ tempfolder.path }}"
+          notify: "restart windows {{ agent_type }} agent"
+
+    - when: package_state == 'absent' and result.rc == 0
+      block:
+        - name: Uninstall agent
+          win_shell: '.\\uninstall.exe'
+          args:
+            chdir: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\'
+          register: result
+
+    - when: package_state == 'present'
+      block:
+        - name: Copy main config file onto the remote machine
+          win_copy:
+            src: "{{ main_config_file }}"
+            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\fluent.conf'
+            force: true
+          when: main_config_file | length > 0
+          notify: "restart windows {{ agent_type }} agent"
+
+        - name: Copy additional configs onto the remote machine
+          win_copy:
+            src: "{{ item }}"
+            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d'
+            force: true
+          with_fileglob:
+            - "{{ additional_config_dir }}/*.conf"
+          when: additional_config_dir | length > 0
+          notify: "restart {{ agent_type }} agent"
 
 - name: Remove temp directory
   win_file:
