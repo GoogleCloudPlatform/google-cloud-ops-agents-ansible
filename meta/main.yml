@@ -6,7 +6,7 @@ galaxy_info:
   description: Install the Google Cloud Ops Agents
   company: Google
   license: Apache-2.0
-  min_ansible_version: 2.1
+  min_ansible_version: 2.9
   platforms:
     - name: Debian
       versions:
