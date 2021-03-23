@@ -72,9 +72,8 @@
     - when: package_state == 'absent' and result.rc == 0
       block:
         - name: Uninstall agent
-          win_shell: '.\\uninstall.exe /S'
-          args:
-            chdir: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\'
+          win_shell: '& "$(Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent -Name UninstallString)" /S'
+          register: result
 
     - when: package_state == 'present'
       block:
