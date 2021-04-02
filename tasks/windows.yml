@@ -26,9 +26,10 @@
     {{ '-WhatIf' if ansible_check_mode else ''}}
   args:
     chdir: "{{ tempfolder.path }}"
+  register: result
   retries: 5
   delay: 10
-  register: result
+  until: result.rc == 0
   check_mode: false
   changed_when: "'No changes made.' not in result.stdout_lines"
   notify: "restart ops-agent agent windows"
