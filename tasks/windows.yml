@@ -26,6 +26,8 @@
     {{ '-WhatIf' if ansible_check_mode else ''}}
   args:
     chdir: "{{ tempfolder.path }}"
+  retries: 5
+  delay: 10
   register: result
   check_mode: false
   changed_when: "'No changes made.' not in result.stdout_lines"
