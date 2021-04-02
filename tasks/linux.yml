@@ -24,6 +24,8 @@
       '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}
   environment:
     REPO_CODENAME: "{{ ansible_distribution_release }}"
+  retries: 5
+  delay: 10
   register: result
   check_mode: false
   changed_when: "'No changes made.' not in result.stdout_lines"
