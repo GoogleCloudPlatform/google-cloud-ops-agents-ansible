@@ -16,4 +16,3 @@ ops-agent_validation_cmd: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/c
 windows_logging_service_name: StackdriverLogging
 
 windows_ops-agent_service_name: google-cloud-ops-agent
-
