@@ -84,7 +84,7 @@
 
     - when: package_state == 'absent'
       block:
-        - name: Get UninstallString
+        - name: Check if package is present
           win_shell: >
             Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent
             -Name UninstallString
