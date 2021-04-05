@@ -48,6 +48,11 @@
 
 - when: agent_type == 'logging'
   block:
+    - name: Validate version
+      assert:
+        that: version == 'latest'
+        msg: "Received invalid version: '{{ version }}'. The Cloud Ops Ansible role supports the following version for the Windows logging agent: 'latest'."
+
     - when: package_state == 'present'
       block:
         - name: Download executable
@@ -75,7 +80,7 @@
         - name: Copy additional configs onto the remote machine
           win_copy:
             src: "{{ item }}"
-            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d'
+            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d\'
             force: true
           with_fileglob:
             - "{{ additional_config_dir }}/*.conf"
@@ -96,7 +101,7 @@
         - name: Uninstall agent
           win_shell: >
             & "$(Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent
-            -Name UninstallString)" '/S'; Start-Sleep -s 5
+            -Name UninstallString)" /S; Start-Sleep -s 10
           when: result.rc == 0
 
 - name: Remove temp directory
