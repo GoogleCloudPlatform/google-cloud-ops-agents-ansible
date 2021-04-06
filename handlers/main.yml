@@ -5,6 +5,6 @@
     state: restarted
   when: package_state == 'present' and not ansible_check_mode and testing is not defined
 
-- name: "restart ops-agent agent windows"
-  win_shell: Restart-Service google-cloud-ops-agent -Force
+- name: "restart windows {{ agent_type }} agent"
+  win_shell: "Restart-Service -Name {{ vars['windows_' + agent_type + '_service_name'] }} -Force"
   when: package_state == 'present' and not ansible_check_mode and testing is not defined
