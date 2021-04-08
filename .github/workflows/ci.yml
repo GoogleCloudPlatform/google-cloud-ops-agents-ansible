@@ -29,9 +29,11 @@ jobs:
           - 1.7.0
           - 1.0.1
         distro:
+          - geerlingguy/docker-centos7-ansible
           - geerlingguy/docker-centos8-ansible
           # RedHat Universal Base Image (rhel8)
           - geerlingguy/docker-ubi8-ansible
+          - geerlingguy/docker-amazonlinux2-ansible
           - geerlingguy/docker-debian9-ansible
           - geerlingguy/docker-debian10-ansible
           - geerlingguy/docker-ubuntu1604-ansible
@@ -57,6 +59,8 @@ jobs:
             version: 6.1.0
           - agent_type: ops-agent
             version: 1.7.0
+          - agent_type: ops-agent
+            distro: geerlingguy/docker-amazonlinux2-ansible
 
     steps:
       - name: Checkout the codebase.

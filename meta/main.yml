@@ -22,6 +22,9 @@ galaxy_info:
       versions:
         - 7
         - 8
+    - name: Amazon
+      versions:
+        - AMI
     - name: SLES
       versions:
         - 12
