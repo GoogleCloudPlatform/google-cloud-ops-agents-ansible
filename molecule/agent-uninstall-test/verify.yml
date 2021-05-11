@@ -2,6 +2,7 @@
 # Verify the state of the container after the role has finished executing.
 - name: Verify
   hosts: all
+  become: true
 
   vars:
     agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"

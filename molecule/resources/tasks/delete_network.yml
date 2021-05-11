@@ -1,0 +1,24 @@
+---
+- name: delete a firewall
+  gcp_compute_firewall:
+    name: "{{ molecule_yml.driver.firewall_name }}"
+    state: absent
+    project: "{{ molecule_yml.driver.gcp_project_id }}"
+    auth_kind: serviceaccount
+    service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
+
+- name: register the existing network
+  gcp_compute_network:
+    name: "{{ molecule_yml.driver.network_name }}"
+    project: "{{ molecule_yml.driver.gcp_project_id }}"
+    auth_kind: serviceaccount
+    service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
+  register: network
+
+- name: delete a network
+  gcp_compute_network:
+    name: "{{ molecule_yml.driver.network_name }}"
+    state: absent
+    project: "{{ molecule_yml.driver.gcp_project_id }}"
+    auth_kind: serviceaccount
+    service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"

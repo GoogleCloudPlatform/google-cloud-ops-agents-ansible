@@ -2,6 +2,7 @@
 # Verify the state of the container after the role has finished executing.
 - name: Verify
   hosts: all
+  become: true
 
   vars:
     agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
@@ -21,6 +22,17 @@
       register: result
 
     - name: Assert the agent was already present
+      assert:
+        that: result.changed == false
+
+        # Restart is currently failing on some distros, due to an issue with systemd.
+    - name: Ensure the agent is running
+      service:
+        name: "{{ vars[agent_type + '_service_name'] }}"
+        state: started
+      register: result
+
+    - name: Assert the agent was already running
       assert:
         that: result.changed == false
 
@@ -44,4 +56,7 @@
 
         - name: Assert the plugin config was copied properly
           assert:
-            that: "'custom_config.conf' in result.stdout"
+            that:
+              - "'monitoring_custom_config.conf' in result.stdout"
+              - "'logging_custom_config.conf' in result.stdout"
+              - "'ops-agent_custom_config.conf' in result.stdout"

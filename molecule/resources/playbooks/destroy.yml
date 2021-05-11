@@ -1,0 +1,23 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: delete instance
+      include_tasks: ../tasks/delete_instance.yml
+      loop: "{{ molecule_yml.platforms }}"
+
+    - name: delete network resources
+      include_tasks: ../tasks/delete_network.yml
+
+    - name: Populate instance config
+      set_fact:
+        instance_conf: {}
+
+    - name: Dump instance config
+      copy:
+        content: "{{ instance_conf | to_json | from_json }}"
+        dest: "{{ molecule_instance_config }}"
+      when: instance.changed | bool
