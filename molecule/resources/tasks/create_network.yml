@@ -1,7 +1,7 @@
 ---
 # Create network in gcp project, a subnet and a firewall rule.
 
-- name: "create network {{ molecule_yml.driver.network_name }}"
+- name: "Create network {{ molecule_yml.driver.network_name }}"
   gcp_compute_network:
     name: "{{ molecule_yml.driver.network_name }}"
     state: present
@@ -10,7 +10,7 @@
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: network
 
-- name: "create firewall rule for ports 22, 3389 and 5986"
+- name: "Create firewall rule for ports 22, 3389 and 5986"
   gcp_compute_firewall:
     name: "{{ molecule_yml.driver.firewall_name }}"
     network: {"selfLink": "{{ network.selfLink }}"}

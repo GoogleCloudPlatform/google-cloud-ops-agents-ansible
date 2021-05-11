@@ -1,9 +1,5 @@
 ---
-- name: set agent_type fact
-  set_fact:
-    agent_type: "{{ lookup('env', 'AGENT_TYPE') }}"
-
-- name: "delete instance {{ item.name }}"
+- name: "Delete instance {{ item.name }}"
   gcp_compute_instance:
     name: "{{ item.name }}"
     zone: "{{ molecule_yml.driver.zone }}"
@@ -13,7 +9,7 @@
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: instance
 
-- name: delete address
+- name: Delete address
   gcp_compute_address:
     name: "{{ item.name }}"
     region: "{{ molecule_yml.driver.region }}"

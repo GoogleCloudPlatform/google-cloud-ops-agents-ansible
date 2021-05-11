@@ -35,7 +35,7 @@
       assert:
         that: result.changed == false
 
-    - when: main_config_file
+    - when: main_config_file | length > 0
       block:
         - name: Read config file
           command:
@@ -46,7 +46,7 @@
           assert:
             that: "'# Sample custom config' in result.stdout"
 
-    - when: additional_config_dir and agent_type != 'ops-agent'
+    - when: additional_config_dir | length > 0 and agent_type != 'ops-agent'
       block:
         - name: List contents of the plugin directory
           command:

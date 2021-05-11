@@ -5,11 +5,11 @@
   gather_facts: false
 
   tasks:
-    - name: delete instance
+    - name: Delete instance
       include_tasks: ../tasks/delete_instance.yml
       loop: "{{ molecule_yml.platforms }}"
 
-    - name: delete network resources
+    - name: Delete network resources
       include_tasks: ../tasks/delete_network.yml
 
     - name: Populate instance config
