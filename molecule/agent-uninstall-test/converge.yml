@@ -3,7 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Include google_cloud_ops_agents role
+    - name: Uninstall agent
       include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:

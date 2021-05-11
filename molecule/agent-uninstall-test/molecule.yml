@@ -84,6 +84,5 @@ provisioner:
   playbooks:
     create: ../resources/playbooks/create.yml
     destroy: ../resources/playbooks/destroy.yml
-    prepare: ../resources/playbooks/prepare.yml
 verifier:
   name: ansible
