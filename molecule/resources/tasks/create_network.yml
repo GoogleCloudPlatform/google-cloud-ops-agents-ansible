@@ -15,8 +15,8 @@
     name: "{{ molecule_yml.driver.firewall_name }}"
     network: {"selfLink": "{{ network.selfLink }}"}
     allowed:
-    - ip_protocol: tcp
-      ports: ['22', '3389', '5986']
+      - ip_protocol: tcp
+        ports: ['22', '3389', '5986']
     target_tags:
       - ansibleinventory
     source_ranges: ['0.0.0.0/0']

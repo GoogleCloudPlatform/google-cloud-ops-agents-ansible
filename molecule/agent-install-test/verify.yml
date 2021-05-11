@@ -25,7 +25,6 @@
       assert:
         that: result.changed == false
 
-        # Restart is currently failing on some distros, due to an issue with systemd.
     - name: Ensure the agent is running
       service:
         name: "{{ vars[agent_type + '_service_name'] }}"

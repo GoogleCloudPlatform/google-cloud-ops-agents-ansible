@@ -11,6 +11,6 @@
       vars:
         agent_type: "{{ lookup('env', 'AGENT_TYPE') | default('monitoring', True) }}"
         package_state: present
-        version: latest
+        version: "{{ lookup('env', 'VERSION') | default('latest', True) }}"
         main_config_file: "{{ lookup('env', 'MAIN_CONFIG_FILE') | default('', True) }}"
         additional_config_dir: "{{ '' if agent_type == 'ops-agent' else lookup('env', 'ADDITIONAL_CONFIG_DIR') | default('', True) }}"
