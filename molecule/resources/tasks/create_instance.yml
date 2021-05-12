@@ -45,7 +45,7 @@
             type: ONE_TO_ONE_NAT
     zone: "{{ molecule_yml.driver.zone }}"
     metadata:
-      enable-oslogin: FALSE
+      enable-oslogin: false
       ssh-keys: "{{ molecule_yml.driver.ssh_user }}:{{ lookup('file', molecule_yml.driver.ssh_pub_key_file) }}\n"
     project: "{{ molecule_yml.driver.gcp_project_id }}"
     auth_kind: serviceaccount

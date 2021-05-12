@@ -25,4 +25,3 @@ rules:
     max: 160
   new-lines:
     type: unix
-  truthy: disable

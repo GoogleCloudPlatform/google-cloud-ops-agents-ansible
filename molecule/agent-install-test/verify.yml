@@ -55,7 +55,4 @@
 
         - name: Assert the plugin config was copied properly
           assert:
-            that:
-              - "'monitoring_custom_config.conf' in result.stdout"
-              - "'logging_custom_config.conf' in result.stdout"
-              - "'ops-agent_custom_config.conf' in result.stdout"
+            that: "'custom_config.conf' in result.stdout"
