@@ -36,4 +36,4 @@
 
     - name: Sleep one minute to allow GCP instances to spin up
       pause:
-        minutes: 1
+        minutes: 5

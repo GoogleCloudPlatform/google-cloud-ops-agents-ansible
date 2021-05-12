@@ -10,13 +10,13 @@
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: network
 
-- name: "Create firewall rule for ports 22, 3389 and 5986"
+- name: "Create firewall rule for ports 22"
   gcp_compute_firewall:
     name: "{{ molecule_yml.driver.firewall_name }}"
     network: {"selfLink": "{{ network.selfLink }}"}
     allowed:
       - ip_protocol: tcp
-        ports: ['22', '3389', '5986']
+        ports: ['22']
     target_tags:
       - ansibleinventory
     source_ranges: ['0.0.0.0/0']
