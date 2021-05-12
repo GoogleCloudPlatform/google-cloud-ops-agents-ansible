@@ -2,6 +2,8 @@
 # This playbook calls the role. Molecule will invoke this playbook with ansible-playbook and run it against an instance created by the driver.
 - name: Converge
   hosts: all
+  become: true
+
   tasks:
     - name: Uninstall agent
       include_role:
