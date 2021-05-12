@@ -4,9 +4,6 @@
   connection: local
 
   tasks:
-    - name: Create network resources
-      include_tasks: ../tasks/create_network.yml
-
     - name: Create instances
       include_tasks: ../tasks/create_instance.yml
       loop: "{{ molecule_yml.platforms }}"
