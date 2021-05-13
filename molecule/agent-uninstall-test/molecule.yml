@@ -11,9 +11,6 @@ driver:
   ssh_user: ${SSH_USER}
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
-  network_name: "ansible-network-${AGENT_TYPE}-${MOLECULE_SCENARIO_NAME}"
-  firewall_name: ansible-firewall
-  ip_cidr_range: 172.16.0.0/28
 lint: |
   set -e
   yamllint .

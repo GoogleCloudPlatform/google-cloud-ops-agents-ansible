@@ -3,15 +3,15 @@
   hosts: all
   become: true
 
-  tasks:
-    - name: Create google auth directory
-      file:
-        path: /etc/google/auth
-        state: directory
-        mode: '0755'
+#  tasks:
+#    - name: Create google auth directory
+#      file:
+#        path: /etc/google/auth
+#        state: directory
+#        mode: '0755'
 
-    - name: Copy application credentials onto the VM
-      copy:
-        src: "{{ molecule_yml.driver.gcp_service_account_key }}"
-        dest: /etc/google/auth/application_default_credentials.json
-        mode: 0400
+#    - name: Copy application credentials onto the VM
+#      copy:
+#        src: "{{ molecule_yml.driver.gcp_service_account_key }}"
+#        dest: /etc/google/auth/application_default_credentials.json
+#        mode: 0400
