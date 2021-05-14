@@ -58,10 +58,11 @@
       ssh-keys: "{{ molecule_yml.driver.ssh_user }}:{{ lookup('file', molecule_yml.driver.ssh_pub_key_file) }}\n"
     project: "{{ molecule_yml.driver.gcp_project_id }}"
     auth_kind: serviceaccount
-    scopes:
-      - https://www.googleapis.com/auth/logging.write
-      - https://www.googleapis.com/auth/logging.admin
-      - https://www.googleapis.com/auth/cloud-platform
+    service_accounts:
+      - scopes:
+          - https://www.googleapis.com/auth/logging.write
+          - https://www.googleapis.com/auth/logging.admin
+          - https://www.googleapis.com/auth/cloud-platform
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
     tags:
       items:
