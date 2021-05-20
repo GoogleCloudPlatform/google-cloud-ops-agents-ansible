@@ -70,6 +70,12 @@ platforms:
     size_gb: 40
     groups:
       - debian
+  - name: "ansible-sles-12-${AGENT_TYPE}-${MOLECULE_SCENARIO_NAME}"
+    image_family: projects/suse-cloud/global/images/family/sles-12
+    machine_type: e2-medium
+    size_gb: 40
+    groups:
+      - sles
   - name: "ansible-sles-15-${AGENT_TYPE}-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/suse-cloud/global/images/family/sles-15
     machine_type: e2-medium
