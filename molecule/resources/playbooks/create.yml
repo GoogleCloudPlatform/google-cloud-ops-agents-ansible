@@ -5,7 +5,7 @@
 
   tasks:
     - name: Create instances
-      include_tasks: ../tasks/create_instance.yml
+      include_tasks: ./create_instance.yml
       loop: "{{ molecule_yml.platforms }}"
 
     - name: Populate instance config dict

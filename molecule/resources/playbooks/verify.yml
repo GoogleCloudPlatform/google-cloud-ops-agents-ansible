@@ -13,7 +13,7 @@
   tasks:
     - name: Include vars
       include_vars:
-        file: ../../vars/main.yml
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/vars/main.yml"
 
     - name: Ensure the agent is present
       package:
@@ -56,3 +56,19 @@
         - name: Assert the plugin config was copied properly
           assert:
             that: "'custom_config.conf' in result.stdout"
+
+    - name: Uninstall agent
+      include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        package_state: absent
+
+    - name: Ensure the agent is absent
+      package:
+        name: "{{ package_name }}"
+        state: absent
+      register: result
+
+    - name: Assert the agent was already absent
+      assert:
+        that: result.changed == false
