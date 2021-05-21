@@ -1,4 +1,5 @@
 ---
+# Test
 # Based on ansible-lint config.
 extends: default
 
