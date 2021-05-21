@@ -6,15 +6,15 @@ driver:
   name: delegated
   gcp_service_account_key: ${GOOGLE_APPLICATION_CREDENTIALS}
   gcp_project_id: ${PROJECT}
-  zone: ${ZONE}
-  region: ${REGION}
+  zone: us-west1-a #${ZONE}
+  region: us-west1 #${REGION}
   ssh_user: ${SSH_USER}
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
 lint: |
-  set -e
-  yamllint .
-  ansible-lint .
+#  set -e
+#  yamllint .
+#  ansible-lint .
 platforms:
   - name: "ansible-centos-7-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/centos-cloud/global/images/family/centos-7
