@@ -12,9 +12,9 @@ driver:
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
 lint: |
-  set -e
-  yamllint .
-  ansible-lint .
+#  set -e
+#  yamllint .
+#  ansible-lint .
 platforms:
   - name: "ansible-centos-7-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/centos-cloud/global/images/family/centos-7
