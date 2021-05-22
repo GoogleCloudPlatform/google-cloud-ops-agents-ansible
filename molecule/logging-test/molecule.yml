@@ -12,8 +12,8 @@ driver:
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
 lint: |
-#  set -e
-#  yamllint .
+  set -e
+  yamllint .
 #  ansible-lint .
 platforms:
   - name: "ansible-centos-7-${MOLECULE_SCENARIO_NAME}"
