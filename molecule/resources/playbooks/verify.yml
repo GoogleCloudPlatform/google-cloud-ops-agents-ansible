@@ -44,7 +44,7 @@
 
         - name: Assert the custom config was copied properly
           assert:
-            that: "'# Sample custom config' in result.stdout"
+            that: "'# Sample custom config.' in result.stdout"
 
     - when: additional_config_dir | length > 0 and agent_type != 'ops-agent'
       block:
