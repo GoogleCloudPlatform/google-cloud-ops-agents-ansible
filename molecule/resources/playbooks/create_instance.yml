@@ -15,15 +15,15 @@
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: network
 
-- name: Create ip address
-  gcp_compute_address:
-    name: "{{ item.name }}"
-    region: "{{ molecule_yml.driver.region }}"
-    state: present
-    project: "{{ molecule_yml.driver.gcp_project_id }}"
-    auth_kind: serviceaccount
-    service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
-  register: address
+#- name: Create ip address
+#  gcp_compute_address:
+#    name: "{{ item.name }}"
+#    region: "{{ molecule_yml.driver.region }}"
+#    state: present
+#    project: "{{ molecule_yml.driver.gcp_project_id }}"
+#    auth_kind: serviceaccount
+#    service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
+#  register: address
 
 - name: Create disk
   gcp_compute_disk:
@@ -50,7 +50,7 @@
       - network: "{{ network }}"
         access_configs:
           - name: External NAT
-            nat_ip: "{{ address }}"
+#           nat_ip: "{{ address }}"
             type: ONE_TO_ONE_NAT
     zone: "{{ molecule_yml.driver.zone }}"
     project: "{{ molecule_yml.driver.gcp_project_id }}"
