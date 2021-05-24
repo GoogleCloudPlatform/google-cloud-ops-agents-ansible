@@ -6,8 +6,8 @@ driver:
   name: delegated
   gcp_service_account_key: ${GOOGLE_APPLICATION_CREDENTIALS}
   gcp_project_id: ${PROJECT}
-  zone: ${ZONE} #us-east1-c #${ZONE}
-  region: ${REGION} #us-east1 #${REGION}
+  zone: ${ZONE}
+  region: ${REGION}
   ssh_user: ${SSH_USER}
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
