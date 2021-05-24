@@ -14,7 +14,7 @@ driver:
 lint: |
   set -e
   yamllint .
-#  ansible-lint .
+  ansible-lint .
 platforms:
   - name: "ansible-centos-7-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/centos-cloud/global/images/family/centos-7
