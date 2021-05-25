@@ -14,7 +14,7 @@ driver:
 lint: |
   set -e
   yamllint .
-  ansible-lint .
+  # TODO(rmoriar1): add back the ansible-lint routine once an updated version is available on the GCP_UBUNTU VM.
 platforms:
   - name: "ansible-centos-7-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/centos-cloud/global/images/family/centos-7
