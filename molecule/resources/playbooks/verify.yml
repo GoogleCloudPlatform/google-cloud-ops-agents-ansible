@@ -1,5 +1,5 @@
 ---
-# Verify the state of the container after the role has finished executing.
+# Verify the state of the VM after the role has finished executing.
 - name: Verify
   hosts: all
   become: true
