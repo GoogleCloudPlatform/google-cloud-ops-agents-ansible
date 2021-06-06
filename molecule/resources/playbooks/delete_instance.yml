@@ -1,4 +1,8 @@
 ---
+- name: debug
+  debug:
+    msg: "{{ item }}"
+
 - name: "Delete instance {{ item.name }}"
   gcp_compute_instance:
     name: "{{ item.name }}"
