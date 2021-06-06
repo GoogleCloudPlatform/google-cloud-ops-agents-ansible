@@ -16,19 +16,19 @@ lint: |
   yamllint .
   # TODO(rmoriar1): add back the ansible-lint routine once an updated version is available on the GCP_UBUNTU VM.
 platforms:
-  - name: "ansible-windows-2012-${MOLECULE_SCENARIO_NAME}"
+  - name: "ansible-windows-2012-test"
     image_family: projects/windows-cloud/global/images/family/windows-2012-r2
     machine_type: e2-medium
     size_gb: 80
     groups:
       - windows
-  - name: "ansible-windows-2016-${MOLECULE_SCENARIO_NAME}"
+  - name: "ansible-windows-2016-test"
     image_family: projects/windows-cloud/global/images/family/windows-2016
     machine_type: e2-medium
     size_gb: 80
     groups:
       - windows
-  - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
+  - name: "ansible-windows-2019-test"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
     size_gb: 80
