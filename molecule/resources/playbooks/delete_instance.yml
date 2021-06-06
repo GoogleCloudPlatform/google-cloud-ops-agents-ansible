@@ -1,8 +1,4 @@
 ---
-- name: debug
-  debug:
-    msg: "{{ item }}"
-
 - name: "Delete instance {{ item.name }}"
   gcp_compute_instance:
     name: "{{ item.name }}"
@@ -12,3 +8,4 @@
     auth_kind: serviceaccount
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: instance
+  when: item.image_family | regex_search('windows') | length == 0
