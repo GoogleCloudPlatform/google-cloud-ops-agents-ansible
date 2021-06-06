@@ -36,6 +36,14 @@ platforms:
       - windows
 provisioner:
   name: ansible
+  connection_options:
+    ansible_shell_type: powershell
+  inventory:
+    group_vars:
+      windows:
+        ansible_user: ${SSH_USER}
+        ansible_connection: winrm
+        ansible_become: false
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
