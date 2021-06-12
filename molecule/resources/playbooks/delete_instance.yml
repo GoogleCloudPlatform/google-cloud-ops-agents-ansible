@@ -8,4 +8,4 @@
     auth_kind: serviceaccount
     service_account_file: "{{ molecule_yml.driver.gcp_service_account_key }}"
   register: instance
-  when: item.image_family | regex_search('windows') | length == 0
+#  when: item.image_family | regex_search('windows') | length == 0

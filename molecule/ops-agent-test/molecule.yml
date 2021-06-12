@@ -54,6 +54,7 @@ provisioner:
         ansible_password: tB/lc6e|8;L>xbv
   playbooks:
     create: ../resources/playbooks/create.yml
+    prepare: ../resources/playbooks/prepare.yml
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
     destroy: ../resources/playbooks/destroy.yml
