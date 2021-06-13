@@ -27,7 +27,7 @@
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
           'port': "5986",
-          'connection': "winrm". }
+          'connection': "winrm", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
       when: instance_created.changed and item.image_family | regex_search('windows') | length != 0

@@ -1,3 +1,4 @@
+---
 - name: Include vars
   include_vars:
     file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/vars/main.yml"
@@ -20,7 +21,7 @@
 
 - name: Assert the agent was already present
   assert:
-   that: result.rc == 0
+    that: result.rc == 0
 
 - name: Ensure the agent is running
   win_service:
@@ -77,4 +78,4 @@
 
 - name: Assert the agent was already absent
   assert:
-   that: result.rc == 1
+    that: result.rc == 1
