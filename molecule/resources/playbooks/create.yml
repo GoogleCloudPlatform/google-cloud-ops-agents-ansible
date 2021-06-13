@@ -29,7 +29,6 @@
           'port': "5986",
           'connection': "winrm", }
       with_items: "{{ instance_created.instances }}"
-      register: instance_config_dict
       when: instance_created.changed and item.name | regex_search('windows') != None
 
     - name: Convert instance config dict to a list
