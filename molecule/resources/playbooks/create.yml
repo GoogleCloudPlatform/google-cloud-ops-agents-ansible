@@ -8,7 +8,7 @@
       include_tasks: ./create_instance.yml
       loop: "{{ molecule_yml.platforms }}"
 
-    - name: Populate instance config dict
+    - name: Populate instance config dict linux
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.name }}",
@@ -18,7 +18,20 @@
           'identity_file': "{{ molecule_yml.driver.ssh_key_file }}", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
-      when: instance_created.changed
+      when: instance_created.changed and item.image_family | regex_search('windows') | length == 0
+
+    - name: Populate instance config dict windows
+      set_fact:
+        instance_conf_dict: {
+          'instance': "{{ item.name }}",
+          'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
+          'user': "{{ molecule_yml.driver.ssh_user }}",
+          'port': "5986",
+          'identity_file': "{{ molecule_yml.driver.ssh_key_file }}"
+          'connection': "winrm". }
+      with_items: "{{ instance_created.instances }}"
+      register: instance_config_dict
+      when: instance_created.changed and item.image_family | regex_search('windows') | length != 0
 
     - name: Convert instance config dict to a list
       set_fact:
