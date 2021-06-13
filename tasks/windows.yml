@@ -41,7 +41,7 @@
         - name: Copy main config file onto the remote machine
           win_copy:
             src: "{{ main_config_file }}"
-            dest: 'C:\Program Files\Google\Cloud Operations\Ops Agent\config\config.yaml'
+            dest: "{{ vars['windows_' + agent_type + '_config_path'] }}"
             force: true
           when: main_config_file | length > 0
           notify: "restart windows {{ agent_type }} agent"
@@ -72,7 +72,7 @@
         - name: Copy main config file onto the remote machine
           win_copy:
             src: "{{ main_config_file }}"
-            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\fluent.conf'
+            dest: "{{ vars['windows_' + agent_type + '_config_path'] }}"
             force: true
           when: main_config_file | length > 0
           notify: "restart windows {{ agent_type }} agent"
