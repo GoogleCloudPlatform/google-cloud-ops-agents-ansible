@@ -80,7 +80,7 @@
         - name: Copy additional configs onto the remote machine
           win_copy:
             src: "{{ item }}"
-            dest: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d\'
+            dest: "{{ vars['windows_' + agent_type + '_plugins_path'] }}"
             force: true
           with_fileglob:
             - "{{ additional_config_dir }}/*.conf"

@@ -46,7 +46,7 @@
   block:
     - name: List contents of the plugin directory
       command:
-        cmd: "ls {{ vars[agent_type + '_plugins_path'] }}"
+        cmd: "ls {{ vars['windows_' + agent_type + '_plugins_path'] }}"
       register: result
 
     - name: Assert the plugin config was copied properly

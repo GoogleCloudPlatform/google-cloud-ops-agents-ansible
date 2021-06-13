@@ -15,6 +15,7 @@ ops-agent_validation_cmd: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/c
 
 windows_logging_service_name: StackdriverLogging
 windows_logging_config_path: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\fluent.conf'
+windows_logging_plugins_path: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d\'
 
 windows_ops-agent_service_name: google-cloud-ops-agent
 windows_ops-agent_config_path: 'C:\Program Files\Google\Cloud Operations\Ops Agent\config\config.yaml'
