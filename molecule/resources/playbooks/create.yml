@@ -18,7 +18,7 @@
           'identity_file': "{{ molecule_yml.driver.ssh_key_file }}", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
-      when: instance_created.changed and item.image_family | regex_search('windows') | length == 0
+      when: instance_created.changed and item.image_family | regex_search('windows') == None
 
     - name: Populate instance config dict windows
       set_fact:
@@ -30,7 +30,7 @@
           'connection': "winrm", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
-      when: instance_created.changed and item.image_family | regex_search('windows') | length != 0
+      when: instance_created.changed and item.image_family | regex_search('windows') != None
 
     - name: Convert instance config dict to a list
       set_fact:
