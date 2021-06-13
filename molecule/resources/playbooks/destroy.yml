@@ -2,14 +2,9 @@
 - name: Destroy
   hosts: localhost
   connection: local
+  gather_facts: false
 
   tasks:
-    - name: Uninstall agent
-      include_role:
-        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
-      vars:
-        package_state: absent
-
     - name: Delete instance
       include_tasks: ./delete_instance.yml
       loop: "{{ molecule_yml.platforms }}"
