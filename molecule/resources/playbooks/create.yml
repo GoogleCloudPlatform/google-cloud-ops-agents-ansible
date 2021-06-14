@@ -31,6 +31,7 @@
 #          'connection': "winrm", }
 #      with_items: "{{ instance_created.instances }}"
 #      when: instance_created.changed and item.name | regex_search('windows') != None
+#      test
 
     - name: Convert instance config dict to a list
       set_fact:
