@@ -104,6 +104,10 @@ platforms:
       - windows-2019
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      windows:
+        ansible_become: false
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
