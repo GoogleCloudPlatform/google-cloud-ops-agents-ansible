@@ -82,14 +82,14 @@ platforms:
     size_gb: 40
     groups:
       - sles
-  - name: "ansible-windows-2016-test"
+  - name: "ansible-windows-2016-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2016
     machine_type: e2-medium
     size_gb: 80
     groups:
       - windows
       - windows-2019
-  - name: "ansible-windows-2019-test"
+  - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
     size_gb: 80
