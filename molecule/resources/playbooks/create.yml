@@ -21,7 +21,7 @@
 #      register: instance_config_dict
 #      when: instance_created.changed and item.name
 
-   - name: Populate instance config dict windows
+    - name: Populate instance config dict windows
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.name }}",
