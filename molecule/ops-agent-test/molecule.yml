@@ -102,6 +102,7 @@ provisioner:
     group_vars:
       windows:
         ansible_become: false
+        ansible_winrm_server_cert_validation: 'ignore'
       windows-2016:
         ansible_password: "${WIN_2016_PW}"
       windows-2019:
