@@ -32,6 +32,10 @@
         dest: "{{ molecule_instance_config }}"
       when: instance_created.changed
 
+    - name: Debug
+      debug:
+        msg: "{{ molecule_instance_config }}"
+
     - name: Sleep five minutes to allow GCP instances to spin up
       pause:
         minutes: 5
