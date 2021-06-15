@@ -108,6 +108,10 @@ provisioner:
     group_vars:
       windows:
         ansible_become: false
+      windows-2016:
+        ansible_password: ${WIN_2016_PW}
+      windows-2016:
+        ansible_password: ${WIN_2019_PW}
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
