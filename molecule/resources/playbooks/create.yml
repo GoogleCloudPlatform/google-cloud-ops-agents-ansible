@@ -8,30 +8,18 @@
       include_tasks: ./create_instance.yml
       loop: "{{ molecule_yml.platforms }}"
 
-#    - name: Populate instance config dict linux
-#      set_fact:
-#        instance_conf_dict: {
-#          'instance': "{{ item.name }}",
-#          'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
-#          'user': "{{ molecule_yml.driver.ssh_user }}",
-#          'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
-#          'identity_file': "{{ molecule_yml.driver.ssh_key_file if item.name | regex_search('windows') == None else None }}",
-#          'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
-#      with_items: "{{ instance_created.instances }}"
-#      register: instance_config_dict
-#      when: instance_created.changed and item.name
-
-    - name: Populate instance config dict windows
+    - name: Populate instance config dict linux
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
-          'port': "5986",
-          'connection': "winrm", }
+          'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
+          'identity_file': "{{ molecule_yml.driver.ssh_key_file if item.name | regex_search('windows') == None else None }}",
+          'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
-      when: instance_created.changed and item.name | regex_search('windows') != None
+      when: instance_created.changed and item.name
 
     - name: Convert instance config dict to a list
       set_fact:
