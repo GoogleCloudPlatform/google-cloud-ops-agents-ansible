@@ -43,6 +43,14 @@
         dest: "{{ molecule_instance_config }}"
       when: instance_created.changed
 
+    - name: debug
+      debug:
+        msg: "{{ molecule_yml.driver.win_2016_pw }}"
+
+    - name: debug
+      debug:
+        msg: "{{ molecule_yml.driver.win_2019_pw }}"
+
     - name: Sleep five minutes to allow GCP instances to spin up
       pause:
         minutes: 5
