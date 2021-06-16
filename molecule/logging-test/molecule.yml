@@ -94,7 +94,7 @@ platforms:
     size_gb: 80
     groups:
       - windows
-      - windows-2019
+      - windows-2016
   - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
@@ -108,6 +108,7 @@ provisioner:
     group_vars:
       windows:
         ansible_become: false
+        ansible_winrm_server_cert_validation: 'ignore'
       windows-2016:
         ansible_password: "${WIN_2016_PW}"
       windows-2019:

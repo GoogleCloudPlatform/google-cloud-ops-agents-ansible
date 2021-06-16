@@ -22,7 +22,7 @@ platforms:
     size_gb: 80
     groups:
       - windows
-      - windows-2019
+      - windows-2016
   - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
