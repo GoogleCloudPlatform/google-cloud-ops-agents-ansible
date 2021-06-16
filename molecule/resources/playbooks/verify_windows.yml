@@ -10,6 +10,14 @@
       register: result
       failed_when: false
 
+    - name: debug
+      debug:
+        msg: "{{ result }}"
+
+    - name: Assert the agent was already present
+      assert:
+        that: result.rc == 0
+
 - when: agent_type == 'logging'
   block:
     - name: Ensure the agent is present
@@ -19,9 +27,9 @@
       register: result
       failed_when: false
 
-- name: Assert the agent was already present
-  assert:
-    that: result.rc == 0
+    - name: Assert the agent was already present
+      assert:
+        that: result.rc == 0
 
 - name: Ensure the agent is running
   win_service:
@@ -67,6 +75,10 @@
       register: result
       failed_when: false
 
+    - name: Assert the agent was already absent
+      assert:
+        that: result.rc == 1
+
 - when: agent_type == 'logging'
   block:
     - name: Ensure the agent is absent
@@ -76,6 +88,6 @@
       register: result
       failed_when: false
 
-- name: Assert the agent was already absent
-  assert:
-    that: result.rc == 1
+    - name: Assert the agent was already absent
+      assert:
+        that: result.rc == 1
