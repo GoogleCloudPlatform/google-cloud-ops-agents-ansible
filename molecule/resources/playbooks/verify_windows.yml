@@ -54,8 +54,7 @@
 - when: additional_config_dir | length > 0 and agent_type != 'ops-agent'
   block:
     - name: List contents of the plugin directory
-      command:
-        cmd: "ls '{{ vars['windows_' + agent_type + '_plugins_path'] }}'"
+      win_shell: "ls '{{ vars['windows_' + agent_type + '_plugins_path'] }}'"
       register: result
 
     - name: Assert the plugin config was copied properly
