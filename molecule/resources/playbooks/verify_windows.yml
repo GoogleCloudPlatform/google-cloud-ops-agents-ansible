@@ -3,7 +3,7 @@
   include_vars:
     file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/vars/main.yml"
 
-- when: agent_type == 'ops_agent'
+- when: agent_type == 'ops-agent'
   block:
     - name: Ensure the agent is present
       win_shell: googet installed google-cloud-ops-agent
@@ -60,7 +60,7 @@
   vars:
     package_state: absent
 
-- when: agent_type == 'ops_agent'
+- when: agent_type == 'ops-agent'
   block:
     - name: Ensure the agent is absent
       win_shell: googet installed google-cloud-ops-agent
