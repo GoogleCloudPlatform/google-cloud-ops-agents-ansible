@@ -11,8 +11,6 @@ driver:
   ssh_user: ${SSH_USER}
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
-  win_2016_pw: ${WIN_2016_PW}
-  win_2019_pw: ${WIN_2019_PW}
 lint: |
   set -e
   yamllint .
