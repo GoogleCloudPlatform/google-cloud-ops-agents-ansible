@@ -44,7 +44,7 @@
 - when: main_config_file | length > 0
   block:
     - name: Read config file
-      win_shell:  "cat {{ vars['windows_' + agent_type + '_config_path'] }}"
+      win_shell:  "cat '{{ vars['windows_' + agent_type + '_config_path'] }}'"
       register: result
 
     - name: Assert the custom config was copied properly
@@ -55,7 +55,7 @@
   block:
     - name: List contents of the plugin directory
       command:
-        cmd: "ls {{ vars['windows_' + agent_type + '_plugins_path'] }}"
+        cmd: "ls '{{ vars['windows_' + agent_type + '_plugins_path'] }}'"
       register: result
 
     - name: Assert the plugin config was copied properly
