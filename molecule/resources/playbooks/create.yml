@@ -15,7 +15,7 @@
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
           'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
-          'identity_file': "{{ molecule_yml.driver.ssh_key_file if item.name | regex_search('windows') == None else None }}", }
+          'identity_file': "{{ molecule_yml.driver.ssh_key_file if item.name | regex_search('windows') == None else None }}",
           'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
       with_items: "{{ instance_created.instances }}"
       register: instance_config_dict
