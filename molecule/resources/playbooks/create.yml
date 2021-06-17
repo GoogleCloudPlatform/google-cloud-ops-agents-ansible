@@ -38,7 +38,7 @@
       set_fact:
         instance_conf: "{{ item.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
       when: instance_created.changed
-      with_dict: "{{ instance_config_dict_linux | combine(instance_config_dict_windows }}"
+      with_dict: "{{ instance_config_dict_linux | combine(instance_config_dict_windows) }}"
 
     - name: Dump instance config
       copy:
