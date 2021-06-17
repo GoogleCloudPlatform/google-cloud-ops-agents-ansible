@@ -82,7 +82,7 @@
   block:
     - name: Ensure the agent is absent
       win_shell: >
-        Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent
+        Start-Sleep -s 10; Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\GoogleStackdriverLoggingAgent
         -Name UninstallString
       register: result
       failed_when: false
