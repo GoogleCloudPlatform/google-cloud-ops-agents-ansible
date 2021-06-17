@@ -11,21 +11,34 @@
 
     - name: Populate instance config dict linux
       set_fact:
-        instance_conf_dict: {
+        instance_conf_dict_linux: {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
-          'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
+          'port': "22",
           'identity_file': "{{ molecule_yml.driver.ssh_key_file if item.name | regex_search('windows') == None else None }}",
-          'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
+          'connection': "ssh", }
       with_items: "{{ instance_created.instances }}"
-      register: instance_config_dict
-      when: instance_created.changed and item.name
+      register: instance_config_dict_linux
+      when: instance_created.changed and item.name | regex_search('windows') == None
+
+    - name: Populate instance config dict windows
+      set_fact:
+        instance_conf_dict_windows: {
+          'instance': "{{ item.name }}",
+          'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
+          'user': "{{ molecule_yml.driver.ssh_user }}",
+          'port': "5986",
+          'connection': "winrm", }
+      with_items: "{{ instance_created.instances }}"
+      register: instance_config_dict_windows
+      when: instance_created.changed and item.name | regex_search('windows') != None
 
     - name: Convert instance config dict to a list
       set_fact:
-        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+        instance_conf: "{{ item.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
       when: instance_created.changed
+      with_dict: "{{ instance_config_dict_linux | combine(instance_config_dict_windows }}"
 
     - name: Dump instance config
       copy:
