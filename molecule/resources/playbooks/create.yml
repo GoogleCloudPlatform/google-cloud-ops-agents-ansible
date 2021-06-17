@@ -40,7 +40,7 @@
         instance_conf: >
           {{ instance_config_dict_linux.results | map(attribute='ansible_facts.instance_conf_dict_linux)') | union(instance_config_dict_windows.results |
           map(attribute='ansible_facts.instance_conf_dict_windows')) | list }}
-      when: instance_created.changed and item.name | regex_search('windows') == None
+      when: instance_created.changed
 
     - name: Dump instance config
       copy:
