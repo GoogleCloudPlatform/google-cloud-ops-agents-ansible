@@ -31,7 +31,6 @@
 #          'connection': "winrm", }
 #      with_items: "{{ instance_created.instances }}"
 #      register: instance_config_dict
-#      test
 
     - name: Convert instance config dict to a list
       set_fact:
