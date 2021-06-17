@@ -21,17 +21,6 @@
       register: instance_config_dict
       when: instance_created.changed and item.name
 
-#    - name: Populate instance config dict windows
-#      set_fact:
-#        instance_conf_dict: {
-#          'instance': "{{ item.name }}",
-#          'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
-#          'user': "{{ molecule_yml.driver.ssh_user }}",
-#          'port': "5986",
-#          'connection': "winrm", }
-#      with_items: "{{ instance_created.instances }}"
-#      register: instance_config_dict
-
     - name: Convert instance config dict to a list
       set_fact:
         instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
