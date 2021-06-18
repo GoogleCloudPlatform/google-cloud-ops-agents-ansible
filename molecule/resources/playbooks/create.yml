@@ -62,7 +62,7 @@
 
     - name: debug
       debug:
-        msg: "{{ instance_conf_dicti | to_json | from_json }}"
+        msg: "{{ instance_conf_dict | to_json | from_json }}"
 
     - name: Sleep five minutes to allow GCP instances to spin up
       pause:
