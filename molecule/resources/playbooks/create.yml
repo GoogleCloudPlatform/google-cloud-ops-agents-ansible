@@ -23,19 +23,19 @@
 
     - name: debug
       debug:
-        msg: "{{ lookup('env', 'WIN_2016_PW') }}"
+        msg: !unsafe "{{ lookup('env', 'WIN_2016_PW') }}"
 
     - name: debug
       debug:
-        msg: '{{ molecule_yml.driver.win_2016_pw }}'
+        msg: !unsafe '{{ molecule_yml.driver.win_2016_pw }}'
 
     - name: debug
       debug:
-        msg: "{{ lookup('env', 'WIN_2019_PW') }}"
+        msg: !unsafe "{{ lookup('env', 'WIN_2019_PW') }}"
 
     - name: debug
       debug:
-        msg: '{{ molecule_yml.driver.win_2019_pw }}'
+        msg: !unsafe '{{ molecule_yml.driver.win_2019_pw }}'
 
     - name: Convert instance config dict to a list
       set_fact:
