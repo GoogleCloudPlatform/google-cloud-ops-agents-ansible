@@ -27,7 +27,6 @@
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
           'port': "5986",
-          'password': "{{ molecule_yml.driver.win_2019_pw if item.name | regex_search('windows-2019') != None else molecule_yml.driver.win_2016_pw }}",
           'connection': "winrm", }
       with_items: "{{ instance_created_windows.instances }}"
       register: instance_config_dict
