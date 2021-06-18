@@ -57,7 +57,7 @@ provisioner:
       windows-2019:
         ansible_password: "${WIN_2019_PW}"
   playbooks:
-    create: ../resources/playbooks/create.yml
+    create: ../resources/playbooks/create1.yml
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
     destroy: ../resources/playbooks/destroy.yml
