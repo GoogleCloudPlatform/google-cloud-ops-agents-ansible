@@ -38,7 +38,7 @@
     - name: Convert instance config dict to a list
       set_fact:
         instance_conf: >
-          {{ instance_config_dict_linux.results | map(attribute='ansible_facts.instance_conf_dict_linux)') | union(instance_config_dict_windows.results |
+          {{ instance_config_dict_linux.results | map(attribute='ansible_facts.instance_conf_dict_linux') | union(instance_config_dict_windows.results |
           map(attribute='ansible_facts.instance_conf_dict_windows')) | list }}
       when: instance_created.changed
 
