@@ -14,12 +14,24 @@
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
-          'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
+          'port': "22",
           'identity_file': "{{ molecule_yml.driver.ssh_key_file }}",
-          'password': "{{ molecule_yml.driver.win_2019_pw if item.name | regex_search('windows-2019') != None else molecule_yml.driver.win_2016_pw }}",
-          'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
+          'connection': "ssh", }
       with_items: "{{ instance_created.instances }}"
-      register: instance_config_dict
+      when: instance_created.changed and item.name | regex_search('windows') == None
+
+     - name: Populate instance config dict windows
+        set_fact:
+          instance_conf_dict: {
+            'instance': "{{ item.name }}",
+            'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
+            'user': "{{ molecule_yml.driver.ssh_user }}",
+            'port': "5986",
+            'password': "{{ molecule_yml.driver.win_2019_pw if item.name | regex_search('windows-2019') != None else molecule_yml.driver.win_2016_pw }}",
+            'connection': "winrm", }
+        with_items: "{{ instance_created.instances }}"
+        register: instance_config_dict
+        when: instance_created.changed and item.name | regex_search('windows') != None
 
     - name: Convert instance config dict to a list
       set_fact:
