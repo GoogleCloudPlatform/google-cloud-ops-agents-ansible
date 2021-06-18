@@ -8,61 +8,45 @@
       include_tasks: ./create_instance.yml
       loop: "{{ molecule_yml.platforms }}"
 
-    - name: Initialize instance config dict
+    - name: Populate instance config dict
       set_fact:
-        instance_conf_dict: []
-
-    - name: Populate instance config dict linux
-      set_fact:
-        instance_conf_dict: >
-          "{{ instance_conf_dict }}" + [ {
+        instance_conf_dict: {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
-          'port': "22",
-          'identity_file': "{{ molecule_yml.driver.ssh_key_file }}",
-          'connection': "ssh", } ]
-      with_items: "{{ instance_created_linux.instances }}"
-      when: instance_created_linux.changed
+          'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
+          'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}",
+          'identity_file': "{{ molecule_yml.driver.ssh_key_file }}", }
+      with_items: "{{ instance_created.instances }}"
+      register: instance_config_dict
+      when: instance_created.changed
 
     - name: debug
       debug:
         msg: "{{ instance_conf_dict }}"
 
-    - name: Populate instance config dict windows
+    - name: debug
+      debug:
+        msg: "{{ instance_config_dict }}"
+
+    - name: Convert instance config dict to a list
       set_fact:
-        instance_conf_dict: >
-          "{{ instance_conf_dict }}" + [ {
-          'instance': "{{ item.name }}",
-          'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
-          'user': "{{ molecule_yml.driver.ssh_user }}",
-          'port': "5986",
-          'connection': "winrm", } ]
-      with_items: "{{ instance_created_windows.instances }}"
-      when: instance_created_windows.changed
+        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+      when: instance_created.changed
 
     - name: debug
       debug:
-        msg: "{{ instance_conf_dict }}"
-
-#    - name: Convert instance config dict to a list
-#      set_fact:
-#        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
-#      when: instance_created_linux.changed or instance_created_windows.changed
-
-#    - name: debug
-#      debug:
-#        msg: "{{ instance_conf }}"
+        msg: "{{ instance_conf }}"
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_conf_dict | to_json | from_json }}"
+        content: "{{ instance_conf | to_json | from_json }}"
         dest: "{{ molecule_instance_config }}"
-      when: instance_created_linux.changed or instance_created_windows.changed
+      when: instance_created.changed
 
     - name: debug
       debug:
-        msg: "{{ instance_conf_dict | to_json | from_json }}"
+        msg: "{{ instance_conf | to_json | from_json }}"
 
     - name: Sleep five minutes to allow GCP instances to spin up
       pause:
