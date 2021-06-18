@@ -13,7 +13,7 @@
         instance_conf_dict: {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
-          'user': "{{ molecule_yml.driver.ssh_user }}", }
+          'user': "{{ molecule_yml.driver.ssh_user }}",
           'port': "{{ '22' if item.name | regex_search('windows') == None else '5986' }}",
 #          'identity_file': "{{ molecule_yml.driver.ssh_key_file }}",
           'connection': "{{ 'ssh' if item.name | regex_search('windows') == None else 'winrm' }}", }
