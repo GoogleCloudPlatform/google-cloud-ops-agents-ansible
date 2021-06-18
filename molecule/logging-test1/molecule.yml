@@ -128,9 +128,9 @@ provisioner:
         ansible_port: 5986
         ansible_winrm_server_cert_validation: 'ignore'
       windows-2016:
-        ansible_password: "${WIN_2016_PW}"
+        ansible_password: '${WIN_2016_PW}'
       windows-2019:
-        ansible_password: "${WIN_2019_PW}"
+        ansible_password: '${WIN_2019_PW}'
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml

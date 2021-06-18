@@ -24,11 +24,11 @@
 
     - name: debug
       debug:
-        msg: "{{ instance_conf_dict }}"
+        msg: "{{ molecule_yml.driver.win_2016_pw }}"
 
     - name: debug
       debug:
-        msg: "{{ instance_config_dict }}"
+        msg: "{{ molecule_yml.driver.win_2019_pw }}"
 
     - name: Convert instance config dict to a list
       set_fact:
