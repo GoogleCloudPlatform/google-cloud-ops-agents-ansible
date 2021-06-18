@@ -33,7 +33,7 @@
       register: instance_config_dict
       when: instance_created.changed and item.name | regex_search('windows') != None
 
-    - name: debug:
+    - name: debug
       debug:
         msg: "{{ instance_config_dict }}"
 
@@ -42,7 +42,7 @@
         instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
       when: instance_created.changed
 
-    - name: debug:
+    - name: debug
       debug:
         msg: "{{ instance_conf }}"
 
