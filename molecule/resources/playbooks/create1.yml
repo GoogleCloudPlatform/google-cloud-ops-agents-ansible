@@ -15,13 +15,13 @@
     - name: Populate instance config dict linux
       set_fact:
         instance_conf_dict: >
-          "{{ instance_conf_dict + [ {
+          {{ instance_conf_dict + [ {
           'instance': item.name,
           'address': item.networkInterfaces[0].accessConfigs[0].natIP,
           'user': molecule_yml.driver.ssh_user,
           'port': '22',
           'identity_file': molecule_yml.driver.ssh_key_file,
-          'connection': 'ssh', } ] }}"
+          'connection': 'ssh', } ] }}
       with_items: "{{ instance_created_linux.instances }}"
       when: instance_created_linux.changed
 
@@ -32,12 +32,12 @@
     - name: Populate instance config dict windows
       set_fact:
         instance_conf_dict: >
-          "{{ instance_conf_dict + [ {
+          {{ instance_conf_dict + [ {
           'instance': item.name,
           'address': item.networkInterfaces[0].accessConfigs[0].natIP,
           'user': molecule_yml.driver.ssh_user,
           'port': '5986',
-          'connection': 'winrm', } ] }}"
+          'connection': 'winrm', } ] }}
       with_items: "{{ instance_created_windows.instances }}"
       when: instance_created_windows.changed
 
