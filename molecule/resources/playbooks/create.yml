@@ -39,12 +39,11 @@
           'port': "5986",
           'connection': "winrm", } ] }}
       with_items: "{{ instance_created_windows.instances }}"
-      register: instance_config_dict
       when: instance_created_windows.changed
 
     - name: debug
       debug:
-        msg: "{{ instance_config_dict }}"
+        msg: "{{ instance_conf_dict }}"
 
 #    - name: Convert instance config dict to a list
 #      set_fact:
@@ -57,7 +56,7 @@
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_config_dict | to_json | from_json }}"
+        content: "{{ instance_conf_dict | to_json | from_json }}"
         dest: "{{ molecule_instance_config }}"
       when: instance_created_linux.changed or instance_created_windows.changed
 
