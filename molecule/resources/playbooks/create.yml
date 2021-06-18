@@ -23,7 +23,15 @@
 
     - name: debug
       debug:
+        msg: "{{ lookup('env', 'WIN_2016_PW') }}"
+
+    - name: debug
+      debug:
         msg: '{{ molecule_yml.driver.win_2016_pw }}'
+
+    - name: debug
+      debug:
+        msg: "{{ lookup('env', 'WIN_2019_PW') }}"
 
     - name: debug
       debug:
