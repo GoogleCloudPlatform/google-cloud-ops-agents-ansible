@@ -63,4 +63,3 @@
     instance_created:
       changed: instance.changed | bool
       instances: "{{ instance_created.instances + [ instance ] }}"
-
