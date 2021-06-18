@@ -11,8 +11,8 @@ driver:
   ssh_user: ${SSH_USER}
   ssh_pub_key_file: "${SSH_KEY_FILE}.pub"
   ssh_key_file: ${SSH_KEY_FILE}
-  win_2016_pw: ${WIN_2016_PW}
-  win_2019_pw: ${WIN_2019_PW}
+#  win_2016_pw: ${WIN_2016_PW}
+#  win_2019_pw: ${WIN_2019_PW}
 lint: |
   set -e
   yamllint .
@@ -57,7 +57,7 @@ provisioner:
       windows-2019:
         ansible_password: "${WIN_2019_PW}"
   playbooks:
-    create: ../resources/playbooks/create1.yml
+    create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
     destroy: ../resources/playbooks/destroy.yml
