@@ -19,9 +19,9 @@
           'instance': item.name,
           'address': item.networkInterfaces[0].accessConfigs[0].natIP,
           'user': molecule_yml.driver.ssh_user,
+          'connection': 'ssh',
           'port': '22',
-          'identity_file': molecule_yml.driver.ssh_key_file,
-          'connection': 'ssh', } ] }}
+          'identity_file': molecule_yml.driver.ssh_key_file, } ] }}
       with_items: "{{ instance_created_linux.instances }}"
       when: instance_created_linux.changed
 
@@ -36,9 +36,10 @@
           'instance': item.name,
           'address': item.networkInterfaces[0].accessConfigs[0].natIP,
           'user': molecule_yml.driver.ssh_user,
+          'connection': 'winrm',
           'port': '5986',
           'password': molecule_yml.driver.win_2016_pw if item.name | regex_search('windows-2016') != None else molecule_yml.driver.win_2019_pw,
-          'connection': 'winrm', } ] }}
+          'winrm_server_cert_validation': 'ignore', } ] }}
       with_items: "{{ instance_created_windows.instances }}"
       when: instance_created_windows.changed
 
