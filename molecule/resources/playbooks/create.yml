@@ -29,6 +29,10 @@
       with_items: "{{ instance_created_linux.instances }}"
       when: instance_created_linux.changed
 
+    - name: debug
+      debug:
+        msg: "{{ instance_conf_dict }}"
+
     - name: Populate instance config dict windows
       set_fact:
         instance_conf_dict: >
