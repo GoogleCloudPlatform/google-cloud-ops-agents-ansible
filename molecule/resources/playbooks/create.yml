@@ -16,10 +16,14 @@
       debug:
         msg: "{{ instance_created_windows }}"
 
+    - name: Initialize instance config dict
+      set_fact:
+        instance_conf_dict: []
+
     - name: Populate instance config dict linux
       set_fact:
         instance_conf_dict: >
-          "{{ instance_conf_dict|default([]) }}" + [ {
+          "{{ instance_conf_dict) }}" + [ {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
@@ -36,7 +40,7 @@
     - name: Populate instance config dict windows
       set_fact:
         instance_conf_dict: >
-          "{{ instance_conf_dict|default([]) }}" + [ {
+          "{{ instance_conf_dict }}" + [ {
           'instance': "{{ item.name }}",
           'address': "{{ item.networkInterfaces[0].accessConfigs[0].natIP }}",
           'user': "{{ molecule_yml.driver.ssh_user }}",
