@@ -100,6 +100,16 @@ platforms:
     groups:
       - linux
       - sles
+test_sequence:
+  - lint
+  - destroy
+  - syntax
+  - create
+  - converge
+  - idempotence
+  - verify
+  - cleanup
+  - destroy
 provisioner:
   name: ansible
   inventory:
