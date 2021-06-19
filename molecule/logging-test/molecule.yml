@@ -106,25 +106,27 @@ platforms:
     size_gb: 80
     groups:
       - windows
-      - windows-2016-${AGENT_TYPE}
+      - windows-2016
   - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
     size_gb: 80
     groups:
       - windows
-      - windows-2019-${AGENT_TYPE}
+      - windows-2019
 provisioner:
   name: ansible
   inventory:
-    links:
-      group_vars: '../../group_vars'
     group_vars:
       linux:
         ansible_ssh_private_key_file: ${SSH_KEY_FILE}
       windows:
         ansible_become: false
         ansible_winrm_server_cert_validation: ignore
+      windows-2016:
+        ansible_password: '"${WIN_2016_PW}"'
+      windows-2019:
+        ansible_password: '"${WIN_2019_PW}"'
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
