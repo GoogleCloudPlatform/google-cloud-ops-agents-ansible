@@ -114,16 +114,17 @@ platforms:
     groups:
       - windows
       - windows-2019
-test_sequence:
-  - lint
-  - destroy
-  - syntax
-  - create
-  - converge
-  - idempotence
-  - verify
-  - cleanup
-  - destroy
+scenario:
+  test_sequence:
+    - lint
+    - destroy
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - verify
+    - cleanup
+    - destroy
 provisioner:
   name: ansible
   inventory:
