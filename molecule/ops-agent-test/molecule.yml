@@ -100,7 +100,6 @@ platforms:
     groups:
       - windows
       - windows-2016
-      - windows-2016-${AGENT_TYPE}
   - name: "ansible-windows-2019-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/windows-cloud/global/images/family/windows-2019
     machine_type: e2-medium
@@ -108,7 +107,6 @@ platforms:
     groups:
       - windows
       - windows-2019
-      - windows-2019-${AGENT_TYPE}
 provisioner:
   name: ansible
   inventory:
@@ -126,6 +124,7 @@ provisioner:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
+    cleanup: ../resources/playbooks/cleanup.yml
     destroy: ../resources/playbooks/destroy.yml
 verifier:
   name: ansible

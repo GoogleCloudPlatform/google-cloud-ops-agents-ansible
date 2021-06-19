@@ -10,10 +10,6 @@
       register: result
       failed_when: false
 
-    - name: debug
-      debug:
-        msg: "{{ result }}"
-
     - name: Assert the agent was already present
       assert:
         that: result.rc == 0

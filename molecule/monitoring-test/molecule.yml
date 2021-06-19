@@ -110,6 +110,7 @@ provisioner:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
+    cleanup: ../resources/playbooks/cleanup.yml
     destroy: ../resources/playbooks/destroy.yml
 verifier:
   name: ansible
