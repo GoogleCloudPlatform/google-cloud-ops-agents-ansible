@@ -1,5 +1,5 @@
 ---
-# Remove the agent in case that the test failed in between the installation and uninstallation steps.
+# Remove the agent in case the test failed in between installation and uninstallation steps.
 - name: Converge
   hosts: all
   become: true
