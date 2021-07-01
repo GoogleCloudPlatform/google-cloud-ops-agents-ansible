@@ -1,4 +1,19 @@
 ---
+- name: Set Service Name
+  set_fact:
+    service_name: "google-cloud-ops-agent{{'.target' if lookup('env', 'VERSION').split('.')[0] == '1' }}"
+  when: agent_type == 'ops-agent'
+
+- name: Set Service Name
+  set_fact:
+    service_name: stackdriver-agent
+  when: agent_type == 'monitoring'
+
+- name: Set Service Name
+  set_fact:
+    service_name: google-fluentd
+  when: agent_type == 'logging'
+
 - name: Include vars
   include_vars:
     file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/vars/main.yml"
@@ -15,13 +30,39 @@
 
 - name: Ensure the agent is running
   service:
-    name: "{{ vars[agent_type + '_service_name'] }}"
+    name: "{{ service_name }}"
     state: started
   register: result
+  when: (agent_type != 'ops-agent') or (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] == '1')
 
 - name: Assert the agent was already running
   assert:
     that: result.changed == false
+  when: (agent_type != 'ops-agent')
+
+- name: Ensure the ops agent fluentbit agent is running
+  service:
+    name: "{{ service_name }}-fluent-bit.service"
+    state: started
+  register: result
+  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
+
+- name: Assert the ops agent fluentbit agent was already running
+  assert:
+    that: result.changed == false
+  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
+
+- name: Ensure the ops agent opentelemetry-collector is running
+  service:
+    name: "{{ service_name }}-opentelemetry-collector.service"
+    state: started
+  register: result
+  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
+
+- name: Assert the ops agent opentelemetry-collector was already running
+  assert:
+    that: result.changed == false
+  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
 
 - when: main_config_file | length > 0
   block:

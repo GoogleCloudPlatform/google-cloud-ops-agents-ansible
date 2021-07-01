@@ -9,9 +9,9 @@ logging_config_path: /etc/google-fluentd/google-fluentd.conf
 logging_plugins_path: /etc/google-fluentd/plugin/
 logging_validation_cmd: '/usr/sbin/google-fluentd -c %s --dry-run'
 
-ops-agent_service_name: google-cloud-ops-agent.target
+ops_agent_service_name: google-cloud-ops-agent
 ops-agent_config_path: /etc/google-cloud-ops-agent/config.yaml
-ops-agent_validation_cmd: '/opt/google-cloud-ops-agent/subagents/collectd/sbin/collectd -tC %s'
+ops-agent_validation_cmd: '/opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit -c %s'
 
 windows_logging_service_name: StackdriverLogging
 windows_logging_config_path: 'C:\Program Files (x86)\Stackdriver\LoggingAgent\fluent.conf'
