@@ -33,36 +33,10 @@
     name: "{{ service_name }}"
     state: started
   register: result
-  when: (agent_type != 'ops-agent') or (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] == '1')
 
 - name: Assert the agent was already running
   assert:
     that: result.changed == false
-  when: (agent_type != 'ops-agent')
-
-- name: Ensure the ops agent fluentbit agent is running
-  service:
-    name: "{{ service_name }}-fluent-bit.service"
-    state: started
-  register: result
-  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
-
-- name: Assert the ops agent fluentbit agent was already running
-  assert:
-    that: result.changed == false
-  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
-
-- name: Ensure the ops agent opentelemetry-collector is running
-  service:
-    name: "{{ service_name }}-opentelemetry-collector.service"
-    state: started
-  register: result
-  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
-
-- name: Assert the ops agent opentelemetry-collector was already running
-  assert:
-    that: result.changed == false
-  when: (agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] != '1')
 
 - when: main_config_file | length > 0
   block:
