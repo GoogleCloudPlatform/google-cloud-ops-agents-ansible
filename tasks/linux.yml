@@ -1,4 +1,19 @@
 ---
+- name: Set Service Name
+  set_fact:
+    service_name: "{{ ops_agent_service_name }}{{'.target' if version.split('.')[0] == '1' }}"
+  when: agent_type == 'ops-agent'
+
+- name: Set Service Name
+  set_fact:
+    service_name: "{{ monitoring_service_name }}"
+  when: agent_type == 'monitoring'
+
+- name: Set Service Name
+  set_fact:
+    service_name: "{{ logging_service_name }}"
+  when: agent_type == 'logging'
+
 - name: Create temp directory
   tempfile:
     path: /tmp
