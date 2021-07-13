@@ -1,5 +1,5 @@
 ---
-- name: Validate Operating Systen
+- name: Validate Operating System
   assert:
     that: >
       ansible_os_family == 'Windows' or ansible_distribution in ['Debian', 'Ubuntu', 'RedHat', 'CentOS', 'Amazon', 'SLES', 'openSUSE', 'SuSE', 'SLES_SAP',
