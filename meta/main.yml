@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: google_cloud_ops_agents
+  role_name: google-cloud-ops-agents-ansible
   namespace: google_cloud_platform
   author: Ryan Moriarty
   description: Install the Google Cloud Ops Agents
