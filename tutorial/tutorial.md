@@ -23,22 +23,30 @@ If not, login to your gcp account within cloudshell, this ensures you're able to
 ```bash
 gcloud auth login
 ```
-Continue by setting your project ID to the project you'd like to work within. This project should have existing VMs available to run the Ansible playbook against:
+
+Set your project ID for the project you'd like to work within.  This project should have existing VMs available to run the Ansible playbook against:
+Also set a service account ID that you wish to use when creating the service account for this project.
 ```bash
-gcloud config set project PROJECT_ID
+export PROJECT_ID="PROJECT_ID"
+export SERVICE_ACCOUNT_ID="SERVICE_ACCOUNT_ID"
+```
+
+Continue by setting the project ID using the following gcloud command:
+```bash
+gcloud config set project $PROJECT_ID
 ```
 Next you'll need to create a service account and credentials file. These resources allow configuration management tools to query and return the inventory from GCP dynamically. By using the `roles/compute.viewer` role, this credential can only view and compute resources and cannot modify any parts of the GCE system.
 1. Create the service account.
 ```bash
-gcloud iam service-accounts create SERVICE_ACCOUNT_ID --description="DESCRIPTION" --display-name="DISPLAY_NAME"
+gcloud iam service-accounts create $SERVICE_ACCOUNT_ID --description="Service account for ansible tutorial" --display-name="ansible-sa"
 ```
 2. Create the iam policy binding and attach the necessary role to the account:
 ```bash 
-gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:SERVICE_ACCOUNT_ID@PROJECT_ID.iam.gserviceaccount.com" --role="roles/compute.viewer"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/compute.viewer"
 ```
 3. Create the key-file associated with the service account:
 ```bash
-gcloud iam service-accounts keys create key-file --iam-account=sa-name@project-id.iam.gserviceaccount.com
+gcloud iam service-accounts keys create key-file --iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
 ```
 
 ## Configure your environment
@@ -48,7 +56,7 @@ export GCP_SERVICE_ACCOUNT_FILE=$PWD/key-file
 ```
 Adjust the inventory file for the project you're using:
 ```bash
-sed -i "s/ENTER_PROJECT_NAME/$GOOGLE_CLOUD_PROJECT/g" inventory.gcp.yaml
+sed -i "s/ENTER_PROJECT_NAME/$PROJECT_ID/g" tutorial/inventory.gcp.yaml
 ```
 
 Create an ssh agent to simplify repeated connections via ansible, and add the SSH key
@@ -62,11 +70,11 @@ ssh-add PATH_TO_SSH_PUB_KEY
 ### Test your setup
 Run this inventory command to confirm you can see your GCP hosts:
 ```bash
-ansible-inventory all -i inventory.gcp.yaml --list
+ansible-inventory all -i tutorial/inventory.gcp.yaml --list
 ```
 And then run this to confirm you can successfully connect to your hosts before modifying them:
 ```bash
-ansible all -m setup -i inventory.gcp.yaml
+ansible all -m setup -i tutorial/inventory.gcp.yaml
 ```
 
 If these commands return OK, you're ready to proceed!
@@ -81,7 +89,7 @@ ansible-galaxy install git+https://github.com/GoogleCloudPlatform/google-cloud-o
 
 ### Define Your Playbook
 
-A simple Ansible playbook, `example_playbook.yaml`:
+A simple Ansible playbook, `tutorial/example_playbook.yaml`:
 ```yaml
 ---
 - name: Add Cloud Ops Agent to hosts
@@ -90,11 +98,7 @@ A simple Ansible playbook, `example_playbook.yaml`:
   roles:
     - role: google-cloud-ops-agents-ansible
       vars:
-        agent_type: monitoring
-
-    - role: google-cloud-ops-agents-ansible
-      vars:
-        agent_type: logging
+        agent_type: ops-agent
 ```
 This playbook will target all hosts available to the inventory script, and will enable both logging and monitoring for the agent. You can change this by changing the host value to a specific group or system as you see fit.
 
@@ -104,7 +108,7 @@ For more variables see the [role's variable documentation](https://github.com/Go
 
 To execute the playbook, from your Cloud Terminal you can run:
 ```bash
-ansible-playbook example_playbook.yaml -i inventory.gcp.yaml --user SSH_USER
+ansible-playbook tutorial/example_playbook.yaml -i tutorial/inventory.gcp.yaml --user SSH_USER
 ```
 **Tip** Be sure to specify the `--user` with the username associated with the ssh key.
 

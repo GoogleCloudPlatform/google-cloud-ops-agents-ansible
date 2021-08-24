@@ -5,8 +5,4 @@
   roles:
     - role: google-cloud-ops-agents-ansible
       vars:
-        agent_type: monitoring
-
-    - role: google-cloud-ops-agents-ansible
-      vars:
-        agent_type: logging
+        agent_type: ops-agent
