@@ -41,7 +41,16 @@
         force: true
         mode: 0644
         validate: "{{ vars[agent_type + '_validation_cmd'] }}"
-      when: main_config_file | length > 0
+      when: main_config_file | length > 0 and agent_type != 'ops-agent'
+      notify: "restart {{ agent_type }} agent"
+
+    - name: Copy main config file onto the remote machine
+      copy:
+        src: "{{ main_config_file }}"
+        dest: "{{ vars[agent_type + '_config_path'] }}"
+        force: true
+        mode: 0644
+      when: main_config_file | length > 0 and agent_type == 'ops-agent'
       notify: "restart {{ agent_type }} agent"
 
     - name: Copy additional configs onto the remote machine
