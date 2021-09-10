@@ -8,14 +8,15 @@ Install the Role
 
 * [Recommended] To use Ansible Galaxy to handle dependencies, use this command
   to install:
-  
-  ```$ ansible-galaxy install git+https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible.git```
+
+  ```ansible-galaxy install googlecloudplatform.google_cloud_ops_agents```
 
 * To use GitHub submodules to handle dependencies, install this directory in
   your roles path (usually in a roles directory alongside your playbook) under
-  the name `google_cloud_ops_agents`:
-  
-  ```git clone <this-git-repo> roles/google_cloud_ops_agents```
+
+  the name `googlecloudplatform.google_cloud_ops_agents`:
+
+  ```git clone <this-git-repo> roles/googlecloudplatform.google_cloud_ops_agents```
   
 There is a detailed [tutorial](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/tree/master/tutorial) as well.
   
@@ -87,11 +88,11 @@ Example Playbooks
 - hosts: all
   become: true
   roles:
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: monitoring
 
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: logging
 ```
@@ -100,14 +101,14 @@ Example Playbooks
 - hosts: all
   become: true
   roles:
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: monitoring
         version: latest
         main_config_file: monitoring_agent.conf
         additional_config_dir: monitoring_agent_dir/
 
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: logging
         version: 1.*.*
@@ -119,7 +120,7 @@ Example Playbooks
 - hosts: all
   become: true
   roles:
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: ops-agent
 ```
@@ -128,7 +129,7 @@ Example Playbooks
 - hosts: all
   become: true
   roles:
-    - role: google_cloud_ops_agents
+    - role: googlecloudplatform.google_cloud_ops_agents
       vars:
         agent_type: ops-agent
         version: 1.0.1
@@ -143,7 +144,7 @@ The matrix below lists the versions of this Ansible role and the agent versions 
 
 | Ansible Role Version | Compatible Ops Agent Version(s) | Compatible Logging Agent Version(s) | Compatible Monitoring Agent Version(s) |
 |----------------------|-------------------------------- | ----------------------------------- | -------------------------------------- |
-| **1.x.x**            | 1.x.x                           | 1.x.x                               | 6.x.x                                  |
+| **1.x.x**            | 2.x.x                           | 1.x.x                               | 6.x.x                                  |
 
 * Ops Agent [releases](https://github.com/GoogleCloudPlatform/ops-agent/releases)
 * Logging Agent [releases](https://github.com/GoogleCloudPlatform/google-fluentd/releases)
