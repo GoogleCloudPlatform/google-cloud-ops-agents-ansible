@@ -17,6 +17,8 @@ Install the Role
   
   ```git clone <this-git-repo> roles/google_cloud_ops_agents```
   
+There is a detailed [tutorial](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/tree/master/tutorial) as well.
+  
 Requirements
 ------------
 
