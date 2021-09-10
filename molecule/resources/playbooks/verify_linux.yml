@@ -15,7 +15,7 @@
 
 - name: Ensure the agent is running
   service:
-    name: "{{ vars[agent_type + '_service_name'] }}"
+    name: "{{ vars[agent_type + '_service_name'] }}{{ '.target' if agent_type == 'ops-agent' and lookup('env', 'VERSION').split('.')[0] == '1' else '' }}"
     state: started
   register: result
 

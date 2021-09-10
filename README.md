@@ -13,10 +13,13 @@ Install the Role
 
 * To use GitHub submodules to handle dependencies, install this directory in
   your roles path (usually in a roles directory alongside your playbook) under
+
   the name `googlecloudplatform.google_cloud_ops_agents`:
 
   ```git clone <this-git-repo> roles/googlecloudplatform.google_cloud_ops_agents```
-
+  
+There is a detailed [tutorial](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/tree/master/tutorial) as well.
+  
 Requirements
 ------------
 
@@ -132,6 +135,20 @@ Example Playbooks
         version: 1.0.1
         main_config_file: ops_agent.yaml
 ```
+
+
+Compatibility
+-------------
+
+The matrix below lists the versions of this Ansible role and the agent versions it supports.
+
+| Ansible Role Version | Compatible Ops Agent Version(s) | Compatible Logging Agent Version(s) | Compatible Monitoring Agent Version(s) |
+|----------------------|-------------------------------- | ----------------------------------- | -------------------------------------- |
+| **1.x.x**            | 2.x.x                           | 1.x.x                               | 6.x.x                                  |
+
+* Ops Agent [releases](https://github.com/GoogleCloudPlatform/ops-agent/releases)
+* Logging Agent [releases](https://github.com/GoogleCloudPlatform/google-fluentd/releases)
+* Monitoring Agent [releases](https://github.com/Stackdriver/collectd/releases)
 
 License
 -------
