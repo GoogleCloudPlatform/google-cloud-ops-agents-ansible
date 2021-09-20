@@ -9,17 +9,18 @@ Install the Role
 * [Recommended] To use Ansible Galaxy to handle dependencies, use this command
   to install:
 
-  ```ansible-galaxy install googlecloudplatform.google_cloud_ops_agents```
+  `ansible-galaxy install googlecloudplatform.google_cloud_ops_agents`
 
 * To use GitHub submodules to handle dependencies, install this directory in
   your roles path (usually in a roles directory alongside your playbook) under
-
   the name `googlecloudplatform.google_cloud_ops_agents`:
 
-  ```git clone <this-git-repo> roles/googlecloudplatform.google_cloud_ops_agents```
-  
-There is a detailed [tutorial](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/tree/master/tutorial) as well.
-  
+  `git clone <this-git-repo> roles/googlecloudplatform.google_cloud_ops_agents`
+
+There is a detailed
+[tutorial](https://github.com/GoogleCloudPlatform/google-cloud-ops-agents-ansible/tree/master/tutorial)
+as well.
+
 Requirements
 ------------
 
@@ -64,9 +65,8 @@ file on the target VM.
 
 For more information, please see [Configuring the Monitoring
 Agent](https://cloud.google.com/monitoring/agent/configuration), [Configuring
-the Logging
-Agent](https://cloud.google.com/logging/docs/agent/configuration)
-or [Configuring the Ops
+the Logging Agent](https://cloud.google.com/logging/docs/agent/configuration) or
+[Configuring the Ops
 Agent](https://cloud.google.com/stackdriver/docs/solutions/ops-agent/configuration).
 
 By default, the agent only monitors and logs system resources like cpu, memory,
