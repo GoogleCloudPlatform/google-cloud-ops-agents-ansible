@@ -83,7 +83,7 @@ applications](https://cloud.google.com/monitoring/agent/plugins).
 Example Playbooks
 ----------------
 
-```
+```yaml
 # Installing the Monitoring and Logging agents
 - hosts: all
   become: true
@@ -96,7 +96,8 @@ Example Playbooks
       vars:
         agent_type: logging
 ```
-```
+
+```yaml
 # Installing the Monitoring and Logging agents with custom configurations
 - hosts: all
   become: true
@@ -115,7 +116,8 @@ Example Playbooks
         main_config_file: logging_agent.conf
         additional_config_dir: logging_agent_dir/
 ```
-```
+
+```yaml
 # Installing the Ops-Agent
 - hosts: all
   become: true
@@ -124,7 +126,8 @@ Example Playbooks
       vars:
         agent_type: ops-agent
 ```
-```
+
+```yaml
 # Installing the Ops-Agent with custom configuration
 - hosts: all
   become: true
