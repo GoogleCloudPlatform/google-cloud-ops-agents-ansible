@@ -35,7 +35,7 @@
 - when: package_state == 'present'
   block:
     - name: Copy main config file onto the remote machine
-      copy:
+      template:
         src: "{{ main_config_file }}"
         dest: "{{ vars[agent_type + '_config_path'] }}"
         force: true
@@ -45,7 +45,7 @@
       notify: "restart {{ agent_type }} agent"
 
     - name: Copy main config file onto the remote machine
-      copy:
+      template:
         src: "{{ main_config_file }}"
         dest: "{{ vars[agent_type + '_config_path'] }}"
         force: true
@@ -54,7 +54,7 @@
       notify: "restart {{ agent_type }} agent"
 
     - name: Copy additional configs onto the remote machine
-      copy:
+      template:
         src: "{{ item }}"
         dest: "{{ vars[agent_type + '_plugins_path'] }}"
         force: true
