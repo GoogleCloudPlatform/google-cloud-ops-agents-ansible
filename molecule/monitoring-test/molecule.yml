@@ -30,6 +30,13 @@ platforms:
     groups:
       - linux
       - centos
+  - name: "ansible-rocky-8-${MOLECULE_SCENARIO_NAME}"
+    image_family: projects/rocky-linux-cloud/global/images/family/rocky-linux-8
+    machine_type: e2-medium
+    size_gb: 40
+    groups:
+      - linux
+      - centos
   - name: "ansible-rhel-7-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/rhel-cloud/global/images/family/rhel-7
     machine_type: e2-medium
