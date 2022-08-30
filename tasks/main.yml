@@ -2,11 +2,11 @@
 - name: Validate Operating System
   assert:
     that: >
-      ansible_os_family == 'Windows' or ansible_distribution in ['Debian', 'Ubuntu', 'RedHat', 'CentOS', 'Rocky', 'Amazon', 'SLES', 'openSUSE', 'SuSE',
+      ansible_os_family == 'Windows' or ansible_distribution in ['Debian', 'Ubuntu', 'RedHat', 'CentOS', 'Rocky', 'Amazon', 'SLES', 'openSUSE', 'openSUSE Leap', 'SuSE',
       'SLES_SAP', 'Windows']
     msg: >
       Received invalid Operating System: '{{ ansible_distribution }}'. The Cloud Ops Ansible role supports the following OSs: 'Debian', 'Ubuntu', 'RedHat',
-      'CentOS', 'Rocky', 'Amazon', 'SLES', 'openSUSE', 'SuSE', 'SLES_SAP' and 'Windows'.
+      'CentOS', 'Rocky', 'Amazon', 'SLES', 'openSUSE', 'openSUSE Leap', 'SuSE', 'SLES_SAP' and 'Windows'.
 
 - name: Validate agent_type
   assert:
