@@ -153,6 +153,10 @@ The matrix below lists the versions of this Ansible role and the agent versions 
 * Logging Agent [releases](https://github.com/GoogleCloudPlatform/google-fluentd/releases)
 * Monitoring Agent [releases](https://github.com/Stackdriver/collectd/releases)
 
+Bug report and feature request
+-------
+Please file a case via https://cloud.google.com/support-hub to get official support that follows SLOs.
+
 License
 -------
 
