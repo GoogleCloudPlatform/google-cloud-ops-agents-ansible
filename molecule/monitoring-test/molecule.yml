@@ -58,13 +58,6 @@ platforms:
     groups:
       - linux
       - ubuntu
-  - name: "ansible-debian-9-${MOLECULE_SCENARIO_NAME}"
-    image_family: projects/debian-cloud/global/images/family/debian-9
-    machine_type: e2-medium
-    size_gb: 40
-    groups:
-      - linux
-      - debian
   - name: "ansible-debian-10-${MOLECULE_SCENARIO_NAME}"
     image_family: projects/debian-cloud/global/images/family/debian-10
     machine_type: e2-medium
