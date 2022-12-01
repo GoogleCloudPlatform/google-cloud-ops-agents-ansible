@@ -22,6 +22,6 @@ rules:
     level: error
   key-duplicates: enable
   line-length:
-    max: 160
+    max: 170
   new-lines:
     type: unix
