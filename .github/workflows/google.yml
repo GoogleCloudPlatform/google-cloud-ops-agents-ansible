@@ -1,4 +1,4 @@
-# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE when there is a push to the "master" branch.
+g# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE when there is a push to the "master" branch.
 #
 # To configure this workflow:
 #
