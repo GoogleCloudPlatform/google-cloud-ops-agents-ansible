@@ -17,31 +17,32 @@
   changed_when: false
 
 - block:
-  - name: REPO_CODENAME on Debian/Ubuntu
-    set_fact:
-      repo_codename: "{{ ansible_distribution_release }}"
-    when: ansible_distribution in ['Debian', 'Ubuntu']
+    - name: REPO_CODENAME on Debian/Ubuntu
+      set_fact:
+        repo_codename: "{{ ansible_distribution_release }}"
+      when: ansible_distribution in ['Debian', 'Ubuntu']
 
-  - name: REPO_CODENAME on RedHat/CentOS/Rocky
-    set_fact:
-      repo_codename: "el{{ ansible_distribution_major_version }}"
-    when: ansible_distribution in ['RedHat', 'CentOS', 'Rocky']
+    - name: REPO_CODENAME on RedHat/CentOS/Rocky
+      set_fact:
+        repo_codename: "el{{ ansible_distribution_major_version }}"
+      when: ansible_distribution in ['RedHat', 'CentOS', 'Rocky']
 
-  - name: REPO_CODENAME on Amazon
-    block:
-      - name: Monitoring agent
-        set_fact:
-          repo_codename: "amzn"
-        when: agent_type == 'monitoring'
-      - name: Logging agent
-        set_fact:
-          repo_codename: "el6"
-        when: agent_type == 'logging'
-    when: ansible_distribution == 'Amazon'
+    - name: REPO_CODENAME on Amazon
+      block:
+        - name: Monitoring agent
+          set_fact:
+            repo_codename: "amzn"
+          when: agent_type == 'monitoring'
+        - name: Logging agent
+          set_fact:
+            repo_codename: "el6"
+          when: agent_type == 'logging'
+      when: ansible_distribution == 'Amazon'
 
-  - set_fact:
-      repo_codename: "sles{{ ansible_distribution_major_version }}"
-    when: ansible_distribution in ['SLES', 'openSUSE', 'openSUSE Leap', 'SuSE', 'SLES_SAP']
+    - name: REPO_CODENAME on SLES/openSUSE
+      set_fact:
+        repo_codename: "sles{{ ansible_distribution_major_version }}"
+      when: ansible_distribution in ['SLES', 'openSUSE', 'openSUSE Leap', 'SuSE', 'SLES_SAP']
 
 - name: Add repo and install agent or remove repo and uninstall agent
   command:
