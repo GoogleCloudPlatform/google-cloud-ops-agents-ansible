@@ -16,6 +16,33 @@
   check_mode: false
   changed_when: false
 
+- block:
+  - name: REPO_CODENAME on Debian/Ubuntu
+    set_fact:
+      repo_codename: "{{ ansible_distribution_release }}"
+    when: ansible_distribution in ['Debian', 'Ubuntu']
+
+  - name: REPO_CODENAME on RedHat/CentOS/Rocky
+    set_fact:
+      repo_codename: "el{{ ansible_distribution_major_version }}"
+    when: ansible_distribution in ['RedHat', 'CentOS', 'Rocky']
+
+  - name: REPO_CODENAME on Amazon
+    block:
+      - name: Monitoring agent
+        set_fact:
+          repo_codename: "amzn"
+        when: agent_type == 'monitoring'
+      - name: Logging agent
+        set_fact:
+          repo_codename: "el6"
+        when: agent_type == 'logging'
+    when: ansible_distribution == 'Amazon'
+
+  - set_fact:
+      repo_codename: "sles{{ ansible_distribution_major_version }}"
+    when: ansible_distribution in ['SLES', 'openSUSE', 'openSUSE Leap', 'SuSE', 'SLES_SAP']
+
 - name: Add repo and install agent or remove repo and uninstall agent
   command:
     chdir: "{{ tempfolder.path }}"
@@ -23,7 +50,7 @@
       bash add-{{ 'google-cloud-ops' if agent_type == 'ops-agent' else agent_type }}-agent-repo.sh {{ '--also-install' if package_state == 'present' else
       '--uninstall --remove-repo' }} --version={{ version }} {{ '--dry-run' if ansible_check_mode else '' }}
   environment:
-    REPO_CODENAME: "{{ ansible_distribution_release }}"
+    REPO_CODENAME: "{{ repo_codename | default(omit) }}"
   register: result
   retries: 5
   delay: 10
